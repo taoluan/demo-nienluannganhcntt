@@ -1,0 +1,70 @@
+ <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="bt">
+            <button type="button" data-dismiss="modal" class="btn float-right" ><i class="fas fa-window-close fa-lg "></i></button>
+            <div class="container mt-3" style="background-color: rgba(230, 230,250, ); border:none">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#dangnhap">Đăng nhập</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#dangky">Đăng ký</a>
+                </li>
+              </ul>
+            
+              <!-- Tab panes -->
+              <div class="tab-content" style="background-color: white;">
+                <div id="dangnhap" class="container tab-pane active"><br>
+                        <h3 style="text-align:center">Đăng nhập</h3>
+                        <p style="text-align: center; margin-top: 0px;">Đăng nhặp đễ khám phá và tìm được công việc tốt cho bạn</p>     
+                        <div class="card-body">
+                            <form class="form-signin" action="/user" method="post">
+                              <div class="form-label-group">
+                                <input type="text" id="inputNameLogin" class="form-control" name="username" placeholder="Tên đăng nhập" required autofocus>
+                                <label for="inputNameLogin">Tên đăng nhập</label>
+                              </div>
+                              <div class="form-label-group">
+                                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Mật khẩu" required>
+                                <label for="inputPassword">Mật khẩu</label>
+                              </div>
+                              <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Remember password</label>
+                              </div>
+                              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
+                            </form>
+                      </div>
+                </div>
+                <div id="dangky" class="container tab-pane fade"><br>
+                  <h3 style="text-align:center">Đăng ký</h3>   
+                  <p style="text-align: center; margin-top: 0px;">Đăng ký để tìm được những việc bạn mong muốn</p>
+                  <div class="card-body">
+                      <form class="form-signin">
+                        <div class="form-label-group">
+                          <input type="text" id="inputFullName" class="form-control" placeholder="Họ tên" required autofocus>
+                          <label for="inputFullName">Họ tên</label>
+                        </div>
+                        <div class="form-label-group">
+                          <input type="text" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                          <label for="inputEmail">Email</label>
+                        </div>
+                        <div class="form-label-group">
+                          <input type="text" id="inputName" class="form-control" placeholder="Tên đăng nhập" required autofocus>
+                          <label for="inputName">Tên đăng nhập</label>
+                        </div>
+                        <div class="form-label-group">
+                          <input type="password" id="inputPw" class="form-control" placeholder="Mật khẩu" required>
+                          <label for="inputPw">Mật khẩu</label>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
+                      </form>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/">VIEC JOB</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <div class="collapse navbar-collapse flex-grow-1" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase">
+          <li class="nav-item">
+            <a id="vieclamit" class="nav-link js-scroll-trigger" href="/vieclamit">Việc làm IT</a>
+          </li>
+          <li class="nav-item">
+            <a id="ungtuyen" class="nav-link js-scroll-trigger" href="#portfolio">Ứng tuyển</a>
+          </li>
+          <li class="nav-item">
+            <a id="topcompany" class="nav-link js-scroll-trigger" href="#about">Top công ty hàng đầu</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
+        <ul class="navbar-nav text-left">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" class="menu-user" href="#about">Nhà tuyển dụng</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" class="menu-user" href="#about" data-toggle="modal" data-target="#myModal"><i class="fas fa-user-plus"></i> Đăng ký</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" class="menu-user" href="#login" data-toggle="modal" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+              </li>
+        </ul>
+    </div>
+    </div>
+  </nav>
+  <!-- Header -->
+  <header class="masthead">
+    <div class="container">
+      <div class="intro-text" id="intro">
+        <div class="intro-lead-in">Welcome To Viec Job !</div>
+        <div class="s003">
+          <form>
+            <div class="inner-form">
+              <div class="input-field first-wrap">
+                <div class="input-select">
+                  <select data-trigger="" name="choices-single-defaul">
+                    <option placeholder="">Thành phố</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-field second-wrap">
+                <input id="search" type="text" placeholder="Tìm kiếm theo kỹ năng ,công ty?" />
+              </div>
+              <div class="input-field third-wrap">
+                <button class="btn-search" type="button">
+                  <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+  <script src="../public/js/jquery.min.js"></script>
+  <script> 
+    $(document).ready(function(){
+        $(".nav-link").click(function(){
+        $(".nav-link").removeClass("active");
+        $(this).addClass("active");   
+      })
+    })
+</script>

@@ -1,0 +1,33 @@
+
+.masthead{
+    height: 350px;
+}
+#intro{
+    padding-top: 120px;
+    padding-bottom: 0px;
+}
+#vieclamit{
+    color: #ffc107;
+    font-size: 50px;
+}
+#search-title{
+    font-size: 40px;
+    font-style: italic;
+    line-height: 40px;
+    font-family: 'Droid Serif',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+}
+#jobs{
+    margin-left: 20px;
+    font-size: 25px;
+    font-style: italic;
+    line-height: 30px;
+    font-family: 'Droid Serif',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+}
+@media (max-width:1000px){
+    .col-lg-4{
+        display: none;
+    }
+}
+.hv:hover .card{
+    box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
+}

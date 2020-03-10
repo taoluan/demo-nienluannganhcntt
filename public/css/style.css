@@ -1,0 +1,120 @@
+.navbar {
+  font-size: 16px;
+  padding-top: 5px;
+}
+#slide{
+  height: 700px;
+  overflow: hidden;
+  position: relative; 
+  background: linear-gradient(130deg, rgb(194, 203, 238) 0%,rgb(179, 184, 216) 71%,rgb(192, 193, 201) 100%);
+  background-image: center;
+  }
+#slide img {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  opacity: 0.2;
+  
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+#menu{
+  height: 1000px;
+  background-color: blue;
+}
+.masthead {
+  height: 700px;
+}
+.list-tag{
+  height: 50px;
+  width: 1000px;
+  margin-left: 20px;
+  background-color: rgba(230, 230,250, 0.2);
+}
+.tag{
+  line-height: 50px;
+  font-size: 16px;
+  float: left;
+  margin-left: 15px;
+  text-decoration: none;
+}
+a.tag{
+  text-decoration: none;
+  color: black;
+  font-weight: bold;	
+}
+
+a.tag:hover{
+  text-decoration: none;
+  color: gray;
+}
+#topcpn{
+    height: 250px;
+}
+#topcpn img{
+  margin-top: 20px;
+  height: 200px;
+  width: 200px;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  
+}
+.carousel-item{
+  margin-top: 20px;
+  height: 380px;
+}
+h5.carousel-caption{
+  color:black ;
+}
+.alljob{
+  height: 300px;
+}
+.company-info{
+  font-size: 16px;
+  line-height: 2.2;
+  position: absolute;
+}
+.company-info i{
+  margin-right: 10px;
+}
+.company-info span{
+  margin-left: 5px;
+}
+
+#job h1{
+    font-size: 30px;
+    color: #221F20;
+    line-height: 35px;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-left: 10px;
+    height: auto;
+}
+.card{
+  padding: 0px;
+  margin: 0px;
+  margin-right: 10px;
+}
+.card:hover{
+  box-shadow: 4px 4px 8px 2px rgba(26, 25, 25, 0.2);
+}
+#title-gr a{
+  color: #808184;
+}
+#title-gr li:hover a{
+  color: white;
+  text-decoration: none;
+}
+.title{
+  font-family: "Roboto";
+  font-size: 18px;
+  margin-top: 10px;
+}
+.bt{
+  margin-bottom: 0px;
+}

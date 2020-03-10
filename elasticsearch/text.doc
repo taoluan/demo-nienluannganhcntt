@@ -1,0 +1,72 @@
+var client = require('./connection.js');
+//delete 1 document bang id
+client.delete({  
+  index: 'gov',
+  id: '1',
+  type: 'constituencies'
+},function(err,resp,status) {
+    console.log(resp);
+});
+//delete 1 document dua tren field
+POST /company/_delete_by_query
+{
+  "query":{
+    "match": {
+      "counter": 1000
+    }
+  }
+}
+// set mamppinh
+PUT /job/_mapping
+{
+  "mappings" : {
+    "properties": {
+      "company_id": {
+        "type": "keyword"
+      },
+      "title_job": {
+        "type": "text"
+      },
+      "salary":{
+        "type": "keyword"
+      },
+      "describe":{
+        "type":"text"
+      },
+      "request":{
+        "type":"text"
+      },
+      "address":{
+        "type":"text"
+      },
+      "skills":{
+        "type":"text"
+      }
+    }
+  }
+}
+client.search({  
+        index: 'company',
+        type: '_doc',
+        body: {
+          query: {
+            match: { "name": "AXON" }
+          },
+        }
+      },function (error, results,status) {
+          if (error){
+            console.log("search error: "+error)
+          }
+          else {
+           kq = results.hits.hits
+           //results.hits.hits.forEach(hit => {
+             //  console.log(hit._id);
+           //});
+           res.render('vieclamit', { title: 'VietJob',results: kq});
+          }
+      });
+<div style="height: 100px; background-color: cornflowerblue;">
+            <% results.forEach(function(result) { %>
+             <span style="color: black;"> <%= result._source.name %> </span>  
+            <% }) %>
+        </div>
