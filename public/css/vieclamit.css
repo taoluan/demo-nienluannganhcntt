@@ -31,3 +31,15 @@
 .hv:hover .card{
     box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
 }
+.hv:hover .card-title{
+    color: #ffc107;
+}
+#list-job a{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover .card-title{
+    color: #ffc107;
+    text-decoration: none;
+}

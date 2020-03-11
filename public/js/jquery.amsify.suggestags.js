@@ -128,10 +128,12 @@
                    $("#myDropdown").css("display","none");
                    $(this).val('');
                   _self.addTag(value);
+                  var data = $(".amsify-select-tag").text();
+                  console.log(data);
                   $.ajax({
                     type: 'GET',
                     url: 'XulySearch',
-                    data: {job:value},
+                    data: {job:data},
                     success: function(data){
                       if(data == ""){
 

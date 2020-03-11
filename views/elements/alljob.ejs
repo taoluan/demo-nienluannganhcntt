@@ -39,170 +39,75 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-8 col-md-12">
+    <div class="row" >
+        <div class="col-lg-8 col-md-12" id="list-job">
             <div class="row" id="showjob">
-                <span id="jobs">Có hơn 1100 việc làm dành cho bạn</span>
+                <span id="jobs">Có hơn <%= num %> việc làm dành cho bạn</span>
                 <hr>
             </div>
             <hr>
-            <div id="list-job">
-                <div class="row hv">
-                    <div class="col-12">
-                        <div class="card mb-3" style="max-width: 730px">
-                            <div class="row no-gutters">
-                            <div class="col-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
+                <% dsjob.forEach(function(ds){ %>
+                    <div class="row hv">
+                        <div class="col-12">
+                            <div class="card mb-3" style="max-width: 730px">
+                                <div class="row no-gutters">
+                                <div class="col-2" id="logo">
+                                    <a href="<%= ds._source.idcompany %>"><img src="../public/image/logo-axon.png" class="card-img" alt="..."></a>
                                 </div>
-                            </div>
+                                <div class="col-9">
+                                    <div class="card-body">
+                                        <a href="/job/<%= ds._source.namejob %>"><h5 class="card-title"><%= ds._source.namejob %> ( <%= ds._source.skills %>)</h5></a>
+                                    <p class="card-text">
+                                        <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
+                                        <i class="fas fa-map-marked-alt"></i> <%= ds._source.address %> </br>
+                                        <i class="fas fa-code"></i> <%= ds._source.skills %> </br>
+                                        <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
+                                    </p> 
+                                    <p class="card-text"><small class="text-muted "><%= ds._source.time.day %>
+                                        <%= ds._source.time.hour %>:<%=ds._source.time.minutes %></small> </p>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row hv">
-                    <div class="col-12">
-                        <div class="card mb-3" style="max-width: 730px">
-                            <div class="row no-gutters">
-                            <div class="col-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row hv">
-                    <div class="col-12">
-                        <div class="card mb-3" style="max-width: 730px">
-                            <div class="row no-gutters">
-                            <div class="col-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row hv">
-                    <div class="col-12">
-                        <div class="card mb-3" style="max-width: 730px">
-                            <div class="row no-gutters">
-                            <div class="col-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row hv">
-                    <div class="col-12">
-                        <div class="card mb-3" style="max-width: 730px">
-                            <div class="row no-gutters">
-                            <div class="col-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row hv">
-                    <div class="col-12">
-                        <div class="card mb-3" style="max-width: 730px">
-                            <div class="row no-gutters">
-                            <div class="col-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <% }) %>
                 <div class="row">
                     <div class="col-12">
                     <nav aria-label="...">
-                    <ul class="pagination pagination-sm justify-content-center">
-                    <li class="page-item active" aria-current="page-1">
-                        <span class="page-link">
-                        1
-                        <span class="sr-only">(current)</span>
-                        </span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#page-2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#page-3">3</a></li>
+                    <% if (pages >0) { %>
+                        <ul class="pagination pagination-sm justify-content-center">
+                        <% if (current == 1) { %>
+                        <li class="page-item active" aria-current="page=1#showjob">
+                            <span class="page-link">
+                            1
+                            <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="?page=1#showjob">1</a></li>
+                    <% } %>
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if(i !== 1) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                    <% for (i = 2; i <= (Number(current)+4) && i <= pages; i++ ) { %>
+                        <% if(i == current){ %>
+                            <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                        <% } else { %>
+                            <li class="page-item"><a class="page-link" href="?page=<%= i %>#showjob"><%= i %></a></li>
+                        <% } %>
+                        <% if (i==Number(current) + 4 && i < pages) { %>
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                        <% } %>
+                    <% } %>
                     </ul>
+                    <% } %>
                 </nav>
                 </div>
                 
                 </div>
-            </div>
+            
         </div>
         <div class="col-lg-4 " style="border-left:1px rgb(204, 192, 192,0.4) solid;" >
             <div class="row">

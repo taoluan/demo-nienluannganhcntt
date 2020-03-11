@@ -1,16 +1,18 @@
 var express =  require('express');
 var router = express.Router();
-var client = require('../elasticsearch/connection');
+var client = require('../elasticsearch/connection.js');
 var url = require('url');
 router.get('/',function(req,res){
     res.render('index', { title: 'VietJob'});
 })
 router.get('/vieclamit',function(req,res){
-    var client = require('../elasticsearch/connection.js');
-    var output;
+    var output ;
     var parse = url.parse(req.url, true);
     var path = parse.path;
-    
+    var page = parseInt(req.query.page) || 1;
+    var perPage = 1;
+    var start = (page-1)*perPage;
+    var end = page * perPage;
     client.search({  
       index: 'job',
       type: '_doc',
@@ -18,8 +20,7 @@ router.get('/vieclamit',function(req,res){
         query: {
           match_all: {
           }
-        },
-        _source: ["namejob","skills"],
+        }
       }
     },function (error, response,status) {
         if (error){
@@ -27,6 +28,7 @@ router.get('/vieclamit',function(req,res){
         }
         else {
         const results = response.hits.hits;
+        const numlist =response.hits.total.value;
         var my_Arr;
         const mang = [];
         results.forEach(function(result){
@@ -40,7 +42,14 @@ router.get('/vieclamit',function(req,res){
             }
           });
           output = [...new Set(mang)];
-          res.render('vieclamit', { title: 'Việc làm IT', kq: output});
+          res.render('vieclamit', {
+            title: 'Việc làm IT',
+            kq: output ,
+            dsjob: results.slice(start,end) ,
+            num: numlist,
+            pages: Math.ceil(numlist / perPage),
+            current: page
+          });
         }
     });
 })
