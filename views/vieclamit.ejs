@@ -5,6 +5,7 @@
         <meta content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="../public/css/vieclamit.css">
         <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../public/css/formlogin.css">
         <link href="../public/css/agency.min.css" rel="stylesheet">
         <link href="../public/css/amsify.suggestags.css" rel="stylesheet">
         <link href="../public/css/formsearch.css" rel="stylesheet">
@@ -14,6 +15,7 @@
 <body>
     <div class="container-md">
         <%- include('elements/header1'); -%>
+        <%- include('elements/formlogin'); -%>
         <div class="container-fiud" style="background-color: whitesmoke">
             <div class="row">
              <%- include('elements/alljob'); -%>
@@ -23,7 +25,8 @@
             </div>
         </div>
     </div>
-    <script src="../public/js/jquery.min.js"></script>
+</body>
+        <script src="../public/js/jquery.min.js"></script>
         <script src="../public/js/bootstrap.bundle.min.js"></script>
         <script src="../public/js/agency.min.js"></script>
         <script src="../public/js/forms.js"></script>
@@ -39,7 +42,7 @@
         $(".nav-tabs a").click(function(){
             $(this).tab('show');
         });
+        
         });
         </script>
-</body>
 </html>

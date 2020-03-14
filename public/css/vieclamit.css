@@ -43,3 +43,8 @@ a:hover .card-title{
     color: #ffc107;
     text-decoration: none;
 }
+.badge{
+    margin-top: 20px ;
+    margin-left: 15px;
+    height: 20px;
+}

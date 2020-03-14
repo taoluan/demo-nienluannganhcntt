@@ -128,20 +128,6 @@
                    $("#myDropdown").css("display","none");
                    $(this).val('');
                   _self.addTag(value);
-                  var data = $(".amsify-select-tag").text();
-                  console.log(data);
-                  $.ajax({
-                    type: 'GET',
-                    url: 'XulySearch',
-                    data: {job:data},
-                    success: function(data){
-                      if(data == ""){
-
-                      }else {
-                        $('#list-job').html(data);
-                      }
-                    }
-                  })
                 } else if(keycode == '8' && !$(this).val()) {
                   var removeClass = _self.classes.readyToRemove.substring(1);
                   if($(this).hasClass(removeClass)) {
@@ -174,6 +160,16 @@
                  $(_self.selectors.sTagsInput).val('').focus();
               });
               this.setRemoveEvent();
+              $(".list-group a").click(function(){
+                const val = $(this).html();
+                _self.addTag(val);
+              })
+              $("#myUL li").click(function(){
+                var textsearch = $(this).text();
+                _self.addTag(textsearch);
+                $("#search").val("");
+                $("#myDropdown").css("display","none");
+           });
             },
 
             processWhiteList : function(keycode, value) {
@@ -289,6 +285,21 @@
               $(this.selector).trigger('suggestags.add', [value]);
               $(this.selectors.listArea).find(this.classes.listItem).removeClass('active');
               $(this.selectors.listArea).hide();
+              var data = $(".amsify-select-tag").text();
+                  if (data != ""){
+                    $.ajax({
+                      type: 'GET',
+                      url: 'XulySearch',
+                      data: {job:data},
+                      success: function(data){
+                        if(data == ""){
+
+                        }else {
+                          $('#search-list').html(data);
+                        }
+                      }
+                    })
+                  }
             },
 
             isPresent : function(value) {

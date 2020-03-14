@@ -10,7 +10,7 @@ router.get('/vieclamit',function(req,res){
     var parse = url.parse(req.url, true);
     var path = parse.path;
     var page = parseInt(req.query.page) || 1;
-    var perPage = 1;
+    var perPage = 8;
     var start = (page-1)*perPage;
     var end = page * perPage;
     client.search({  
