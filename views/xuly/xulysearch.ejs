@@ -8,21 +8,23 @@
         <div class="col-12">
             <div class="card mb-3" style="max-width: 730px">
                 <div class="row no-gutters">
-                <div class="col-2" id="logo">
-                    <a href="<%= ds._source.idcompany %>"><img src="../public/image/logo-axon.png" class="card-img" alt="..."></a>
-                </div>
-                <div class="col-9">
+                    <div class="col-2" id="logo">
+                        <a href="<%= ds._source.idcompany %>"><img src="../public/image/logo-axon.png" class="card-img" alt="..."></a>
+                    </div>
+                <div class="col-8">
                     <div class="card-body">
-                        <a href="/job/<%= ds._source.namejob %>"><h5 class="card-title"><%= ds._source.namejob %> ( <%= ds._source.skills %>)</h5></a>
-                    <p class="card-text">
+                        <a  href="/job/<%= ds._source.namejob %>" style="font-size: 22px;font-weight: 450;"><span class="card-title"><%= ds._source.namejob %> ( <%= ds._source.skills %>)</span></a>
+                    <p class="card-text" style=" white-space: nowrap;">
                         <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
                         <i class="fas fa-map-marked-alt"></i> <%= ds._source.address %> </br>
                         <i class="fas fa-code"></i> <%= ds._source.skills %> </br>
-                        <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
                     </p> 
-                    <p class="card-text float-right"><small class="text-muted "><%= ds._source.time.day %>
+                    <p class="card-text"><small class="text-muted "><%= ds._source.time.day %>
                         <%= ds._source.time.hour %>:<%=ds._source.time.minutes %></small> </p>
                     </div>
+                </div>
+                <div class="col-1" ><span class="badge badge-warning" style="color:white;">Hot Job</span>
+                
                 </div>
                 </div>
             </div>

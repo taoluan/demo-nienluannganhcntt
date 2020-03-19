@@ -57,8 +57,8 @@
                                     </div>
                                 <div class="col-8">
                                     <div class="card-body">
-                                        <a href="/job/<%= ds._source.namejob %>"><h5 class="card-title" style="font-size: 22px;"><%= ds._source.namejob %> ( <%= ds._source.skills %>)</h5></a>
-                                    <p class="card-text">
+                                        <a  href="/job/<%= ds._source.namejob %>" style="font-size: 22px;font-weight: 450;"><span class="card-title"><%= ds._source.namejob %> ( <%= ds._source.skills %>)</span></a>
+                                    <p class="card-text" style=" white-space: nowrap;">
                                         <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
                                         <i class="fas fa-map-marked-alt"></i> <%= ds._source.address %> </br>
                                         <i class="fas fa-code"></i> <%= ds._source.skills %> </br>
@@ -115,34 +115,94 @@
                 </div>
             
         </div>
-        <div class="col-lg-4 " style="border-left:1px rgb(204, 192, 192,0.4) solid;" >
+        <div class="col-lg-4 " style="border-left:1px rgb(204, 192, 192,0.4) solid; " >
+            <div class="container-fuid" id="ntdung">
             <div class="row">
                     <span id="jobs">Nhà tuyển dụng nổi bật</span> 
             </div>
             <hr>
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="card hovercard" style="text-align: center;">
-                        <div class="avatar">
-                            <img alt="" src="../public/image/logo-axon.png" height="100px" width="100px" style="border-radius: 50px; margin-top: 10px;">
+                <div class="col-lg-12" style="text-align: center;margin-bottom: 30px;">
+                    <div class="card hovercard" style="text-align:center">
+                        <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);">
+                            <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 80px;"></a>
                         </div>
-                        <div class="info">
+                        <div class="info" style="margin-top: 25px;">
                             <div class="title">
-                                <a target="_blank" href="https://scripteden.com/">AXON</a>
+                                <h5>AXON</h5>
+                            </div> 
+                            <div class="desc"><i class="fas fa-users"></i> 1000</div>
+                            <div class="desc"><i class="fas fa-cogs"></i> Sản phẩm</div>
+                            <div class="desc">
+                                <ul class="skills">
+                                    <li><a href="#java">Java</a></li>
+                                    <li><a href="#php">PHP</a></li>
+                                    <li><a href="#js">JavaScript</a></li>
+                                </ul>
                             </div>
-                            <div class="desc">Passionate designer</div>
-                            <div class="desc">Curious developer</div>
-                            <div class="desc">Tech geek</div>
                         </div>
-                        <div class="bottom">
-                            <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
-                                <i class="fa fa-twitter"></i>
-                            </a>
+                        <div class="job" style="background-color: whitesmoke;" >
+                            <div class="list-job">
+                                <a href="#1">Senior QA Automation Engineer</a>
+                            </div>
+                            <div class="list-job">
+                                <a href="#1">Senior Mobile Software Engineer</a>
+                            </div>
+                            <div class="list-job">
+                                <a href="#1">Senior Product Designer (UI/UX)</a>
+                            </div>
+                            <!-- <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                    <td><a href="#1">Senior QA Automation Engineer</a></td>
+                                    </tr>
+                                    <tr>
+                                    <td><a href="#1">Senior Mobile Software Engineer Software Engineer</a></td>
+                                    </tr>
+                                    <tr>
+                                    <td><a href="#1">Senior Product Designer (UI/UX)</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>--->
                         </div>
-                    </div>
-        
+                        <div class="viewjob"><a href="#q"><i class="fas fa-forward"></i> View job 3 job</a></div>
+                    </div> 
                 </div>
-        </div>
+                <div class="col-lg-12" style="text-align: center;margin-bottom: 30px;">
+                    <div class="card hovercard" style="text-align: center;">
+                        <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);">
+                            <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 80px;"></a>
+                        </div>
+                        <div class="info" style="margin-top: 25px;">
+                            <div class="title">
+                                <h5>AXON</h5>
+                            </div> 
+                            <div class="desc"><i class="fas fa-users"></i> 1000</div>
+                            <div class="desc"><i class="fas fa-cogs"></i> Sản phẩm</div>
+                            <div class="desc">
+                                <ul class="skills">
+                                    <li><a href="#java">Java</a></li>
+                                    <li><a href="#php">PHP</a></li>
+                                    <li><a href="#js">JavaScript</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="job" style="background-color: whitesmoke;" >
+                            <div class="list-job">
+                                <a href="#1">Senior QA Automation Engineer</a>
+                            </div>
+                            <div class="list-job">
+                                <a href="#1">Senior Mobile Software Engineer</a>
+                            </div>
+                            <div class="list-job">
+                                <a href="#1">Senior Product Designer (UI/UX)</a>
+                            </div>
+                        </div>
+                         <div class="viewjob"><a href="#q"><i class="fas fa-forward"></i> View job 3 job</a></div>
+                    </div> 
+                </div>
+            </div>
+            </div>
         </div>
     </div>
 </div>
