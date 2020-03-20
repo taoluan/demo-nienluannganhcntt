@@ -70,3 +70,36 @@ client.search({
              <span style="color: black;"> <%= result._source.name %> </span>  
             <% }) %>
         </div>
+
+
+
+
+// (a) and (b or c)
+GET job/_search
+{
+  "query": {
+    "bool": {
+      "must": [{
+        "bool": {
+          "must": [{
+              "match": {
+                "address" : "Ho Chi Minh"
+              }
+          }]
+        }
+      },{
+        "bool": {
+          "should": [{
+               "match": {
+                "skills": "java"
+            }
+          }, {
+            "match": {
+                "namejob": "java"
+            }
+          }]
+        }
+      }]
+    }
+  }
+}

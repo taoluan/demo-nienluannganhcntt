@@ -11,3 +11,6 @@ app.use('/',require('./routes/Index'));
 app.use('/user',require('./routes/User'));
 app.use('/admin',require('./routes/Admin'));
 app.use('/XulySearch',require('./routes/XulySearch'));
+app.get('/form',function(req,res){
+    res.send("hello")
+})
