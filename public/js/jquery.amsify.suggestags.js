@@ -3,8 +3,17 @@
  * https://github.com/amsify42/jquery.amsify.suggestags
  * http://www.amsify42.com
  */
-(function($) {
-
+$.ajax({
+  type: 'GET',
+  url: '/XulySearch/loaddata',
+  success: function(data){
+  if(data == ""){
+  }else {
+      $('#myDropdown').html(data);
+  }
+  }
+});
+(function(e){
     $.fn.amsifySuggestags = function(options, method) {
         /**
          * Merging default settings with custom
@@ -161,9 +170,10 @@
               });
               this.setRemoveEvent();
               $(".list-group a").click(function(){
-                const val = $(this).html();
-                _self.addTag(val);
-              })
+                var textsearch = $(this).text();
+                _self.addTag(textsearch);
+
+           });
               $("#myUL li").click(function(){
                 var textsearch = $(this).text();
                 _self.addTag(textsearch);
@@ -289,7 +299,7 @@
                   if (data != ""){
                     $.ajax({
                       type: 'GET',
-                      url: 'XulySearch',
+                      url: '/XulySearch',
                       data: {job:data},
                       success: function(data){
                         if(data == ""){
