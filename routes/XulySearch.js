@@ -4,8 +4,15 @@ var client = require('../elasticsearch/connection.js');
 var url = require('url');
 router.get('/',function(req,res){
   var namejob = req.query.job;
+  var city = req.query.city;
+  var output ;
+  let page = parseInt(req.query.page) || 1;
+  let perPage = 6;
+  let start = (page-1)*perPage;
+  let end = page * perPage;
   var results;
-  client.search({
+  if(city === "all"){
+    client.search({
     index: 'job',
     type: '_doc',
     body:{
@@ -23,11 +30,104 @@ router.get('/',function(req,res){
       else{
         const numlist =response.hits.total.value;
         results = response.hits.hits;
-        res.render('./xuly/search', {searchjob: results ,num: numlist ,name: namejob });
+        res.render('./xuly/search', {
+        searchjob: results 
+        ,num: numlist 
+        ,name: namejob,
+         where: '',
+      });
       };
+    }); 
+  }else if (city === "Orthers"){
+    client.search({  
+      index: 'job',
+      type: '_doc',
+      body: {
+        "query": {
+          "bool" : {
+            "must" : {
+               "multi_match" : {
+                        "query":    namejob, 
+                        "fields": [ "namejob", "skills" ] 
+                      }
+            },
+             "must_not" : [{
+                  "match" : {  "address" : "Ho Chi Minh" }
+              },
+              {
+                  "match" : {  "address" : "Ha Noi" }
+              },{
+                  "match" : {  "address" : "Can Tho" }
+              }
+              ]
+          }
+        }
+      }
+    },function (error, response,status) {
+        if (error){
+          console.log("search error: "+error)
+        }
+        else {
+          const numlist =response.hits.total.value;
+          results = response.hits.hits;
+          res.render('./xuly/search', {
+            searchjob: results ,
+            num: numlist ,
+            name: namejob,
+            where: '',
+          });
+        }
     });
-    
-  })
+  }else{
+      client.search({  
+        index: 'job',
+        type: '_doc',
+        body: {
+          query: {
+            bool: {
+              must: [{
+                bool: {
+                  must: [{
+                      match: {
+                        address : city
+                      }
+                  },]
+                }
+              },{
+                bool: {
+                  should: [{
+                      match: {
+                        skills: namejob
+                    }
+                  }, {
+                    match: {
+                      namejob: namejob
+                    }
+                  }]
+                }
+              }]
+            }
+          }
+        }
+      },function (error, response,status) {
+          if (error){
+            console.log("search error: "+error)
+          }
+          else {
+            const numlist =response.hits.total.value;
+            results = response.hits.hits;
+            res.render('./xuly/search', {
+              searchjob: results ,
+              num: numlist ,
+              name: namejob ,
+              where:'tại '+city,
+            });
+          }
+      });
+  }
+
+})
+  
 router.get('/loaddata',function(req,res){
   client.search({  
     index: 'job',

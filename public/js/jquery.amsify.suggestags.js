@@ -3,17 +3,17 @@
  * https://github.com/amsify42/jquery.amsify.suggestags
  * http://www.amsify42.com
  */
-$.ajax({
-  type: 'GET',
-  url: '/XulySearch/loaddata',
-  success: function(data){
-  if(data == ""){
-  }else {
-      $('#myDropdown').html(data);
-  }
-  }
-});
 (function(e){
+    $.ajax({
+      type: 'GET',
+      url: '/XulySearch/loaddata',
+      success: function(data){
+      if(data == ""){
+      }else {
+          $('#myDropdown').html(data);
+      }
+      }
+    });
     $.fn.amsifySuggestags = function(options, method) {
         /**
          * Merging default settings with custom
@@ -105,7 +105,7 @@ $.ajax({
               $(this.createList()).appendTo(this.selectors.list);
               this.fixCSS();
             },           
-
+            
             setEvents : function() {
               var _self = this;
               $(this.selectors.inputArea).attr('style', $(this.selector).attr('style'))
@@ -295,21 +295,6 @@ $.ajax({
               $(this.selector).trigger('suggestags.add', [value]);
               $(this.selectors.listArea).find(this.classes.listItem).removeClass('active');
               $(this.selectors.listArea).hide();
-              var data = $(".amsify-select-tag").text();
-                  if (data != ""){
-                    $.ajax({
-                      type: 'GET',
-                      url: '/XulySearch',
-                      data: {job:data},
-                      success: function(data){
-                        if(data == ""){
-
-                        }else {
-                          $('#search-list').html(data);
-                        }
-                      }
-                    })
-                  }
             },
 
             isPresent : function(value) {
@@ -408,6 +393,26 @@ $.ajax({
 
             printValues : function() {
               console.info(this.tagNames, $(this.selector).val());
+              var city = $("#select").val();
+              var data = $(".amsify-select-tag").text();
+                  if (data != ""){
+                    $.ajax({
+                      type: 'GET',
+                      url: '/XulySearch',
+                      data: {
+                        job:data ,
+                        city:city
+                      },
+                      
+                      success: function(data){
+                        if(data == ""){
+
+                        }else {
+                          $('#search-list').html(data);
+                        }
+                      }
+                    })
+                  }
             },
 
             refresh : function(selector, method) {

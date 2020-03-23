@@ -27,6 +27,9 @@
     .col-lg-4{
         display: none;
     }
+    .an {
+        display: none;
+    }
 }
 .hv:hover .card{
     box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);

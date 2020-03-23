@@ -1,5 +1,5 @@
 <div class="row" id="showjob">
-        <span id="jobs">Có hơn <span id="num"><%= num %></span> việc làm <a style="color: #ffc107;"><%= name %></a> dành cho bạn</span>
+        <span id="jobs">Có hơn <span id="num"><%= num %></span> việc làm <a style="color: #ffc107;"><%= name %></a> <span style="color:#ffc107 ;"> <%= where %> </span> dành cho bạn</span>
         <hr>
     </div>
     <hr>
@@ -31,3 +31,39 @@
         </div>
     </div>
 <% }) %>
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="...">
+            <% if (num >= 7){ %>
+                <% if (pages >0) { %>
+                    <ul class="pagination pagination-sm justify-content-center">
+                    <% if (current == 1) { %>
+                    <li class="page-item active" aria-current="page=1#showjob">
+                        <span class="page-link">
+                        1
+                        <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link" href="?page=1#showjob">1</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if(i !== 1) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                <% } %>
+                <% for (i = 2; i <= (Number(current)+4) && i <= pages; i++ ) { %>
+                    <% if(i == current){ %>
+                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="?page=<%= i %>#showjob"><%= i %></a></li>
+                    <% } %>
+                    <% if (i==Number(current) + 4 && i < pages) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                <% } %>
+                </ul>
+                <% } %>
+            <% } %>
+        </nav>
+    </div>
+</div> 
