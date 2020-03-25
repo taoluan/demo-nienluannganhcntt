@@ -12,7 +12,7 @@ router.get('/vieclamit',function(req,res){
     let start = (page-1)*perPage;
     let end = page * perPage;
     let parse = url.parse(req.url, true);
-    let path = parse.search;
+    let path = parse.path;
     client.search({  
       index: 'job',
       type: '_doc',
@@ -24,7 +24,7 @@ router.get('/vieclamit',function(req,res){
       }
     },function (error, response,status) {
         if (error){
-          console.log("search error: "+error)
+          console.log("search error: loi 1 "+error)
         }
         else {
         const results = response.hits.hits;
@@ -51,113 +51,21 @@ router.get('/vieclamit/search',function(req,res){
     let end = page * perPage;
     let parse = url.parse(req.url, true);
     let path = parse.search;
-  if (city === "all"){
-    client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        query: {
-          multi_match : {
-            query:    planets, 
-            fields: [ "namejob", "skills" ] 
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          console.log("search error: "+error)
-        }
-        else {
-        const results = response.hits.hits;
-        const numlist =response.hits.total.value;
-        res.render('vieclamit', {
-          title: 'Việc làm IT',
-          dsjob: results.slice(start,end) ,
-          namejob: planets,
-          where: '',
-          num: numlist,
-          pages: Math.ceil(numlist / perPage),
-          current: page
-        });
-        }
-    });
-  }else if (city === "Orthers"){
-    client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        "query": {
-          "bool" : {
-            "must" : {
-               "multi_match" : {
-                        "query":    skills, 
-                        "fields": [ "namejob", "skills" ] 
-                      }
-            },
-             "must_not" : [{
-                  "match" : {  "address" : "Ho Chi Minh" }
-              },
-              {
-                  "match" : {  "address" : "Ha Noi" }
-              },{
-                  "match" : {  "address" : "Can Tho" }
-              }
-              ]
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          console.log("search error: "+error)
-        }
-        else {
-        const results = response.hits.hits;
-        const numlist =response.hits.total.value;
-        res.render('vieclamit', {
-          title: 'Việc làm IT',
-          dsjob: results.slice(start,end) ,
-          namejob: skills,
-          where: '',
-          num: numlist,
-          pages: Math.ceil(numlist / perPage),
-          current: page
-        });
-        }
-    });
-  }else{
+    if (city === "all"){
       client.search({  
         index: 'job',
         type: '_doc',
         body: {
           query: {
-            bool: {
-              must: [{
-                bool: {
-                  must: [{
-                      match: {
-                        address : city
-                      }
-                  }]
-                }
-              },{
-                bool: {
-                  should: [{
-                      match: {
-                        skills: planets
-                    }
-                  }, {
-                    match: {
-                      namejob: planets
-                    }
-                  }]
-                }
-              }]
+            multi_match : {
+              query:    planets, 
+              fields: [ "namejob", "skills" ] 
             }
           }
         }
       },function (error, response,status) {
           if (error){
-            console.log("search error: "+error)
+            console.log("search error: loi 2 "+error)
           }
           else {
           const results = response.hits.hits;
@@ -165,14 +73,106 @@ router.get('/vieclamit/search',function(req,res){
           res.render('vieclamit', {
             title: 'Việc làm IT',
             dsjob: results.slice(start,end) ,
-            num: numlist,
             namejob: planets,
-            where: 'tại '+city,
+            where: '',
+            num: numlist,
             pages: Math.ceil(numlist / perPage),
             current: page
           });
           }
       });
-  }
+    }else if (city === "Orthers"){
+      client.search({  
+        index: 'job',
+        type: '_doc',
+        body: {
+          "query": {
+            "bool" : {
+              "must" : {
+                 "multi_match" : {
+                          "query":    planets, 
+                          "fields": [ "namejob", "skills" ] 
+                        }
+              },
+               "must_not" : [{
+                    "match" : {  "address" : "Ho Chi Minh" }
+                },
+                {
+                    "match" : {  "address" : "Ha Noi" }
+                },{
+                    "match" : {  "address" : "Can Tho" }
+                }
+                ]
+            }
+          }
+        }
+      },function (error, response,status) {
+          if (error){
+            console.log("search error: loi 3 "+error)
+          }
+          else {
+          const results = response.hits.hits;
+          const numlist =response.hits.total.value;
+          res.render('vieclamit', {
+            title: 'Việc làm IT',
+            dsjob: results.slice(start,end) ,
+            namejob: planets,
+            where: '',
+            num: numlist,
+            pages: Math.ceil(numlist / perPage),
+            current: page
+          });
+          }
+      });
+    }else{
+        client.search({  
+          index: 'job',
+          type: '_doc',
+          body: {
+            query: {
+              bool: {
+                must: [{
+                  bool: {
+                    must: [{
+                        match: {
+                          address : city
+                        }
+                    }]
+                  }
+                },{
+                  bool: {
+                    should: [{
+                        match: {
+                          skills: planets
+                      }
+                    }, {
+                      match: {
+                        namejob: planets
+                      }
+                    }]
+                  }
+                }]
+              }
+            }
+          }
+        },function (error, response,status) {
+            if (error){
+              console.log("search error:  loi 4 "+error)
+            }
+            else {
+            const results = response.hits.hits;
+            const numlist =response.hits.total.value;
+            res.render('vieclamit', {
+              title: 'Việc làm IT',
+              dsjob: results.slice(start,end) ,
+              num: numlist,
+              namejob: planets,
+              where: 'tại '+city,
+              pages: Math.ceil(numlist / perPage),
+              current: page
+            });
+            }
+        });
+    }
 })
 module.exports = router;

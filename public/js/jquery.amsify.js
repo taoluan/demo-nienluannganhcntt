@@ -396,24 +396,6 @@
 
             printValues : function() {
               console.info(this.tagNames, $(this.selector).val());
-              var city = $("#select").val();
-              var data = $(".amsify-select-tag").text();
-                $.ajax({
-                  type: 'GET',
-                  url: '/XulySearch',
-                  data: {
-                    job:data ,
-                    city:city
-                  },
-                  
-                  success: function(data){
-                    if(data == ""){
-
-                    }else {
-                      $('#search-list').html(data);
-                    }
-                  }
-                })
             },
 
             refresh : function(selector, method) {

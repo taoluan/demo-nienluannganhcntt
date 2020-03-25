@@ -25,7 +25,7 @@ router.get('/',function(req,res){
     }
   },function(err,response,status){
       if(err){
-        console.log("search err "+ err)
+        console.log("search err  1 "+ err)
       }
       else{
         const numlist =response.hits.total.value;
@@ -65,7 +65,7 @@ router.get('/',function(req,res){
       }
     },function (error, response,status) {
         if (error){
-          console.log("search error: "+error)
+          console.log("search error: 2 "+error)
         }
         else {
           const numlist =response.hits.total.value;
@@ -79,53 +79,52 @@ router.get('/',function(req,res){
         }
     });
   }else{
-      client.search({  
-        index: 'job',
-        type: '_doc',
-        body: {
-          query: {
-            bool: {
-              must: [{
-                bool: {
-                  must: [{
-                      match: {
-                        address : city
-                      }
-                  },]
-                }
-              },{
-                bool: {
-                  should: [{
-                      match: {
-                        skills: namejob
-                    }
-                  }, {
+    client.search({  
+      index: 'job',
+      type: '_doc',
+      body: {
+        query: {
+          bool: {
+            must: [{
+              bool: {
+                must: [{
                     match: {
-                      namejob: namejob
+                      address : city
                     }
-                  }]
-                }
-              }]
-            }
+                }]
+              }
+            },{
+              bool: {
+                should: [{
+                    match: {
+                      skills: namejob
+                  }
+                }, {
+                  match: {
+                    namejob: namejob
+                  }
+                }]
+              }
+            }]
           }
         }
-      },function (error, response,status) {
-          if (error){
-            console.log("search error: "+error)
-          }
-          else {
-            const numlist =response.hits.total.value;
-            results = response.hits.hits;
-            res.render('./xuly/search', {
-              searchjob: results ,
-              num: numlist ,
-              name: namejob ,
-              where:'tại '+city,
-            });
-          }
-      });
+      }
+    },function (error, response,status) {
+        if (error){
+          console.log("search error: "+error)
+        }
+        else {
+        const results = response.hits.hits;
+        const numlist =response.hits.total.value;
+        res.render('./xuly/search', {
+          searchjob: results ,
+          num: numlist ,
+          name: namejob,
+          where: 'tại '+city,
+        });
+        }
+    });
   }
-
 })
   
 router.get('/loaddata',function(req,res){
@@ -140,7 +139,7 @@ router.get('/loaddata',function(req,res){
     }
   },function (error, response,status) {
       if (error){
-        console.log("search error: "+error)
+        console.log("search error: 4"+error)
       }
       else {
       const results = response.hits.hits;

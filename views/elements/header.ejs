@@ -55,7 +55,9 @@
                 </div>
               </div>
               <div class="input-field second-wrap">
-                <input type="text" placeholder="Ngôn ngữ lập trình, kỹ năng?" class="form-control click" name="planets" required/>
+                <input type="text" id="show" placeholder="Ngôn ngữ lập trình, kỹ năng?" class="form-control click" name="planets" required/>
+                  <div id="myDropdown" class="dropdown-content">
+                  </div>
               </div>
               <div class="input-field third-wrap">
                 <button class="btn-search" type="submit" value="submit">
@@ -70,3 +72,64 @@
       </div>
     </div>
   </header>
+
+  <script src="../public/js/jquery.min.js"></script>
+  
+  <script>
+    $("document").ready(function(){
+        $('input[name="planets"]').amsifySuggestags({
+            tagLimit: 4,
+        });
+    });
+        
+    </script>
+  <style>
+    .mb-3{
+    margin-bottom: 0.5rem!important;
+}
+#myInput:focus {outline: 3px solid #ddd;}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display:none;
+  position: absolute;
+  background-color: #e9ecef;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+#myDropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
