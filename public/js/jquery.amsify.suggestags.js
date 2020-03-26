@@ -108,12 +108,7 @@
             
             setEvents : function() {
               var _self = this;
-              $("#myUL li").click(function(){
-                var textsearch = $(this).text();
-                _self.addTag(textsearch);
-                $("#search").val("");
-                $("#myDropdown").css("display","none");
-              });
+              
               $(this.selectors.inputArea).attr('style', $(this.selector).attr('style'))
                                          .addClass($(this.selector).attr('class'));
               $(this.selectors.sTagsInput).focus(function(){
@@ -136,6 +131,12 @@
                 }
                 $("#myDropdown a").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $("#myUL li").click(function(){
+                  var textsearch = $(this).text();
+                  _self.addTag(textsearch);
+                  $("#search").val("");
+                  $("#myDropdown").css("display","none");
                 });
                 var keycode = (e.keyCode ? e.keyCode : e.which);
                 if(keycode == '13' || keycode == '188') {
