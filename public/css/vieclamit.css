@@ -46,11 +46,6 @@ a:hover .card-title{
     color: #ffc107;
     text-decoration: none;
 }
-.badge{
-    margin-top: 20px ;
-    margin-left: 15px;
-    height: 20px;
-}
 .avatar{
     background-image: none;
     background-repeat: no-repeat;
@@ -117,4 +112,8 @@ a:hover .card-title{
     padding-left: 5px;
     padding-right: 5px;
 
+}
+.card-body p{
+    padding: 0px;
+    margin-top: 0px;
 }

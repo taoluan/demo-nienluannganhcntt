@@ -12,12 +12,15 @@
 <body>
     <div class="container-md" style="background-color:#e9e9e9">
         <%- include('elements/headerjob'); -%>
-        <div class="row" style=" margin-top: 70px">
+        <div class="container-fluid">
+            <div class="row" style=" margin-top: 70px ; margin-bottom: 10px;">
             <%- include('elements/containerjob'); -%>
-        </div>
-        <div class="row" style="padding-bottom:20px ; background-color: #221f20; color: white; box-shadow: 0 4px 8px 0 rgba(236, 236, 236, 0.2)" >
+            </div>
+            <div class="row" style="padding-bottom:20px ; background-color: #221f20; color: white; box-shadow: 0 4px 8px 0 rgba(236, 236, 236, 0.2)" >
             <%- include('elements/listsearch') -%>
+            </div>
         </div>
+        
     </div>
 </body>
     <script src="../../public/js/jquery.min.js"></script>
