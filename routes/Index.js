@@ -175,11 +175,17 @@ router.get('/vieclamit/search',function(req,res){
         });
     }
 })
-router.get('/vieclamit/job/:val1&:val2',function(req,res){
+router.get('/vieclamit/:val1&:val2',function(req,res){
   const name_job =req.params.val1;
   const id_job=req.params.val2;
   res.render('job',{
     title: name_job
+  })
+})
+router.get('/companies/:val1',function(req,res){
+  const name_company =req.params.val1;
+  res.render('companies',{
+    title: name_company
   })
 })
 module.exports = router;

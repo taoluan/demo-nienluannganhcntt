@@ -1,0 +1,42 @@
+.card-title {
+    margin-top: 0px;
+    font-weight: 500;
+    font-size: 30px;
+    font-family: "Roboto Condensed", ;
+}
+.company-info p{
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+@media (min-width: 768px){
+    
+}
+.skills {
+    list-style-type:none;
+    height: 25px;
+    margin-top: 8px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+.skills a {
+    font-weight: 50;
+    font-family: "Roboto Condensed", sans-serif;
+    border: 1px solid gray;
+    line-height:1.5;
+    border-radius: 4px;
+    margin-right: 5px;
+    display: inline-block;
+    margin-left: 0px;
+    text-align: -webkit-match-parent;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    font-size: 16px;
+    text-decoration: none;
+}
+.skills a:hover {
+    border: 1px solid red;
+    text-decoration: none;
+    color: red;
+}

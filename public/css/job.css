@@ -80,3 +80,10 @@
 .card-body p{
     margin-bottom: 5px
 }
+.card-title a{
+    color: black;
+}
+.card-title:hover a{
+    color: black;
+    text-decoration: none;
+}

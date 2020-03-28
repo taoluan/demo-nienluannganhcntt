@@ -4,16 +4,7 @@
  * http://www.amsify42.com
  */
 (function(e){
-    $.ajax({
-      type: 'GET',
-      url: '/XulySearch/loaddata',
-      success: function(data){
-      if(data == ""){
-      }else {
-          $('#myDropdown').html(data);
-      }
-      }
-    });
+   
     $.fn.amsifySuggestags = function(options, method) {
         /**
          * Merging default settings with custom
@@ -162,6 +153,16 @@
               });
               $(this.selectors.sTagsArea).click(function(){
                 $(_self.selectors.sTagsInput).focus();
+                $.ajax({
+                  type: 'GET',
+                  url: '/XulySearch/loaddata',
+                  success: function(data){
+                  if(data == ""){
+                  }else {
+                      $('#myDropdown').html(data);
+                  }
+                  }
+                });
               });
               $(this.selectors.listArea).find(this.classes.listItem).hover(function(){
                 $(_self.selectors.listArea).find(_self.classes.listItem).removeClass('active');
