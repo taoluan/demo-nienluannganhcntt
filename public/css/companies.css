@@ -4,11 +4,6 @@
     font-size: 30px;
     font-family: "Roboto Condensed", ;
 }
-.company-info p{
-  margin-top: 5px;
-  margin-bottom: 0px;
-}
-
 @media (min-width: 768px){
     
 }
@@ -46,6 +41,12 @@
     font-family: "Roboto Condensed", sans-serif;
     font-size: 20px;
 }
+.f1{
+  font-weight: 500;
+    color: #3d3d3d;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 12px;
+}
 .conten {
     font-size: 25px;
     font-weight: 500;
@@ -67,10 +68,19 @@
     color: black;
     text-decoration: none;
 }
-@media (max-width:1000px){
+@media (max-width:1100px){
     .col-xl-1{
        display: none;
     }
+    .none{
+      display: none;
+    }
+}
+@media (max-width:1200px){
+  .col-right{
+    margin-top: 10px;
+    max-width: 100%;
+  }
 }
 img {
     vertical-align: middle;
@@ -169,5 +179,26 @@ img {
 .b1{
     height: 50px;
     margin-top: 50px;
-    margin-left: 20px;
+}
+.back-to-top {
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display:none;
+  margin-right: 20px;
+}
+.company-info{
+  font-size: 17px;
+  font-weight: normal;
+}
+.company span{
+  text-align: center;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+.company a{
+  font-weight: normal;
+  margin-right: 20px;
+  margin-left: 10px;
 }
