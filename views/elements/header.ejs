@@ -14,8 +14,14 @@
           <li class="nav-item">
             <a id="ungtuyen" class="nav-link js-scroll-trigger" href="#portfolio">Ứng tuyển</a>
           </li>
-          <li class="nav-item">
-            <a id="topcompany" class="nav-link js-scroll-trigger" href="#about">Top công ty hàng đầu</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              công ty hàng đầu
+            </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Top 10 công ty hàng đầu</a>
+                <a class="dropdown-item" href="/companies">Tất cả công ty</a>
+              </div>
           </li>
           
         </ul>
@@ -80,6 +86,7 @@
         $('input[name="planets"]').amsifySuggestags({
             tagLimit: 4,
         });
+        
     });
         
     </script>

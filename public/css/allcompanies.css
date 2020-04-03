@@ -1,0 +1,111 @@
+
+.masthead{
+    height: 350px;
+}
+#intro{
+    padding-top: 120px;
+    padding-bottom: 0px;
+}
+#vieclamit{
+    color: #ffc107;
+    font-size: 50px;
+}
+#search-title{
+    font-size: 40px;
+    font-style: italic;
+    line-height: 40px;
+    font-family: 'Droid Serif',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+}
+#jobs{
+    margin-left: 20px;
+    font-size: 25px;
+    font-style: italic;
+    line-height: 30px;
+    font-family: 'Droid Serif',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+}
+.hv:hover .card{
+    box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
+}
+.hv:hover .card-title{
+    color: #ffc107;
+}
+#list-job a{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover .card-title{
+    color: #ffc107;
+    text-decoration: none;
+}
+.avatar{
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 120px;
+}
+.avatar span{
+    font-size: 14px;
+}
+.skills {
+    list-style-type:none;
+    text-align: center;
+    height: 25px;
+    margin-top: 10px;
+}
+.skills li {
+    border: 1px solid gray;
+    height: 25px;
+    line-height: 20px;
+    border-radius: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    margin-left: 0px;
+    text-align: -webkit-match-parent;
+}
+.skills li a{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+}
+.skills li:hover {
+    border: 1px solid red;
+    color: red;
+}
+.skills li:hover a{
+    color: red;
+}
+.list-job{
+    height: 100px;
+    border-bottom:2px solid white;
+    text-align:center;
+    line-height: 100px;
+    font-size: 20px;
+    
+}
+.list-job a{
+    color: black;
+    text-decoration: none;
+}
+.list-job:hover a{
+    color: red;
+    text-decoration: none;
+}
+.viewjob a{
+    color: red;
+    text-decoration: none;
+}
+.abc {
+    float: right;
+    width: 380px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+.card-body p{
+    padding: 0px;
+    margin-top: 0px;
+}

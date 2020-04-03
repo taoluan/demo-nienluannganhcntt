@@ -188,4 +188,9 @@ router.get('/companies/:val1',function(req,res){
     title: name_company
   })
 })
+router.get('/companies',function(req,res){
+  res.render('allcompanies',{
+    title: "Tất cả công ty"
+  })
+})
 module.exports = router;

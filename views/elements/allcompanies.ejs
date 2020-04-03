@@ -1,0 +1,350 @@
+<script type="text/javascript" src="../public/js/jquery.amsify.suggestags.js"></script>
+<div class="container wrap" style="background:white;box-shadow: 0 4px 8px 0 rgba(26, 25, 25, 0.2); margin-top: 5px;">
+    <div class="row">
+        <div class="col-12">  
+          <div class="jumbotron text-center" style="margin-top: 5px;">
+                <h1 id="search-title">Tất cả các công ty ở Việt Nam</h1>
+                <div class="s003">
+                    <form action="/vieclamit/search" method="GET">
+                        <div class="inner-form">
+
+                            <div class="input-field second-wrap">
+                                <div class="form-group"style="font-size:10px">
+                                    <input  type="text" placeholder="Ngôn ngữ lập trình, kỹ năng?" class="form-control click" name="planets" required/>          
+                                    <div id="myDropdown" class="dropdown-content">
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="input-field third-wrap">
+                            <button class="btn-search" type="submit">
+                                <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+                                </svg>
+                            </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-lg-12 col-md-12" id="list-job">
+            <div class="container" id="search-list">
+                <div class="row" id="showjob">
+                    <span id="jobs">Có <span id="num"></span> Công ty tại Việt Nam</span>
+                    <hr>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12 " >
+                        <div class="row">
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="/companies/axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">AXON</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree,At Deliveree, we disrupt the logisticsAt Deliveree, we disrupt the logisticsAt Deliveree, we disrupt the logistics we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                                <div class="card" style="text-align:center">
+                                    <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 200px;">
+                                        <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                                    </div>
+                                    <div class="info" style="margin-top: 25px;">
+                                        <div class="title">
+                                            <h5>AXON</h5>
+                                        </div> 
+                                        <div class="desc">At Deliveree, we disrupt the logistics  industry with technologies.</div>
+                                    </div>
+                                    <div class="title">
+                                        <div class="desc float-left" style="margin-left: 5px;">Hà Nội</div>
+                                        <div class="desc float-right" style="margin-right: 5px;">Có 3 công việc</div>
+                                    </div>
+                                    <div class="rating" style="border-top:1px solid whitesmoke ">
+                                        <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        <h6 class="rating">
+                                            4.0</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("document").ready(function(){
+        $('input[name="planets"]').amsifySuggestags({
+            tagLimit: 4,
+        });
+    });
+        
+    </script>
+<style>
+.card:hover{
+    box-shadow: 8px 8px 8px 4px rgba(26, 25, 25, 0.2);
+}
+    .mb-3{
+    margin-bottom: 0.5rem!important;
+}
+#myInput:focus {outline: 3px solid #ddd;}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e9ecef;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+#myDropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>

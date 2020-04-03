@@ -14,12 +14,12 @@
         <div class="row">
             <%- include('../elements/headerjob'); -%>
         </div>
-            <div class="row register">
+        <div class="row register">
                 <div class="col-md-3 register-left">
                     <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                     <h3>Welcome to Viec-JOB</h3>
                     <p>Trở thành nhà tuyển dụng tốt nhất</p>
-                    <input type="submit" name="" value="Login"/><br/>
+                    <input class="sm-login" type="submit" name="" value="Đăng Ký"/><br/>
                 </div>
                 <div class="col-md-9 register-right">
                     <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -83,7 +83,7 @@
                                     <div class="form-group">
                                         <input type="password" class="form-control" placeholder="Confirm Password *" value="" required/>
                                     </div>
-                                        <input type="submit" class="btnfinal"  value="Register"/>
+                                        <input type="submit" class="btnfinal"  value="Đăng ký"/>
                                     </div>
                                     <div class="col-md-3"></div>
                                 </form>
@@ -92,12 +92,21 @@
                     </div>
                 </div>
         </div>
+        <div class="row login" style="margin-top: 100px;">
+            <%- include('login'); -%>
+        </div>
     </div>
 </body>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            $('.login').hide();
+            $('.sm-login').click(function(){
+                $('.login').show();
+                $('.register').hide();
+
+            });
             $("nav-link").click(function(){
                 $(this).tab('show');
             });
