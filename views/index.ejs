@@ -10,27 +10,29 @@
         <link href="../public/css/amsify.suggestags.css" rel="stylesheet">
         <link href="../public/css/formsearch.css" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <link rel="shortcut icon" href="favicon.ico">
     </head>
     <body>
         <div class="container-md">
             <%- include('elements/header'); -%>
             <%- include('elements/formlogin'); -%>
-            <div class="container-fluid" style="background-color: whitesmoke">
-                <div class="row" style="background:rgb(250, 250, 250);box-shadow: 0 4px 8px 0 rgba(26, 25, 25, 0.2); margin-top:10px;">
-                    <div class="col-12"class="topcompany">
-                <%- include('elements/topcompany'); -%>
-                    </div>
+        <div class="container-fluid" style="background-color: whitesmoke">
+            <div class="row" >
+                <div class="col-12">
+                    <%- include('elements/topcompany'); -%>
                 </div>
-                <div class="row" >
-                    <div class="container mt-3" style="margin-top:10px;background:white;box-shadow: 0 4px 8px 0 rgba(26, 25, 25, 0.2);">
-                        <%- include('elements/newjob'); -%>
-                    </div> 
-                </div>
-                <div class="row" style=" padding-bottom:20px;margin-top: 10px; background-color: #221f20;color: white;box-shadow: 0 4px 8px 0 rgba(236, 236, 236, 0.2);">
-                    <%- include('elements/listsearch') -%>
-                </div>
-            </div>   
+            </div>
+            <div class="row" >
+                <div class="container mt-3" style="margin-top:10px;background:white;border: 1px solid #e3e3e3;">
+                    <%- include('elements/newjob'); -%>
+                </div> 
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <%- include('elements/popularlg'); -%>
+            </div>
+            <div class="row" style=" padding-bottom:20px;margin-top: 10px; background-color: #221f20;color: white;box-shadow: 0 4px 8px 0 rgba(236, 236, 236, 0.2);">
+                <%- include('elements/listsearch') -%>
+            </div>
+        </div>   
         </div>
         <script src="../public/js/jquery.min.js"></script>
         <script src="../public/js/bootstrap.bundle.min.js"></script>
@@ -38,8 +40,6 @@
         <script src="../public/js/forms.js"></script>
         <script type="text/javascript" src="../public/js/jquery.amsify.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        
         <script>
         const choices = new Choices('[data-trigger]',
         {
@@ -50,8 +50,7 @@
             $(".nav-tabs a").click(function(){
                 $(this).tab('show');
             });
-
-            })
+        })
             
         </script>
     </body>

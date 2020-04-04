@@ -28,15 +28,15 @@
       </div>
       <div class="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
         <ul class="navbar-nav text-left">
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" class="menu-user" href="/admin/registration">Nhà tuyển dụng</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" class="menu-user" href="#about" data-toggle="modal" data-target="#myModal"><i class="fas fa-user-plus"></i> Đăng ký</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" class="menu-user" href="#login" data-toggle="modal" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
-              </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger menu-user"  href="/admin/registration">Nhà tuyển dụng</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger login menu-user" href="#about" data-toggle="modal" data-target="#myModal"><i class="fas fa-user-plus"></i> Đăng ký</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger login menu-user" class="" href="#login" data-toggle="modal" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+          </li>
         </ul>
     </div>
     </div>
@@ -86,6 +86,7 @@
         $('input[name="planets"]').amsifySuggestags({
             tagLimit: 4,
         });
+
         
     });
         
