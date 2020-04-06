@@ -193,4 +193,9 @@ router.get('/companies',function(req,res){
     title: "Tất cả công ty"
   })
 })
+router.get('/top-companies/',function(req,res){
+  res.render('topcompanies',{
+    title: "Những công ty hàng đầu"
+  })
+})
 module.exports = router;

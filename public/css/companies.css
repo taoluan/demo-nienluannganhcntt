@@ -202,3 +202,25 @@ img {
   margin-right: 20px;
   margin-left: 10px;
 }
+.font {
+  color: #353535;
+  line-height: 35.2px;
+  font-size: 32px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.font, h1 {
+  font-weight: 400;
+  font-family: "Roboto Condensed", sans-serif;
+}
+.font-2 {
+  color: #353535;
+  line-height: 30px;
+  font-size: 28px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.font-2, h3 {
+  font-weight: 400;
+  font-family: "Roboto Condensed", sans-serif;
+}

@@ -130,3 +130,18 @@ a.tag:hover{
   margin-bottom: 30px;
   margin-top: 10px;
 }
+.bd{
+  border-right:1px solid #e3e3e3;
+}
+@media (max-width:570px){
+  .bd{
+    border-right: none;
+  }
+}
+.font{
+  font-weight: 400;
+    font-family: "Roboto Condensed", sans-serif;
+}
+.languege:hover a{
+  text-decoration: none;
+}

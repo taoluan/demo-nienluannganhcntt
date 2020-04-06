@@ -13,6 +13,7 @@
     <div class="container-md" style="background-color:#e9e9e9">
         <div class="row">
             <%- include('elements/headerjob'); -%>
+            <%- include('elements/formlogin'); -%>
         </div>
         <div class="row">
              <div class="container-fluid">
@@ -33,4 +34,16 @@
     <script src="../../public/js/forms.js"></script>
     <script src="../../public/js/showcpn.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script> 
+    const choices = new Choices('[data-trigger]',
+        {
+            searchEnabled: false,
+            itemSelectText: '',
+        });
+        $(document).ready(function(){
+            $(".nav-tabs a").click(function(){
+                $(this).tab('show');
+            });
+        });
+    </script>
 </html>
