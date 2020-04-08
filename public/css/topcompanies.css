@@ -4,7 +4,7 @@
 .card:hover {
     box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
     text-decoration: none;
-    border: 3px solid #e3e3e3;
+    border: 1px solid #e3e3e3;
 }
 .rank{
     margin-top: 50px;

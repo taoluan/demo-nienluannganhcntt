@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
-app.listen(3000);
+app.listen(3000,()=>{
+    console.log('Server đã hoạt động')
+});
 //cau hinh ejs
 app.set('view engine','ejs');
 app.set('views','./views');

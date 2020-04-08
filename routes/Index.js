@@ -5,41 +5,28 @@ const url = require('url');
 router.get('/',function(req,res){
     res.render('index', { title: 'VietJob'});
 })
-router.get('/vieclamit',function(req,res){
-    var output ;
+router.get('/vieclamit',async function(req,res){
+  try{
     let page = parseInt(req.query.page) || 1;
-    let perPage = 6;
+    let perPage = 5;
     let start = (page-1)*perPage;
     let end = page * perPage;
-    let parse = url.parse(req.url, true);
-    let path = parse.path;
-    client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        query: {
-          match_all: {
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          console.log("search error: loi 1 "+error)
-        }
-        else {
-        const results = response.hits.hits;
-        const numlist =response.hits.total.value;
-        res.render('vieclamit', {
-            title: 'Việc làm IT',
-            dsjob: results.slice(start,end) ,
-            namejob: '',
-            where: '',
-            num: numlist,
-            pages: Math.ceil(numlist / perPage),
-            current: page
-          });
-        }
+    let results = await loadjob();
+    let result = results.hits;
+    let numlist = results.total.value;
+    res.render('vieclamit', {
+      title: 'Việc làm IT',
+      dsjob: result.slice(start,end) ,
+      namejob: '',
+      where: '',
+      num: numlist,
+      pages: Math.ceil(numlist / perPage),
+      current: page
     });
+  }catch (err){
+    console.log(err);
+  }
+    
 })
 router.get('/vieclamit/search',function(req,res){
     let planets = req.query.planets;
@@ -198,4 +185,26 @@ router.get('/top-companies/',function(req,res){
     title: "Những công ty hàng đầu"
   })
 })
+function loadjob(){
+  return new Promise((resolve, reject) => {
+    client.search({  
+      index: 'job',
+      type: '_doc',
+      body: {
+        query: {
+          match_all: {
+          }
+        }
+      }
+    },function (error, response,status) {
+        if (error){
+          return reject(error)
+        }
+        else {
+        let  results = response.hits;
+        resolve(results);
+        }
+    });
+  })
+}
 module.exports = router;
