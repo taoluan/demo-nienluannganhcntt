@@ -185,6 +185,11 @@ router.get('/top-companies/',function(req,res){
     title: "Những công ty hàng đầu"
   })
 })
+router.get('/vieclam-kynang',function(req,res){
+  res.render('./elements/dsvl-kynang',{
+    title : 'Việc làm theo kỹ năng'
+  })
+})
 function loadjob(){
   return new Promise((resolve, reject) => {
     client.search({  
