@@ -185,8 +185,18 @@ router.get('/top-companies/',function(req,res){
     title: "Những công ty hàng đầu"
   })
 })
-router.get('/vieclam-kynang',function(req,res){
+router.get('/vieclam-theo-kynang',function(req,res){
   res.render('./elements/dsvl-kynang',{
+    title : 'Việc làm theo kỹ năng'
+  })
+})
+router.get('/vieclam-theo-ten',function(req,res){
+  res.render('./elements/dsvl-ten',{
+    title : 'Việc làm theo tên'
+  })
+})
+router.get('/vieclam-theo-congty',function(req,res){
+  res.render('./elements/dsvl-congty',{
     title : 'Việc làm theo kỹ năng'
   })
 })

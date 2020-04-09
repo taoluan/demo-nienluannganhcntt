@@ -19,3 +19,10 @@
         margin-bottom: 10px;
     }
 }
+.card-title a{
+    color: black;
+}
+.card-title a:hover{
+    text-decoration: none;
+    color: crimson;
+}
