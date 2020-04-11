@@ -4,10 +4,14 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.post('/user',urlencodedParser,function(req,res){
-    let user = req.session;
-    let pws = req.session;
-    user = req.body.username
-    pws = req.body.password
-    console.log(user,pws)
+    let user =req.body.username;
+    let pws = req.body.password;
+    if(req.body.username && req.body.password){
+        req.session.user = user
+        req.session.pws = pws
+        console.log( req.session.user, req.session.pws)
+        res.redirect('/user')
+    }
+   
 })
 module.exports = router;

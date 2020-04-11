@@ -18,5 +18,8 @@
     "get-json": "^1.0.1",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }

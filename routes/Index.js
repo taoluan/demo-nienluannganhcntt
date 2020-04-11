@@ -25,8 +25,7 @@ router.get('/vieclamit',async function(req,res){
     });
   }catch (err){
     console.log(err);
-  }
-    
+  }  
 })
 router.get('/vieclamit/search',function(req,res){
     let planets = req.query.planets;
