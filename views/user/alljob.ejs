@@ -58,7 +58,7 @@
                                 <div class="card-body">
                                     <a  href="/vieclamit/<%= ds._source.namejob %>&<%= ds._id %>" style="font-size: 22px;font-weight: 450;"><span class="card-title"><%= ds._source.namejob %> ( <%= ds._source.skills %>)</span></a>
                                 <p class="card-text" >
-                                    <i class="fas fa-dollar-sign"></i> <% ds._source.salary %></br>
+                                    <i class="fas fa-dollar-sign text-info"></i><a class="text-info"> <%= ds._source.bonus %></a> </br>
                                     <i class="fas fa-map-marked-alt"></i> <%= ds._source.address %> </br>
                                     <i class="fas fa-code"></i> <%= ds._source.skills %> </br>
                                 </p> 
