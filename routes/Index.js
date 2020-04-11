@@ -3,10 +3,12 @@ const router = express.Router();
 const client = require('../elasticsearch/connection.js');
 const url = require('url');
 router.get('/',function(req,res){
-    res.render('index', { title: 'VietJob'});
+  if(req.session.user && req.session.pws){
+    res.render('./user/user',{ title: 'Chào mừng đến với VietJob', name: req.session.user}) 
+  }else res.render('index', { title: 'VietJob'});
 })
 router.get('/vieclamit',async function(req,res){
-  try{
+    try{
     let page = parseInt(req.query.page) || 1;
     let perPage = 5;
     let start = (page-1)*perPage;
@@ -14,7 +16,17 @@ router.get('/vieclamit',async function(req,res){
     let results = await loadjob();
     let result = results.hits;
     let numlist = results.total.value;
-    res.render('vieclamit', {
+    if(req.session.user && req.session.pws){
+        res.render('./user/vieclamit', {
+        title: 'Việc làm IT',
+        dsjob: result.slice(start,end) ,
+        namejob: '',
+        where: '',
+        num: numlist,
+        pages: Math.ceil(numlist / perPage),
+        current: page
+      });
+    }else res.render('vieclamit', {
       title: 'Việc làm IT',
       dsjob: result.slice(start,end) ,
       namejob: '',
