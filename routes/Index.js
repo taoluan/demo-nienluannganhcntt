@@ -146,9 +146,16 @@ router.get('/vieclamit/:val1&:val2',function(req,res){
 })
 router.get('/companies/:val1',function(req,res){
   const name_company =req.params.val1;
-  res.render('companies',{
+  if(req.session.user && req.session.pws){
+    res.render('./user/companies',{
+      title: name_company
+      })
+  }else{
+    res.render('companies',{
     title: name_company
-  })
+    })
+  }
+  
 })
 router.get('/companies',function(req,res){
   res.render('allcompanies',{
