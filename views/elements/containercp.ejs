@@ -23,8 +23,8 @@
                      </div> 
                 </div>
                 <div class="col-lg-2 none text-center" >
-                    <button type="button" style="width: 150px;background-color: #EA1E30;color: white;" class="bt1 btn btn-md btn-block">Theo dõi</button>
-                    <button type="button" style="width: 150px;" class="bt1 btn btn-secondary btn-md btn-block">Viết review</button>
+                    <button type="button" style="width: 150px;background-color: #EA1E30;color: white;" class="bt1 btn btn-md btn-block" data-toggle="tooltip" title="Đăng nhập để theo dõi"><a data-toggle="modal" data-target="#myModal">Theo dõi</a></button>
+                    <button type="button" style="width: 150px;" class="bt1 btn btn-secondary btn-md btn-block review"><a  href="#danhgia">Viết đánh giá</a></button>
                 </div>
             </div>
         </div>
@@ -32,10 +32,10 @@
     <div class="row tab">
         <ul class="nav nav-tabs" style="margin-top: 10px;">
             <li class="nav-item ">
-              <a class="nav-link active" href="#home">Home</a>
+              <a id='hm' class="nav-link active" href="#home">Home</a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link " href="#danhgia">Đánh giá</a>
+              <a id='rv' class="nav-link " href="#danhgia">Đánh giá</a>
             </li>
         </ul>
     </div>
@@ -454,13 +454,6 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-  $(".nav-tabs a").click(function(){
-    $(this).tab('show');
-  });
-});
-</script>
 <style>
     .col-right{
         max-width: 32%;
@@ -495,5 +488,9 @@
     border-top-right-radius: 5px;
     border: 1px solid #e3e3e3;
     border-bottom: none;
+}
+.review:hover a{
+    text-decoration: none;
+    color: azure;
 }
 </style>

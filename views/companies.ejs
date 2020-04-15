@@ -44,6 +44,18 @@
             $(".nav-tabs a").click(function(){
                 $(this).tab('show');
             });
+            $(".nav-tabs a").click(function(){
+                 $(this).tab('show');
+             })
+            $('.review').click(function(){
+                $('#danhgia').removeClass('fade');
+                $('#danhgia').addClass('active');
+                $('#rv').addClass('active');
+                $('#hm').removeClass('active');
+                $('#home').removeClass('active');
+                $('#home').addClass('fade');
+            })
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 </html>

@@ -126,7 +126,34 @@ router.get('/',function(req,res){
     });
   }
 })
-  
+router.get('/company',function(req,res){
+  var namecompany = req.query.name;
+  client.search({
+    index: 'company',
+    type: '_doc',
+    body:{
+      query:{
+        multi_match:{
+          query : namecompany,
+          fields: ["name"]
+        }
+      }
+    }
+  },function(err,response,status){
+      if(err){
+        console.log("search err  1 "+ err)
+      }
+      else{
+        const numlist =response.hits.total.value;
+        results = response.hits.hits;
+        res.render('./xuly/searchcompany', {
+        data: results 
+        ,num: numlist 
+        ,name: namecompany,
+      });
+      };
+    }); 
+})
 router.get('/loaddata',function(req,res){
   client.search({  
     index: 'job',
@@ -158,6 +185,26 @@ router.get('/loaddata',function(req,res){
         });
        output = [...new Set(mang)];
         res.render('./xuly/loaddata', {kq: output});
+      }
+  });
+})
+router.get('/loadcompany',function(req,res){
+  client.search({  
+    index: 'company',
+    type: '_doc',
+    body: {
+      query: {
+        match_all: {
+        }
+      }
+    }
+  },function (error, response,status) {
+      if (error){
+        console.log("search error: 4"+error)
+      }
+      else {
+      const results = response.hits.hits;
+      res.render('./xuly/loadcompany', {kq: results});
       }
   });
 })

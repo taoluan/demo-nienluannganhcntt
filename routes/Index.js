@@ -158,29 +158,60 @@ router.get('/companies/:val1',function(req,res){
   
 })
 router.get('/companies',function(req,res){
-  res.render('allcompanies',{
+  if(req.session.user && req.session.pws){
+    res.render('./user/us_allcompanies',{
+      title: "Tất cả công ty"
+      })
+  }else{
+     res.render('allcompanies',{
     title: "Tất cả công ty"
-  })
+    })
+  }
+ 
 })
 router.get('/top-companies/',function(req,res){
-  res.render('topcompanies',{
-    title: "Những công ty hàng đầu"
-  })
+  if(req.session.user && req.session.pws){
+    res.render('./user/us_topcompanies',{
+      title: "Những công ty hàng đầu"
+    })
+  }else{
+    res.render('topcompanies',{
+      title: "Những công ty hàng đầu"
+    })
+  }
 })
 router.get('/vieclam-theo-kynang',function(req,res){
-  res.render('./elements/dsvl-kynang',{
-    title : 'Việc làm theo kỹ năng'
-  })
+  if(req.session.user && req.session.pws){
+    res.render('./user/dsvl-kynang',{
+      title : 'Việc làm theo kỹ năng'
+    })
+  }else{
+    res.render('./elements/dsvl-kynang',{
+      title : 'Việc làm theo kỹ năng'
+    })
+  }
 })
 router.get('/vieclam-theo-ten',function(req,res){
-  res.render('./elements/dsvl-ten',{
-    title : 'Việc làm theo tên'
-  })
+  if(req.session.user && req.session.pws){
+    res.render('./user/dsvl-ten',{
+      title : 'Việc làm theo ten'
+    })
+  }else{
+    res.render('./elements/dsvl-ten',{
+      title : 'Việc làm theo ten'
+    })
+  }
 })
 router.get('/vieclam-theo-congty',function(req,res){
-  res.render('./elements/dsvl-congty',{
-    title : 'Việc làm theo kỹ năng'
-  })
+  if(req.session.user && req.session.pws){
+    res.render('./user/dsvl-congty',{
+      title : 'Việc làm theo công ty'
+    })
+  }else{
+    res.render('./elements/dsvl-congty',{
+      title : 'Việc làm theo công ty'
+    })
+  }
 })
 function loadjob(){
   return new Promise((resolve, reject) => {

@@ -3,11 +3,10 @@
     <div class="row">
         <div class="col-12">  
           <div class="jumbotron text-center" style="margin-top: 5px;">
-                <h1 id="search-title">Tất cả các công ty ở Việt Nam</h1>
-                <div class="s003">
+                <h1 class="display-4" id="search-title">Tất cả các công ty ở Việt Nam</h1>
+                <div class="lead s003">
                     <form action="/vieclamit/search" method="GET">
                         <div class="inner-form">
-
                             <div class="input-field second-wrap">
                                 <div class="form-group"style="font-size:10px">
                                     <input  type="text" placeholder="Ngôn ngữ lập trình, kỹ năng?" class="form-control click" name="planets" required/>          
@@ -25,14 +24,24 @@
                         </div>
                     </form>
                 </div>
-            </div>
+                
+          </div>
         </div>
     </div>
     <div class="row" >
         <div class="col-lg-12 col-md-12" id="list-job">
             <div class="container" id="search-list">
                 <div class="row" id="showjob">
-                    <span id="jobs">Có <span id="num"></span> Công ty tại Việt Nam</span>
+                    <div class="col-lg-6 col-12"><span id="jobs">Có <span id="num"></span> công ty tại Việt Nam</span></div>
+                    <div class="col-lg-6 col-12 sel">
+                        <select class="form-control w-50 float-right">
+                            <option selected disabled >Thành Phố</option>
+                            <option value="Ho Chi Minh">Hồ Chí Minh</option>
+                            <option value="Ha Noi">Hà Nội</option>
+                            <option value="Can Tho">Cần Thơ</option>
+                            <option value="Other">Khác</option>
+                          </select>
+                    </div>
                     <hr>
                 </div>
                 <hr>
@@ -291,7 +300,28 @@
         $('input[name="planets"]').amsifySuggestags({
             tagLimit: 4,
         });
-    });
+        $('#myDropdown ul li').click(()=>{
+                alert(1)
+        });
+        $('.sel select').change(function(){
+            var company = $(this).val();
+              $.ajax({
+                  type: 'GET',
+                  url: '/XulySearch/company',
+                  data: {
+                    name: company ,
+                  },
+                  success: function(data){
+                    if(data == ""){
+
+                    }else {
+                      $('#search-list').html(data);
+                    }
+                  }
+                })
+        })
+
+        });
         
     </script>
 <style>
