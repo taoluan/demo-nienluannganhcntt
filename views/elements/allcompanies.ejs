@@ -30,18 +30,20 @@
     </div>
     <div class="row" >
         <div class="col-lg-12 col-md-12" id="list-job">
-            <div class="container" id="search-list">
+            <div class="row">
+                <div class="col-lg-12 col-12 sel">
+                    <select class="form-control w-25 float-right" style="margin-right: 10px;">
+                        <option selected disabled >Thành Phố</option>
+                        <option value="Ho Chi Minh">Hồ Chí Minh</option>
+                        <option value="Ha Noi">Hà Nội</option>
+                        <option value="Can Tho">Cần Thơ</option>
+                        <option value="Other">Khác</option>
+                      </select>
+                </div>
+            </div>
+            <div class="container" id="search-list" style="margin-top: 0px;padding-top: 0px;">
                 <div class="row" id="showjob">
-                    <div class="col-lg-6 col-12"><span id="jobs">Có <span id="num"></span> công ty tại Việt Nam</span></div>
-                    <div class="col-lg-6 col-12 sel">
-                        <select class="form-control w-50 float-right">
-                            <option selected disabled >Thành Phố</option>
-                            <option value="Ho Chi Minh">Hồ Chí Minh</option>
-                            <option value="Ha Noi">Hà Nội</option>
-                            <option value="Can Tho">Cần Thơ</option>
-                            <option value="Other">Khác</option>
-                          </select>
-                    </div>
+                    <span id="jobs">Có <span id="num"></span> công ty tại Việt Nam</span>
                     <hr>
                 </div>
                 <hr>

@@ -213,6 +213,24 @@ router.get('/vieclam-theo-congty',function(req,res){
     })
   }
 })
+router.get('/profile',function(req,res){
+  if(req.session.user && req.session.pws){
+    res.render('./user/profile',{
+      title : 'Thông tin tài khoản'
+    })
+  }else{
+    res.redirect('/')
+  }
+})
+router.get('/ungtuyen',function(req,res){
+  if(req.session.user && req.session.pws){
+    res.render('./user/ungtuyen',{
+      title : 'Ứng tuyển công việc | Tào Luân'
+    })
+  }else{
+    res.redirect('/')
+  }
+})
 function loadjob(){
   return new Promise((resolve, reject) => {
     client.search({  
