@@ -13,23 +13,18 @@ var addCompany = new Schema({
     },
     address:{
         type: Array,
-        required:"",
     },
     Work:{
         type: String,
-        required:""
     },
     Member:{
         type: String,
-        required:""
     },
     Country:{
         type: String,
-        required:""
     },
     Workday:{
         type: String,
-        required:""
     },
     image:{
         logo : String,

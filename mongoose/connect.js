@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 const url = 'mongodb://localhost/Nienluannganh';
-mongoose.connect(url, {useNewUrlParser: true});
-var db = mongoose.connection;
+var db = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 var addcompany = require('../models/companymodel')
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open',function(){

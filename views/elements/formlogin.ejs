@@ -20,7 +20,7 @@
                         <h3 style="text-align:center">Đăng nhập</h3>
                         <p style="text-align: center; margin-top: 0px;">Đăng nhặp đễ khám phá và tìm được công việc tốt cho bạn</p>     
                         <div class="card-body">
-                            <form class="form-signin" action="/login/user" method="post">
+                            <form class="form-signin" action="/user/signin" method="post">
                               <div class="form-label-group">
                                 <input type="text" id="inputNameLogin" class="form-control" name="username" placeholder="Tên đăng nhập" required autofocus>
                                 <label for="inputNameLogin">Tên đăng nhập</label>
@@ -41,21 +41,21 @@
                   <h3 style="text-align:center">Đăng ký</h3>   
                   <p style="text-align: center; margin-top: 0px;">Đăng ký để tìm được những việc bạn mong muốn</p>
                   <div class="card-body">
-                      <form class="form-signin">
+                      <form class="form-signin" action="/user/signup" method="post">
                         <div class="form-label-group">
-                          <input type="text" id="inputFullName" class="form-control" placeholder="Họ tên" required autofocus>
+                          <input type="text"  id="inputFullName" class="form-control" name='name' placeholder="Họ tên" required autofocus>
                           <label for="inputFullName">Họ tên</label>
                         </div>
                         <div class="form-label-group">
-                          <input type="text" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                          <input type="text" id="inputEmail" class="form-control" name='email' placeholder="Email" required autofocus>
                           <label for="inputEmail">Email</label>
                         </div>
                         <div class="form-label-group">
-                          <input type="text" id="inputName" class="form-control" placeholder="Tên đăng nhập" required autofocus>
+                          <input type="text" id="inputName" class="form-control" name='username' placeholder="Tên đăng nhập" required autofocus>
                           <label for="inputName">Tên đăng nhập</label>
                         </div>
                         <div class="form-label-group">
-                          <input type="password" id="inputPw" class="form-control" placeholder="Mật khẩu" required>
+                          <input type="password"id="inputPw" class="form-control" name='password'  placeholder="Mật khẩu" required>
                           <label for="inputPw">Mật khẩu</label>
                         </div>
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
