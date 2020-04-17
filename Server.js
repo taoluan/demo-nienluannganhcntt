@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var session = require('express-session');
-
+var bodyParser = require('body-parser');
 //cau hinh ejs
 app.set('view engine','ejs');
 app.set('views','./views');
@@ -13,6 +13,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
+//
+app.use(bodyParser.urlencoded({ extended: false }))
 //cau hinh router
 app.use('/',require('./routes/Index'));
 app.use('/user',require('./routes/User'));
@@ -20,7 +22,7 @@ app.use('/admin',require('./routes/Admin'));
 app.use('/XulySearch',require('./routes/XulySearch'));
 app.use('/login',require('./routes/Login'));
 app.use('/logout',require('./routes/Logout'));
-//session
+app.use('/check',require('./routes/Check'));
 
 
 app.listen(3000,()=>{

@@ -41,20 +41,20 @@
                   <h3 style="text-align:center">Đăng ký</h3>   
                   <p style="text-align: center; margin-top: 0px;">Đăng ký để tìm được những việc bạn mong muốn</p>
                   <div class="card-body">
-                      <form class="form-signin" action="/user/signup" method="post">
+                      <form id='check_signup' class="form-signin"  action="/user/signup" method="post">
                         <div class="form-label-group">
                           <input type="text"  id="inputFullName" class="form-control" name='name' placeholder="Họ tên" required autofocus>
                           <label for="inputFullName">Họ tên</label>
                         </div>
-                        <div class="form-label-group">
+                        <div class="form-label-group" >
                           <input type="text" id="inputEmail" class="form-control" name='email' placeholder="Email" required autofocus>
                           <label for="inputEmail">Email</label>
                         </div>
-                        <div class="form-label-group">
+                        <div class="form-label-group" id="check">
                           <input type="text" id="inputName" class="form-control" name='username' placeholder="Tên đăng nhập" required autofocus>
                           <label for="inputName">Tên đăng nhập</label>
                         </div>
-                        <div class="form-label-group">
+                        <div class="form-label-group" >
                           <input type="password"id="inputPw" class="form-control" name='password'  placeholder="Mật khẩu" required>
                           <label for="inputPw">Mật khẩu</label>
                         </div>
@@ -68,3 +68,22 @@
       </div>
     </div>
 </div>
+<script>
+    $('#check_signup').submit(async function(event){
+      let val = $("#check input[name='username']").val();
+      $.ajax({
+        url: '/check/signup',
+        method: 'post',
+        data :{name: val},
+        success:function(data){
+            if(data === '0'){
+              console.log(0);
+              $('#check_signup').submit();
+            }else{
+              $('#check').css({'border': '2px solid #dc3545','border-radius':'40px'})
+            }
+        }
+      })
+      event.preventDefault();
+    })
+</script>

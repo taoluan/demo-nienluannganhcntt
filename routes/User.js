@@ -3,25 +3,31 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const url = 'mongodb://localhost/Nienluannganh';
-const conn = mongoose.connect(url, {useNewUrlParser: true})
+mongoose.connect(url,{useNewUrlParser: true ,useUnifiedTopology: true })
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const addUser = require('../models/adduser')
-router.post('/signup',urlencodedParser,async function(req,res){
+router.post('/signup',urlencodedParser,function(req,res){
   try {
-  const conn = mongoose.connect(url, {useNewUrlParser: true})
-  let user = req.body.username;
-  let pws  = req.body.password;
-  let email = req.body.email;
-  let name = req.body.name;
-    conn
-  let newUser = await new addUser({
-    _id: new mongoose.Types.ObjectId(),
-    username :user,
-    password : pws,
-    email : email,
-    name : name,
+  mongoose.connect(url,async function(err){
+    if (err) throw err;
+    console.log('Successfully connected');
+    let user = req.body.username;
+    let pws  = req.body.password;
+    let email = req.body.email;
+    let name = req.body.name;
+    let newUser = await new addUser({
+      _id: new mongoose.Types.ObjectId(),
+      username :user,
+      password : pws,
+      email : email,
+      name : name,
+    });
+    newUser.save(function(err){
+      if (err) throw err;
+      console.log('newUser successfully saved.');
+      res.redirect('/')
+    })
   })
-  newUser.save();
   } catch (er) {
       console.log(er)
   }
