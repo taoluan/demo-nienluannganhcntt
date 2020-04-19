@@ -61,7 +61,7 @@
                           <input type="password"id="inputPw" class="form-control" name='password'  placeholder="Mật khẩu" required>
                           <label for="inputPw">Mật khẩu</label>
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
+                        <button id='checkbt' class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
                       </form>
                 </div>
                 </div>
@@ -72,24 +72,24 @@
     </div>
 </div>
  <!-- The Modal -->
- <div class="modal fade" id="myModal_sigin">
+ <div class="modal" id="myModal_sigin">
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title text-center">Đăng ký thành công</h4>
+      <div class="modal-header ">
+        <h4 class="modal-title d-flex justify-content-center">Đăng ký thành công</h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       
       <!-- Modal body -->
-      <div class="modal-body">
+      <div class="modal-body text-center">
         Chúc mừng bạn đã đăng ký thành công !!! <br>
         Hãy đăng nhập đễ tìm được công việc phù hớp với bạn.
       </div>
       
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <div class="modal-footer d-flex justify-content-center">
+        <button id='oksubmit' type="button" class="btn btn-primary text-center w-50" data-dismiss="modal">Ok</button>
       </div>
       
     </div>
@@ -103,16 +103,22 @@
         url: '/check/signup',
         method: 'post',
         data :{name: val},
-        success:function(data){
+        success: function(data){
             if(data == 0){
-              $('#check_signup').submit();
               $("#myModal_sigin").modal();
+              $("#myModal").modal('hide');
             }else{
                $('#inputName').addClass('border border-danger');
                $('#return').css('display','block');
                $('#return').html('Tên đăng nhập đã tồn tại')
             }
         }
+      })
+      $('#myModal_sigin').on('show.bs.modal', function() {
+        $('#oksubmit').click(function(){
+          $('#check_signup').submit().load();
+        
+        })
       })
   })
 </script>
