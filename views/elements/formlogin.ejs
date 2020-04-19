@@ -13,7 +13,6 @@
                   <a class="nav-link" href="#dangky">Đăng ký</a>
                 </li>
               </ul>
-            
               <!-- Tab panes -->
               <div class="tab-content" style="background-color: white;">
                 <div id="dangnhap" class="container tab-pane active"><br>
@@ -50,10 +49,14 @@
                           <input type="text" id="inputEmail" class="form-control" name='email' placeholder="Email" required autofocus>
                           <label for="inputEmail">Email</label>
                         </div>
-                        <div class="form-label-group" id="check">
+                        <div id="check" class="form-label-group" >
                           <input type="text" id="inputName" class="form-control" name='username' placeholder="Tên đăng nhập" required autofocus>
                           <label for="inputName">Tên đăng nhập</label>
+                          <div class=' text-center' style="margin:auto">
+                            <small id='return' style="display:none ;color: red;"></small>
+                          </div>
                         </div>
+                     
                         <div class="form-label-group" >
                           <input type="password"id="inputPw" class="form-control" name='password'  placeholder="Mật khẩu" required>
                           <label for="inputPw">Mật khẩu</label>
@@ -68,22 +71,48 @@
       </div>
     </div>
 </div>
+ <!-- The Modal -->
+ <div class="modal fade" id="myModal_sigin">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Đăng ký thành công</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        Chúc mừng bạn đã đăng ký thành công !!! <br>
+        Hãy đăng nhập đễ tìm được công việc phù hớp với bạn.
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
 <script>
-    $('#check_signup').submit(async function(event){
+    $('#check_signup').submit(function(event){
       let val = $("#check input[name='username']").val();
+      event.preventDefault();
       $.ajax({
         url: '/check/signup',
         method: 'post',
         data :{name: val},
         success:function(data){
-            if(data === '0'){
-              console.log(0);
+            if(data == 0){
               $('#check_signup').submit();
+              $("#myModal_sigin").modal();
             }else{
-              $('#check').css({'border': '2px solid #dc3545','border-radius':'40px'})
+               $('#inputName').addClass('border border-danger');
+               $('#return').css('display','block');
+               $('#return').html('Tên đăng nhập đã tồn tại')
             }
         }
       })
-      event.preventDefault();
-    })
+  })
 </script>
