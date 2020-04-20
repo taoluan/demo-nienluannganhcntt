@@ -4,13 +4,13 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const url = 'mongodb://localhost/Nienluannganh';
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-const User = require('../models/adduser')
+const User = require('../models/User')
 router.post('/signup',urlencodedParser,function(req,res){
     let checkusn = req.body.name;
     mongoose.connect(url,async function(err){
         if (err) throw err;
         const userFind = await User.findOne({username: checkusn});
-        if(userFind === null){
+        if (userFind === undefined || userFind.length == 0) {
             res.send('0')
         }else res.send('1')
     })

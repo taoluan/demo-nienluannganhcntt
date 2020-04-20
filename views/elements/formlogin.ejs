@@ -19,7 +19,7 @@
                         <h3 style="text-align:center">Đăng nhập</h3>
                         <p style="text-align: center; margin-top: 0px;">Đăng nhặp đễ khám phá và tìm được công việc tốt cho bạn</p>     
                         <div class="card-body">
-                            <form class="form-signin" action="/user/signin" method="post">
+                            <form id='check_signin' class="form-signin" action="/user/signin" method="post">
                               <div class="form-label-group">
                                 <input type="text" id="inputNameLogin" class="form-control" name="username" placeholder="Tên đăng nhập" required autofocus>
                                 <label for="inputNameLogin">Tên đăng nhập</label>
@@ -89,7 +89,7 @@
       
       <!-- Modal footer -->
       <div class="modal-footer d-flex justify-content-center">
-        <button id='oksubmit' type="button" class="btn btn-primary text-center w-50" data-dismiss="modal">Ok</button>
+        <button id='oksubmit' type="button" class="btn btn-primary text-center w-50" data-dismiss="modal">Hoàn tất</button>
       </div>
       
     </div>
@@ -121,4 +121,22 @@
         })
       })
   })
+   /* $('#check_signin').submit(function(){
+      let usn =  $('#check_signin input[name="username"]').val();
+      let pws =  $('#check_signin input[name="password"]').val();
+      event.preventDefault();
+      $.ajax({
+        url: '/user/signin',
+        method: 'post',
+        data :{username: usn , password: pws},
+        success: function(data){
+            if(data == 0){
+              alert('Tài khoản hoặc mặt khẩu không đúng')
+              $('#check_signin').submit()
+            }else{
+              $('#check_signin').submit()
+            }
+        }
+      })
+    })*/
 </script>
