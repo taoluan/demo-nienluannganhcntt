@@ -22,12 +22,13 @@ exports.checklogin_user = function (req,res){
 }
 exports.editprofile_user = async function(req,res){
     let form = new formidable.IncomingForm();
-    form.uploadDir="public/image/"
+    form.uploadDir="public/image/cv/"
     let fullname = req.body.fullname;
     let email = req.body.email;
     let address = req.body.address;
     let upcv = req.body.upcv;
     let upavt = req.body.upavt;
+    console.log(fullname)
     form.parse(req, function (err, fields, file) {
         //path tmp trên server
         var path = file.upcv.path;
@@ -36,6 +37,10 @@ exports.editprofile_user = async function(req,res){
         fs.rename(path, newpath, function (err) {
             if (err) throw err;
             console.log('Upload Thanh cong!');
+        });
+        fs.rename(file.upavt.path,"public/image/"+file.upavt.name, function (err) {
+            if (err) throw err;
+            console.log('Upload avt Thanh cong!');
         });
     });
 }

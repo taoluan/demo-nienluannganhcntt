@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-        <link rel="stylesheet" type="text/css" href="../public/css/formlogin.css">
+        <link rel="stylesheet" type="text/css" href="../public/css/profile.css">
         <link href="../public/css/bootstrap.min.css" rel="stylesheet">
         <link href="../public/css/agency.min.css" rel="stylesheet">
         <link href="../public/css/amsify.suggestags.css" rel="stylesheet">
         <link href="../public/css/formsearch.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../public/css/bootstrap_file_field.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
@@ -26,11 +27,16 @@
                                 <% if(upavt === ''){ %>
                                     <img id='avt' src="../../public/image/avt-defaut.png" class="card-img-top" alt="..." style="border-radius: 50%;">
                                <% }else { %>
-                                <img id='avt' src="<%= upavt %>" class="card-img-top" alt="..." style="border-radius: 50%;">
+                                <img id='avt' src="<%= upavt %>" class="card-img-top" height="100" width="100" alt="..." style="border-radius: 50%;">
                                 <% } %>
                                 <div class="col-lg-12" style="margin-top: 20px;">
-                                    <input type="file" class="custom-file-input" id="customFile" name='upavt'>
-                                    <label class="custom-file-label" for="customFile">Upload Avatar</label>
+                                    <input type="file" name="upavt" class="checkup"  
+                                    data-field-type="bootstrap-file-filed"  
+                                    data-label="Select Image Files"  
+                                    data-btn-class="btn-primary"  
+                                    data-file-types="image/jpeg,image/png,image/gif"  
+                                    data-preview="on"  
+                                    multiple >
                                 </div>
                             </div>
                     </div>
@@ -55,7 +61,7 @@
                           <div class="form-group">
                             <label for="inputAddress2">Upload CV</label>
                             <div class="custom-file ">
-                                <input type="file" value="<%= upcv %>" class="custom-file-input" name="upcv" id="inputGroupFile01">
+                                <input type="file" value="<%= upcv %>" class="custom-file-input" name="upcv" id="inputGroupFile01" accept=".doc, .docx, .pdf">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file .doc, .docx, .pdf</label>
                               </div>
                           </div>
@@ -67,18 +73,20 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="../public/js/bootstrap_file_field.js"></script>
 <script src="../public/js/jquery.min.js"></script>
 <script src="../public/js/bootstrap.bundle.min.js"></script>
 <script src="../public/js/agency.min.js"></script>
 <script src="../public/js/forms.js"></script>
 <script type="text/javascript" src="../public/js/jquery.amsify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
 <script>
-    $('#inputGroupFile01').change(function(){
-        $('#avt').attr("src","")
-       $('#avt').attr("src",$('#inputGroupFile01').val())
-        alert( )
-    })
+    $(".custom-file-input").on("change", function() {
+         var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    
 </script>
 <style>
     body{
