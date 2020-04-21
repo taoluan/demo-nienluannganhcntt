@@ -21,37 +21,41 @@
                     <h3 class="font text-title">Thông tin cá nhân</h3> 
                 <div class="row" style="margin-bottom: 10px;">
                     <div class='col-lg-3 col-3'>
-                        <form>
+                        <form enctype="multipart/form-data" action="/user/editprofile" method="post" >
                             <div class="card" style="width: 14rem;border: none;">
-                                <img src="../../public/image/logo-grab.jpg" class="card-img-top" alt="..." style="border-radius: 50%;">
+                                <% if(upavt === ''){ %>
+                                    <img id='avt' src="../../public/image/avt-defaut.png" class="card-img-top" alt="..." style="border-radius: 50%;">
+                               <% }else { %>
+                                <img id='avt' src="<%= upavt %>" class="card-img-top" alt="..." style="border-radius: 50%;">
+                                <% } %>
                                 <div class="col-lg-12" style="margin-top: 20px;">
-                                    <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                    <input type="file" class="custom-file-input" id="customFile" name='upavt'>
                                     <label class="custom-file-label" for="customFile">Upload Avatar</label>
                                 </div>
                             </div>
                     </div>
                     <div class='col-lg-8'>
-                        <h4>Chào Tào Luân !</h4>
+                        <h4>Chào <%= nameuser %> !</h4>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="inputEmail4">Email</label>
-                              <input disabled type="email" class="form-control" id="inputEmail4" placeholder="tvanluanst@gmail.com">
+                              <input type="email" class="form-control" id="inputEmail4" value="<%= email %>" name="email" placeholder="tvanluanst@gmail.com">
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Họ Tên</label>
-                                <input type="text" class="form-control" id="inputPassword4" placeholder="Họ Tên">
+                                <input type="text" class="form-control" id="inputPassword4" value="<%= fullname %>" name="fullname" placeholder="Họ Tên">
                             </div>
                           </div>
                           <div class="form-group">
                             <label for="inputAddress">Địa chỉ</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="Phường/Xã - Huyện/Tỉnh - Thành Phố">
+                            <input type="text" class="form-control" value="<%= address %>" id="inputAddress" name="address" placeholder="Phường/Xã - Huyện/Tỉnh - Thành Phố">
                           </div>
                           <div class="form-group">
                             <label for="inputAddress2">Upload CV</label>
                             <div class="custom-file ">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <input type="file" value="<%= upcv %>" class="custom-file-input" name="upcv" id="inputGroupFile01">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file .doc, .docx, .pdf</label>
                               </div>
                           </div>
@@ -69,6 +73,13 @@
 <script src="../public/js/forms.js"></script>
 <script type="text/javascript" src="../public/js/jquery.amsify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script>
+    $('#inputGroupFile01').change(function(){
+        $('#avt').attr("src","")
+       $('#avt').attr("src",$('#inputGroupFile01').val())
+        alert( )
+    })
+</script>
 <style>
     body{
         background-color: whitesmoke;

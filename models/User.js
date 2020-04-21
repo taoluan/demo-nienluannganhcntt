@@ -6,8 +6,19 @@ var addUserSchema = new Schema ({
     username :String,
     password:String,
     email: String,
-    name: String,
-    upCV: String,
-    upAvt:String
+    fullname: String,
+    address: {
+        type : String,
+        default : ''
+    },
+    upCV: {
+        type : String,
+        default : ''
+    },
+    upAvt:{
+        type : String,
+        default : ''
+    },
+
 })
 module.exports = mongoose.model('user',addUserSchema)

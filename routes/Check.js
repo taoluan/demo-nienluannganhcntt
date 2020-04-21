@@ -8,11 +8,16 @@ const User = require('../models/User')
 router.post('/signup',urlencodedParser,function(req,res){
     let checkusn = req.body.name;
     mongoose.connect(url,async function(err){
-        if (err) throw err;
-        const userFind = await User.findOne({username: checkusn});
-        if (userFind === undefined || userFind.length == 0) {
-            res.send('0')
-        }else res.send('1')
+        try {
+            if (err) throw err;
+            const userFind = await User.findOne({username: checkusn});
+            if (userFind === undefined || userFind === null) {
+                res.send('0')
+            }else res.send('1')  
+        } catch (error) {
+            console.log(error)
+        }
+        
     })
 })
 module.exports = router;

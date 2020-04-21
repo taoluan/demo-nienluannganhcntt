@@ -17,10 +17,10 @@ router.post('/signup',urlencodedParser,function(req,res){
     let name = req.body.name;
     let newUser = await new addUser({
       _id: new mongoose.Types.ObjectId(),
-      username :user,
-      password : pws,
-      email : email,
-      name : name,
+      username:user,
+      password:pws,
+      email:email,
+      fullname:name,
     });
     newUser.save(function(err){
       if (err) throw err;
@@ -41,4 +41,5 @@ router.post('/signin',urlencodedParser,user_controler.checklogin_user)
     //  req.session.pws = pws
     //  res.redirect('/')
   //}
+router.post('/editprofile',urlencodedParser,user_controler.editprofile_user)
 module.exports = router;

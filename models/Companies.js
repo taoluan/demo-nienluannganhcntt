@@ -4,6 +4,7 @@ var CompanySchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     email:String,
+    pws: String,
     address: {
         city : String,
         Country: String

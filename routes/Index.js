@@ -2,9 +2,10 @@ const express =  require('express');
 const router = express.Router();
 const client = require('../elasticsearch/connection.js');
 const url = require('url');
+var formidable = require('formidable');
 router.get('/',function(req,res){
-  if(req.session.user && req.session.pws){
-    res.render('./user/user',{ title: 'Chào mừng đến với VietJob', name: req.session.user}) 
+  if(req.session.usid && req.session.usname){
+    res.render('./user/user',{ title: 'Chào mừng đến với VietJob',  nameuser : req.session.usname}) 
   }else res.render('index', { title: 'VietJob'});
 })
 router.get('/vieclamit',async function(req,res){
@@ -16,7 +17,7 @@ router.get('/vieclamit',async function(req,res){
     let results = await loadjob();
     let result = results.hits;
     let numlist = results.total.value;
-    if(req.session.user && req.session.pws){
+    if(req.session.usid && req.session.usname){
         res.render('./user/vieclamit', {
         title: 'Việc làm IT',
         dsjob: result.slice(start,end) ,
@@ -24,7 +25,8 @@ router.get('/vieclamit',async function(req,res){
         where: '',
         num: numlist,
         pages: Math.ceil(numlist / perPage),
-        current: page
+        current: page,
+        nameuser : req.session.usname
       });
     }else res.render('vieclamit', {
       title: 'Việc làm IT',
@@ -54,7 +56,7 @@ router.get('/vieclamit/search',async function(req,res){
       const searchall = await SearchAll(planets);
       const results = searchall.hits;
       const numlist = searchall.total.value;
-    if(req.session.user && req.session.pws){
+    if(req.session.usid && req.session.usname){
       res.render('./user/vieclamit', {
         title: 'Việc làm IT',
         dsjob: results.slice(start,end) ,
@@ -62,7 +64,8 @@ router.get('/vieclamit/search',async function(req,res){
         where: '',
         num: numlist,
         pages: Math.ceil(numlist / perPage),
-        current: page
+        current: page,
+        nameuser : req.session.usname
       })
     }else{
       res.render('vieclamit', {
@@ -79,7 +82,7 @@ router.get('/vieclamit/search',async function(req,res){
         const searchorthers =  await SearchOrthers(planets);
         results = searchorthers.hits;
         numlist = searchorthers.total.value;
-        if(req.session.user && req.session.pws){
+        if(req.session.usid && req.session.usname){
           res.render('./user/vieclamit', {
             title: 'Việc làm IT',
             dsjob: results.slice(start,end) ,
@@ -87,7 +90,8 @@ router.get('/vieclamit/search',async function(req,res){
             where: '',
             num: numlist,
             pages: Math.ceil(numlist / perPage),
-            current: page
+            current: page,
+            nameuser : req.session.usname
           })
         }else{
           res.render('vieclamit', {
@@ -104,7 +108,7 @@ router.get('/vieclamit/search',async function(req,res){
         const search = await Search(planets,city)
         results = search.hits;
         numlist = search.total.value;
-        if(req.session.user && req.session.pws){
+        if(req.session.usid && req.session.usname){
           res.render('./user/vieclamit', {
             title: 'Việc làm IT',
             dsjob: results.slice(start,end) ,
@@ -112,7 +116,8 @@ router.get('/vieclamit/search',async function(req,res){
             namejob: planets,
             where: 'tại '+city,
             pages: Math.ceil(numlist / perPage),
-            current: page
+            current: page,
+            nameuser : req.session.usname
           });
         }else{
           res.render('vieclamit', {
@@ -133,9 +138,10 @@ router.get('/vieclamit/search',async function(req,res){
 router.get('/vieclamit/:val1&:val2',function(req,res){
   const name_job =req.params.val1;
   const id_job=req.params.val2;
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/us_job',{
-      title: name_job
+      title: name_job,
+      nameuser : req.session.usname
      })
   }else{ 
     res.render('job',{
@@ -146,9 +152,10 @@ router.get('/vieclamit/:val1&:val2',function(req,res){
 })
 router.get('/companies/:val1',function(req,res){
   const name_company =req.params.val1;
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/companies',{
-      title: name_company
+      title: name_company,
+      nameuser : req.session.usname
       })
   }else{
     res.render('companies',{
@@ -158,9 +165,10 @@ router.get('/companies/:val1',function(req,res){
   
 })
 router.get('/companies',function(req,res){
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/us_allcompanies',{
-      title: "Tất cả công ty"
+      title: "Tất cả công ty",
+      nameuser : req.session.usname
       })
   }else{
      res.render('allcompanies',{
@@ -170,9 +178,10 @@ router.get('/companies',function(req,res){
  
 })
 router.get('/top-companies/',function(req,res){
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/us_topcompanies',{
-      title: "Những công ty hàng đầu"
+      title: "Những công ty hàng đầu",
+      nameuser : req.session.usname
     })
   }else{
     res.render('topcompanies',{
@@ -181,9 +190,10 @@ router.get('/top-companies/',function(req,res){
   }
 })
 router.get('/vieclam-theo-kynang',function(req,res){
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/dsvl-kynang',{
-      title : 'Việc làm theo kỹ năng'
+      title : 'Việc làm theo kỹ năng',
+      nameuser : req.session.usname
     })
   }else{
     res.render('./elements/dsvl-kynang',{
@@ -192,9 +202,10 @@ router.get('/vieclam-theo-kynang',function(req,res){
   }
 })
 router.get('/vieclam-theo-ten',function(req,res){
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/dsvl-ten',{
-      title : 'Việc làm theo ten'
+      title : 'Việc làm theo ten',
+      nameuser : req.session.usname
     })
   }else{
     res.render('./elements/dsvl-ten',{
@@ -203,9 +214,10 @@ router.get('/vieclam-theo-ten',function(req,res){
   }
 })
 router.get('/vieclam-theo-congty',function(req,res){
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/dsvl-congty',{
-      title : 'Việc làm theo công ty'
+      title : 'Việc làm theo công ty',
+      nameuser : req.session.usname
     })
   }else{
     res.render('./elements/dsvl-congty',{
@@ -213,19 +225,33 @@ router.get('/vieclam-theo-congty',function(req,res){
     })
   }
 })
-router.get('/profile',function(req,res){
-  if(req.session.user && req.session.pws){
-    res.render('./user/profile',{
-      title : 'Thông tin tài khoản'
-    })
+router.get('/profile',async function(req,res){
+  if(req.session.usid && req.session.usname){
+    try {
+    let loadprofile = require('../models_function/loadprofile');
+    let getpro = await loadprofile.profile(req.session.usid);
+      res.render('./user/profile',{
+        title : 'Thông tin tài khoản',
+        nameuser : req.session.usname,
+        email : getpro.email,
+        fullname : getpro.fullname,
+        address: getpro.address,
+        upcv: getpro.upCV,
+        upavt: getpro.upAvt
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    
   }else{
     res.redirect('/')
   }
 })
 router.get('/ungtuyen',function(req,res){
-  if(req.session.user && req.session.pws){
+  if(req.session.usid && req.session.usname){
     res.render('./user/ungtuyen',{
-      title : 'Ứng tuyển công việc | Tào Luân'
+      title : 'Ứng tuyển công việc | '+req.session.usname,
+      nameuser : req.session.usname
     })
   }else{
     res.redirect('/')
@@ -357,4 +383,5 @@ function Search(planets,city){
     });
   })
 }
+
 module.exports = router;
