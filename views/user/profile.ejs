@@ -22,22 +22,34 @@
                     <h3 class="font text-title">Thông tin cá nhân</h3> 
                 <div class="row" style="margin-bottom: 10px;">
                     <div class='col-lg-3 col-3'>
-                        <form enctype="multipart/form-data" action="/user/editprofile" method="post" >
+                        <form  action="/user/editprofile" method="post" enctype="multipart/form-data">
                             <div class="card" style="width: 14rem;border: none;">
                                 <% if(upavt === ''){ %>
-                                    <img id='avt' src="../../public/image/avt-defaut.png" class="card-img-top" alt="..." style="border-radius: 50%;">
-                               <% }else { %>
-                                <img id='avt' src="<%= upavt %>" class="card-img-top" height="100" width="100" alt="..." style="border-radius: 50%;">
-                                <% } %>
+                                    <img id='avt' src="../../public/image/avt-defaut.png" height="200" width="200" class="card-img-top" alt="..." style="border-radius: 50%;">
+                                    <div class="col-lg-12" style="margin-top: 20px;">
+                                        <input type="file" name="upavt" class="checkup"  
+                                        data-field-type="bootstrap-file-filed"  
+                                        data-label="Select Image Files"  
+                                        data-btn-class="btn-primary"  
+                                        data-file-types="image/jpeg,image/png,image/gif"  
+                                        data-preview="on"
+                                        value="<%= upavt %>"
+                                        multiple >
+                                    </div>
+                                <% }else { %>
+                                <img id='avt' src="<%= upavt %>" class="card-img-top" height="200" width="200" alt="..." style="border-radius: 50%;">
                                 <div class="col-lg-12" style="margin-top: 20px;">
                                     <input type="file" name="upavt" class="checkup"  
                                     data-field-type="bootstrap-file-filed"  
                                     data-label="Select Image Files"  
                                     data-btn-class="btn-primary"  
                                     data-file-types="image/jpeg,image/png,image/gif"  
-                                    data-preview="on"  
+                                    data-preview="on"
+                                    value="<%= upavt %>"
                                     multiple >
                                 </div>
+                                <% } %>
+                                
                             </div>
                     </div>
                     <div class='col-lg-8'>
@@ -61,8 +73,14 @@
                           <div class="form-group">
                             <label for="inputAddress2">Upload CV</label>
                             <div class="custom-file ">
-                                <input type="file" value="<%= upcv %>" class="custom-file-input" name="upcv" id="inputGroupFile01" accept=".doc, .docx, .pdf">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file .doc, .docx, .pdf</label>
+                                <% if( upcv === ''){ %>
+                                    <input type="file" class="custom-file-input" name="upcv" id="inputGroupFile01" accept=".doc, .docx, .pdf" value="<%= upcv %>">
+                                   <label class="custom-file-label" for="inputGroupFile01">Choose file .doc, .docx, .pdf</label> 
+                                <% }else { %>
+                                    <input type="file" value="<%= upcv %>" class="custom-file-input" name="upcv" id="inputGroupFile01" accept=".doc, .docx, .pdf">
+                                    <label class="custom-file-label" for="inputGroupFile01"><%= upcv %></label>
+                                <%} %>
+                                
                               </div>
                           </div>
                           <button type="submit" class="btn btn-primary w-50">Lưu</button>

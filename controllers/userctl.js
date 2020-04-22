@@ -20,27 +20,35 @@ exports.checklogin_user = function (req,res){
            
     }
 }
-exports.editprofile_user = async function(req,res){
+exports.editprofile_user =  function(req,res){
     let form = new formidable.IncomingForm();
     form.uploadDir="public/image/cv/"
-    let fullname = req.body.fullname;
-    let email = req.body.email;
-    let address = req.body.address;
-    let upcv = req.body.upcv;
-    let upavt = req.body.upavt;
-    console.log(fullname)
     form.parse(req, function (err, fields, file) {
-        //path tmp trên server
-        var path = file.upcv.path;
-        //thiết lập path mới cho file
-        var newpath = form.uploadDir + file.upcv.name;
-        fs.rename(path, newpath, function (err) {
-            if (err) throw err;
-            console.log('Upload Thanh cong!');
-        });
-        fs.rename(file.upavt.path,"public/image/"+file.upavt.name, function (err) {
-            if (err) throw err;
-            console.log('Upload avt Thanh cong!');
-        });
+        if(err) throw err;
+        let email = fields.email;
+        let fullname = fields.fullname;
+        let address = fields.address;
+        let upcv = file.upcv.name;
+        let upavt = file.upavt.name;
+        mongoose.connect(url,async function(err){
+            await User.findByIdAndUpdate({_id:req.session.usid},{$set: {fullname:fullname, address:address, email:email}},{new: true})
+        if(upcv != ''){
+            var newpath = form.uploadDir + upcv; 
+            var path = file.upcv.path;
+            await User.findByIdAndUpdate({_id:req.session.usid},{$set: {upCV:form.uploadDir+upcv}},{new: true})
+            fs.rename(path, newpath, function (err) {
+                if (err) throw err;
+            });
+        }
+        if(upavt != ''){
+            var path_avt = file.upavt.path;
+            var newpath_avt = "public/image/"+upavt;
+            await User.findByIdAndUpdate({_id:req.session.usid},{$set: {upAvt:"public/image/"+upavt}},{new: true})
+            fs.rename(path_avt,newpath_avt, function (err) {
+                if (err) throw err;
+            });
+        }
+    })
     });
+    return res.redirect('back');
 }
