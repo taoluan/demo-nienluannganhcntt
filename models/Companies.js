@@ -6,6 +6,7 @@ var CompanySchema = new Schema({
     email:String,
     pws: String,
     address: {
+        link : String,
         city : String,
         Country: String
     },

@@ -7,8 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../../public/css/registrationad.css">
     <link rel="stylesheet" type="text/css" href="../../public/css/formlogin.css">
     <link href="../../public/css/agency.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -21,76 +20,62 @@
                     <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                     <h3>Welcome to Viec-JOB</h3>
                     <p>Trở thành nhà tuyển dụng tốt nhất</p>
-                    <input class="sm-login" type="submit" name="" value="Đăng Ký"/><br/>
+                    <input class="sm-login" type="submit" name="" value="Đăng nhập"/><br/>
                 </div>
                 <div class="col-md-9 register-right">
-                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Bước 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Bước 2</a>
-                        </li>
-                    </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <h3 class="register-heading">Trở thành nhà tuyển dụng</h3>
-                            <div class="row register-form">
-                                <div class="col-md-6">
-                                    <form>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Company Name " value="" required/>
+                            <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Trở thành nhà tuyển dụng</h3>
+                                <form action="/admin/signup" method="post" class="needs-validation" novalidate>
+                                    <div class="row register-form">
+                                        <div class="col-md-6">                       
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name='namecpn' placeholder="Company Name "  required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name='link' placeholder="Company Website "  required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name='title' placeholder="Your title "  required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name='member'  placeholder="How many employees ?" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="country" placeholder="Your Country" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone " value="" required/>
+                                            </div>
+                                            <div class="form-group ">
+                                            <input type="text" class="form-control" name='address'  placeholder="Your Address " required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="custom-select browser-default" required>
+                                                    <option value="" class="hidden"  selected disabled>Your Work</option>
+                                                    <option value="Product">Product</option>
+                                                    <option value="Outsourcing">Outsourcing</option>
+                                                </select>
+                                            </div>  
+                                        </div>
+                                        <div class="form-group col-md-12 d-flex justify-content-center">
+                                            <input type="text" class="form-control w-50" placeholder="Email "required/>
+                                        </div>
+                                        <div class="form-group col-md-12 d-flex justify-content-center">
+                                            <input type="password" class="form-control w-50" placeholder="Password *"  required/>
+                                        </div>
+                                        <div class="form-group col-md-12 d-flex justify-content-center">
+                                            <input type="password" class="form-control w-50" placeholder="Confirm Password *" required/>
+                                        </div>
+                                        <div class=" col-md-12 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-primary w-50">Đăng ký</button> 
+                                        </div>
+                                          
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Company Website " value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Your title " value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control"  placeholder="How many employees ?" value="" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Your Country" value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Address " value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Your Phone " value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option class="hidden"  selected disabled>Your Work</option>
-                                            <option>Product</option>
-                                            <option>Outsourcing</option>
-                                        </select>
-                                    </div>  
-                                </div>             
+                                </form> 
                             </div>
-                        </div>
-                        <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <h3  class="register-heading">Bạn sẽ là nhà tuyển dụng</h3>
-                            <div class="row register-form">
-                                    <div class="col-md-3"></div>
-                                     <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Email " value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password *" value="" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Confirm Password *" value="" required/>
-                                    </div>
-                                        <input type="submit" class="btnfinal"  value="Đăng ký"/>
-                                    </div>
-                                    <div class="col-md-3"></div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
         </div>
@@ -103,6 +88,23 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../../public/js/forms.js"></script>
     <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Get the forms we want to add validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+                });
+            }, false);
+            })();
         $(document).ready(function(){
             $('.login').hide();
             $('.sm-login').click(function(){
@@ -119,6 +121,14 @@
             $(".nav-tabs a").click(function(){
                 $(this).tab('show');
             });
+            $('.check').click(function(){
+                $('#profile').addClass('active');
+                $('#home').removeClass('active');
+            })
+            $('.back').click(function(){
+                $('#home').addClass('active');
+                $('#profile').removeClass('active');
+            })
         })
     </script>
 </html>
