@@ -24,7 +24,6 @@ router.post('/signup',urlencodedParser,function(req,res){
 router.post('/signupadmin',urlencodedParser,function(req,res){
     let checkemail = req.body.email;
     let checkname = req.body.name;
-    console.log(checkemail,checkname)
     mongoose.connect(url,async function(err){
         try {
             if (err) throw err;
@@ -34,7 +33,7 @@ router.post('/signupadmin',urlencodedParser,function(req,res){
               res.send('true');
             }else{res.send('false');} 
         } catch (error) {
-            console.log(error)
+            console.log(error+"err ")
         }
         
     })
