@@ -7,7 +7,9 @@
     <link rel="stylesheet" type="text/css" href="../../public/css/registrationad.css">
     <link rel="stylesheet" type="text/css" href="../../public/css/formlogin.css">
     <link href="../../public/css/agency.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap_file_field.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
     <div class="container-fluid">
@@ -22,52 +24,87 @@
                     <p>Trở thành nhà tuyển dụng tốt nhất</p>
                     <input class="sm-login" type="submit" name="" value="Đăng nhập"/><br/>
                 </div>
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Thêm công việc</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="recipient-name"  class="col-form-label">Tên công việc:</label>
+                                <input type="text" class="form-control" id="addname">
+                              </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary save">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <div class="col-md-9 register-right">
                     <div class="tab-content" id="myTabContent">
                             <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <h3 class="register-heading">Trở thành nhà tuyển dụng</h3>
-                                <form action="/admin/signup" method="post" class="needs-validation" novalidate>
+                                <form enctype="multipart/form-data" action="/admin/signup" method="post" id='f_siginad' class="needs-validation" novalidate>
                                     <div class="row register-form">
                                         <div class="col-md-6">                       
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name='namecpn' placeholder="Company Name "  required/>
+                                                <input type="text" class="form-control" name='namecpn' placeholder="Tên nhà tuyển dụng "  required/>
+                                                <div class="feedback"></div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name='link' placeholder="Company Website "  required/>
+                                                <input type="text" class="form-control" name='link' placeholder="Website của NTD"  required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name='title' placeholder="Your title "  required/>
+                                                <input type="text" class="form-control" name='title' placeholder="Title của NTD"  required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name='member'  placeholder="How many employees ?" required/>
+                                                <input type="text" class="form-control" name='address'  placeholder="Địa chỉ hiện tại" required/>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="country" placeholder="Your Country" required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone " value="" required/>
+                                                <input type="text" class="form-control" name="country" placeholder="Thuộc quốc gia nào ?" required/>
                                             </div>
                                             <div class="form-group ">
-                                            <input type="text" class="form-control" name='address'  placeholder="Your Address " required/>
+                                            <input type="text" class="form-control" name='city'  placeholder="Thuộc thành phố nào ?" required/>
                                             </div>
                                             <div class="form-group">
-                                                <select class="custom-select browser-default" required>
-                                                    <option value="" class="hidden"  selected disabled>Your Work</option>
+                                                <select id='sel'name='work' class="custom-select browser-default " style="width:350px" required>
+                                                    <option value="" class="hidden"  selected disabled>Công việc</option>
                                                     <option value="Product">Product</option>
                                                     <option value="Outsourcing">Outsourcing</option>
                                                 </select>
-                                            </div>  
+                                                <button type="button" class="btn btn-primary" style="margin-left: 4px;" data-toggle="modal" data-target="#exampleModalCenter">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                  </button>
+                                            </div>
+                                            <div class="form-group ">
+                                                <div class="custom-file ">
+                                                    <input type="file" class="custom-file-input btn-default" name="uplogo" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" required>
+                                                    <label class="custom-file-label" for="customFile">Logo của công ty</label>
+                                                  </div>
+                                                </div>
+                                        </div>
+                                        <div class="form-group col-md-12 d-flex justify-content-center"style="margin-bottom: 0px; padding-bottom: 0px;">
+                                            <input type="email" class="form-control w-50" name="email" placeholder="Email "required/>
+                                        </div>
+                                        <div class=" col-md-12 d-flex justify-content-center" style="margin-top: 8px;margin-bottom: 8px;">
+                                            <small class="feedback text-center" style=" color: red;margin-top: 0px;margin-bottom: 0px; display:none ;">
+                                                123
+                                            </small>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-12 d-flex justify-content-center">
+                                            <input type="password" class="form-control w-50" name="password" placeholder="Password *"  required/>
                                         </div>
                                         <div class="form-group col-md-12 d-flex justify-content-center">
-                                            <input type="text" class="form-control w-50" placeholder="Email "required/>
-                                        </div>
-                                        <div class="form-group col-md-12 d-flex justify-content-center">
-                                            <input type="password" class="form-control w-50" placeholder="Password *"  required/>
-                                        </div>
-                                        <div class="form-group col-md-12 d-flex justify-content-center">
-                                            <input type="password" class="form-control w-50" placeholder="Confirm Password *" required/>
+                                            <input type="password" class="form-control w-50" name="password2" placeholder="Confirm Password *" required/>
                                         </div>
                                         <div class=" col-md-12 d-flex justify-content-center">
                                             <button type="submit" class="btn btn-primary w-50">Đăng ký</button> 
@@ -84,6 +121,7 @@
         </div>
     </div>
 </body>
+    <script type="text/javascript" src="../public/js/bootstrap_file_field.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../../public/js/forms.js"></script>
@@ -121,13 +159,35 @@
             $(".nav-tabs a").click(function(){
                 $(this).tab('show');
             });
-            $('.check').click(function(){
-                $('#profile').addClass('active');
-                $('#home').removeClass('active');
+            $('.save').click(function(){
+               let addname =  $('#addname').val();
+               if(addname !== ''){
+                $('#sel').append( '<option value="'+addname+'">'+addname+'</option>');
+                $('.save').attr("data-dismiss","modal");  
+               }
             })
-            $('.back').click(function(){
-                $('#home').addClass('active');
-                $('#profile').removeClass('active');
+        })
+        $('#f_siginad').submit(function(e){
+            e.preventDefault();
+            let emailc = $("#f_siginad input[name='email']").val();
+            let namec = $("#f_siginad input[name='namecpn']").val();
+            let pws =  $("#f_siginad input[name='password']").val();
+            let pws2 =  $("#f_siginad input[name='password']").val();
+            if(pws !== pws2){
+
+            }
+            $.ajax({
+                url: '/check/signupadmin',
+                method: 'post',
+                data: {
+                    email : emailc,
+                    name : namec,
+                },
+                success:function(data){
+                    if(data == 'true'){
+                        
+                    }else console.log('false')
+                }
             })
         })
     </script>

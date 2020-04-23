@@ -5,19 +5,25 @@ var CompanySchema = new Schema({
     name: String,
     email:String,
     pws: String,
-    address: {
-        link : String,
+    Address: {
+        linkwedsite : String,
         city : String,
-        Country: String
+        Country: String,
+        address: String
     },
     title : String,
     Work:String,
-    Member:String,
-    Country:String,
-    Workday:String,
+    Member:{
+        type:String,
+        default: ''
+    },
+    Workday:{
+        type:String,
+        default: ''
+    },
     image:{
         logo :  String,    
-        backgrounp:String 
+        backgrounp:String  
     },
     follow:[
         { User: {
