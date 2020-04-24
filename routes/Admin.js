@@ -8,10 +8,14 @@ var client = require('../elasticsearch/connection');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
 var fs = require('fs');
-
 var addcompanies_elas= require('../models_function/model_elas');
 router.get('/registration',function(req,res){
-    res.render('./admin/registration')
+    if(req.session.adid && req.session.adname){
+        res.redirect('/admin/home')
+    }else{
+        res.render('./admin/registration')
+    }
+   
 })
 router.post('/signup',function(req,res){
     var form = new formidable.IncomingForm();
@@ -83,6 +87,25 @@ router.post('/signup',function(req,res){
     return res.redirect('/admin/registration');
 })
 router.post('/signin',urlencodedParser,function(req,res){
-
+    let email = req.body.emailad;
+    let pws = req.body.passwdad;
+    mongoose.connect(url,async function(err){
+        const companiesFind =await Companies.findOne({email:email,pws:pws})
+        if(email && pws){
+            req.session.adid = companiesFind._id;
+            req.session.adname = companiesFind.name;
+            res.redirect('/admin/home')
+        }else res.redirect('/admin/registration')
+    })
+})
+router.get('/home',function(req,res){
+    if(req.session.adid && req.session.adname){
+       res.render('./admin/home', {
+           title: 'Nhà tuyển dụng',
+           name: req.session.adname,
+           id: req.session.adid
+       }) 
+    }else res.redirect('/admin/registration')
+    
 })
 module.exports = router;

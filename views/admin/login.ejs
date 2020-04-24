@@ -4,20 +4,18 @@
               <h5 class="card-title text-center">Đăng nhập dành cho Admin</h5>
               <form action="/admin/signin" method="POST" class="form-signin">
                 <div class="form-label-group">
-                  <input type="email" id="inputEmail" class="form-control" required autofocus>
+                  <input type="email" id="inputEmail" name="emailad" class="form-control" required >
                   <label for="inputEmail">Email address</label>
                 </div>
-  
                 <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" required>
+                  <input type="password" id="inputPassword" name="passwdad" class="form-control" required>
                   <label for="inputPassword">Password</label>
                 </div>
-  
                 <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="customCheck1">
                   <label class="custom-control-label" for="customCheck1">Remember password</label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
+                <button class="btfalse btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
                 <hr class="my-4">
                 <center>
                     <p href="#" class="text-center">Nếu bạn chưa đăng ký ? <a href="#" class="sign-up">Đăng ký</a></p>
@@ -26,7 +24,29 @@
               </form>
             </div>
           </div>
-        </div>
+</div>
+<div class="modal" id="false_signin">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header ">
+        <h4 class="modal-title d-flex justify-content-center">Tài khoản hoặc mặt khẩu không đúng</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body text-center">
+        Vui lòng kiểm tra lại !!!
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer d-flex justify-content-center">
+        <button  type="button" class="checkok btn btn-primary text-center w-50" data-dismiss="modal">Hoàn tất</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
         <script>
              $(document).ready(function(){
                 $('.sign-up').click(function(){
@@ -34,6 +54,27 @@
                     $('.login').hide();
 
                 });
+                $('.form-signin').submit(function(e){
+                  let email_ad = $('.form-signin input[name="emailad"]').val();
+                  let passwd_ad = $('.form-signin input[name="passwdad"]').val();
+                  e.preventDefault(); 
+                  $.ajax({
+                    url: '/check/signinadmin',
+                    method:'post',
+                    data:{
+                      email:email_ad,
+                      pass:passwd_ad
+                    },
+                    success:function(data){
+                      if(data == 'true'){
+                       e.currentTarget.submit();
+                      }else{
+                        $('.btfalse').attr('data-toggle', 'modal');
+                       $('.btfalse').attr('data-target', '#false_signin');
+                      }
+                    }
+                  })
+                })
              });
         </script>
     <style>

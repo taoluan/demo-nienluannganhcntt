@@ -38,4 +38,20 @@ router.post('/signupadmin',urlencodedParser,function(req,res){
         
     })
 })
+router.post('/signinadmin',urlencodedParser,function(req,res){
+    let checkemail = req.body.email;
+    let checkpws = req.body.pass;
+    mongoose.connect(url,async function(err){
+        try {
+            if (err) throw err;
+            const checklogin = await Companies.findOne({email:checkemail,pws:checkpws});
+            console.log(checkemail)
+            if(checklogin !== null){
+                res.send('true');
+            }else res.send('false')
+        } catch (error) {
+            console.log(error);
+        }
+    })
+})
 module.exports = router;
