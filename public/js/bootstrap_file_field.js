@@ -1,7 +1,7 @@
 /*! BootstrapFileField v1.2.0 | (c) ajaxray.com | MIT License
  * https://github.com/ajaxray/bootstrap-file-field
  **/
-(function( $ ) {
+(function($){
 
     $.fn.bootstrapFileField = function(options) {
 
@@ -69,7 +69,6 @@
         };
 
         var fileSelectionErrorHandler = function(event, message, fileNameList) {
-            console.log('Handler')
             fileNameList.empty()
                 .append('<li class="text-danger"><b>Error!</b> '+ message +'</li>');
         };
@@ -107,9 +106,7 @@
             $(this).on('fileSelectionError', fileSelectionErrorHandler);
 
             $(this).on('change', function(e) {
-                console.log(this.files);
-                console.log(this.files.File)
-                // Check max file number
+                console.log(this.files);                // Check max file number
                 if(maxNumFiles && this.files.length > maxNumFiles) {
                     $(this).trigger('fileSelectionError', [maxNumFiles +' files are allowed at most!', fileList]);
                     return abort(this);
@@ -169,4 +166,4 @@
 
     $(':file[data-field-type="bootstrap-file-filed"]').bootstrapFileField({});
 
-}( jQuery ));
+}(jQuery));

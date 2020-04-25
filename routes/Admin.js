@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const Companies = require('../models/Companies');
 const mongoose = require('mongoose');
+const Infor_Companies = require('../models/Infor_Companies');
 var client = require('../elasticsearch/connection');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
@@ -129,10 +130,46 @@ router.post('/edit',function(req,res){
      }else res.redirect('/admin/registration')
 })
 router.post('/introcpn',function(req,res){
+    if(req.session.adid && req.session.adname){
     var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, file) {
-        if(err) throw err;
-        console.log(file.images)
+    files = [],
+    fields = [];
+    let images = [];
+    //form.uploadDir = "public/image/company";
+    form.on('field', function(field, value) {
+        fields.push([field, value]);
     })
+    form.on('file', function(field, file) {
+      /*  fs.rename(file.path,form.uploadDir+file.name, function (err) {
+            if (err) throw err;
+        });*/
+        files.push([field, file]);
+        images.push("public/image/company"+file.name)
+    })
+    form.on('end', function() {
+        console.log('done');
+    });
+    form.parse(req, function (err, fields, file) {
+        let intro = fields.intro;
+        let skills = fields.skills.replace(/ /gi, '').split(',');
+        let os_intro = fields.os_intro;
+        let environ = fields.environment;
+        let bonus = fields.bonus;
+        let idcpn = req.session.adid;
+      /*  mongoose.connect(url,async function(err){
+            let Info_new = await new Infor_Companies({
+                _id: new mongoose.Types.ObjectId(),
+                choose_us: {
+                    reason : '123',
+                    image: images
+                },
+            })
+            Info_new .save(function(err){
+                if (err) throw err;
+                res.redirect('/admin/home')
+              })
+        })*/
+    })
+    }else res.redirect('/admin/registration')
 })
 module.exports = router;

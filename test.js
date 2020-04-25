@@ -10,4 +10,3 @@ function set(){
     }
     console.log(kq)
 }
-call()
