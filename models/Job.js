@@ -26,10 +26,18 @@ var JobSchema = new Schema ({
     join:[
         { User: {
             type: mongoose.Schema.Types.ObjectId, 
-            ref: 'companies'
+            ref: 'user'
          },
-            UpCV: String
+            UpCV: String,
+            status: {
+                type : String,
+                default: 'Đợi duyệt'
+            }
         }
-    ]
+    ],
+    status: {
+        type : String,
+        default: 'Đang tuyển'
+    }
 })
 module.exports = mongoose.model('Job',JobSchema)

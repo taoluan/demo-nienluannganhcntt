@@ -1,0 +1,227 @@
+<div class="row">
+    <div class="container-fluid">
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="container" >
+                <div class="row" >
+                    <% if(data.image.background) {%>
+                    <img src="../../public/image/grap-bg.png" class="img-fluid" alt="Responsive image">
+                    <% } %>
+                </div>
+                <div class="row">
+                    <div class="card w-100 " style="border:none">
+                        <div class="row no-gutters">
+                            <div class="col-lg-3 col-sm-4 col-4">   
+                                <a href=""><img src="/<%= data.image.logo %>" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
+                            </div>
+                            <div class="col-lg-7 col-sm-7 col-7">
+                                <div class="card-body" style="padding-top: 5px;">
+                                    <h1 class="card-title font" ><%= data.name %></h1>
+                                        <div class="company-info">
+                                            <div class="company address"> <span class="icon fas fa-map-marker-alt"><a><%= data.Address.address %></a></span></div>
+                                            <div class="company member">
+                                                <% if(data.member){ %>
+                                                    <span class="fas fa-users">  <a><%= data.member %></a></span>
+                                                <% }%>
+                                                <span class="fas fa-flag-usa"> <a><%= data.Address.country %></a></span>
+                                            </div>
+                                            <div class="company job"> <span class="fas fa-cogs"><a><%= data.work %></a> </span> </div>
+                                            <% if(data.workday){ %>
+                                                <div class="company wday"> <span class="fas fa-calendar-alt"><a><%= data.workday %></a> </span> </div>
+                                            <% }%>
+                                        </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="card-title float-right " style="margin-right: 10px;"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="row">
+                    <form action="/admin/introcpn" method="POST" enctype="multipart/form-data">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-left" style="margin-right: 15px;height: auto;">
+                        <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3;"> 
+                            <div class="card w-100" style="border: none;">
+                                <div class="card-body">
+                                <h2 class="card-title text-center"><%= data.title%></h2>
+                                <ul style="list-style-type: none">
+                                    <li><h5 class="card-text font-2" >Giới thiệu</h5>
+                                        <ul>
+                                            <div class="form-group shadow-textarea">
+                                                <textarea class="form-control z-depth-1" name='intro' id="exampleFormControlTextarea6" rows="3" placeholder="Hãy giới thiệu về công ty của bạn"></textarea>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                            <div class="card w-100 "  style="border: none;">
+                                <div class="card-body " style="padding-top: 0px;">
+                                    <ul style="list-style-type: none">
+                                        <li><h5 class="card-title font-2">Chuyên Môn Của Chúng Tôi</h5>
+                                            <div class="form-group shadow-textarea">
+                                                <label for="exampleFormControlTextarea6">Các kỹ năng</label>
+                                                <textarea class="form-control z-depth-1" name="skills" id="exampleFormControlTextarea6" rows="3" placeholder="Ví dụ : JavaScript, Php,..."></textarea>
+                                                </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-group shadow-textarea">
+                                                <label for="exampleFormControlTextarea6">Một số chuyên môn khác</label>
+                                                <textarea class="form-control z-depth-1" name="os_intro" id="exampleFormControlTextarea6" rows="3" placeholder="Ví dụ: AWS cloud infrastructure with auto-scaling abilities. Mobile app platform coverage: Native iOS and Android."></textarea>
+                                                </div>
+                                        </li>
+                                    </ul>
+                                    
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"  style="background-color:#fff;margin-top: 10px;border: 1px solid #e3e3e3;">
+                            <div class="card w-100" style="border: none;">
+                                <div class="card-body" style="padding-bottom: 5px;">
+                                <h3 class="conten card-title font-2">Tại sao bạn sẽ chọn chúng tôi ?</h3>
+                                    <div class="form-group shadow-textarea">
+                                        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="Twice performance bonus/year
+Company Trip & Health Care
+Attractive Salary"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100" style="border: none;">
+                                <div class="card-body" style="padding-bottom: 5px;">
+                                    <input type="file" class="smart-file" name="images"  data-btn-class="btn-primary" data-field-type="bootstrap-file-filed"  multiple>
+                                </div>
+                            </div>
+                            <div class="container">
+                            <div class="mySlides">
+                                <img src="../../public/image/s.jpg" style="width:100%;height: 500px;">
+                            </div>
+                            <div class="mySlides">
+                                <img src="../../public/image/show-grap-3.jfif" style="width:100%;height: 500px;">
+                            </div>
+                            <div class="mySlides">
+                                <img src="../../public/image/show-grap.jfif" style="width:100%;height: 500px;">
+                            </div>   
+                            <a class="prev" onclick="plusSlides(-1)">❮</a>
+                            <a class="next" onclick="plusSlides(1)">❯</a>
+                                <div class="roww">
+                                <div class="column">
+                                <img class="demo cursor" src="../../public/image/s.jpg" style="width:90%;height:50px;" onclick="currentSlide(1)" >
+                                </div>
+                                <div class="column">
+                                <img class="demo cursor" src="../../public/image/show-grap-3.jfif" style="width:90%;height:50px;" onclick="currentSlide(2)" >
+                                </div>
+                                <div class="column">
+                                <img class="demo cursor" src="../../public/image/show-grap.jfif" style="width:90%;height:50px;" onclick="currentSlide(3)" >
+                                </div>   
+                            </div>
+                            </div>
+                            <div class="card w-100" style="border: none;">
+                                <div class="card-body" style="padding-bottom: 5px;">
+                                <ul>
+                                    <div class="form-group shadow-textarea">
+                                        <label for="exampleFormControlTextarea6">Nhưng lý do khác (nếu có)</label>
+                                        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="We ship on quality instead of on time. When a feature is ready we deploy ..."></textarea>
+                                      </div>
+                                </ul>
+                                </div>
+                            </div>
+                            <div class="card w-100" style="border: none;">
+                                <div class="card-body" style="padding-top: 5px;padding-bottom: 5px;">
+                                <h3 class="conten card-title font-2">Lợi ích khi làm việc tại đây</h3>
+                                <ul style="list-style-type: none">
+                                    <li><h6 class="font-2">Môi trường làm việc</h6>
+                                        <ul>
+                                            <div class="form-group shadow-textarea">
+                                                <textarea class="form-control z-depth-1" name="environment" id="exampleFormControlTextarea6" rows="3" placeholder="We care a great deal about code quality. We often go back and improve core parts of the codebase to make it better or more lean..."></textarea>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                    <li><h6 class="font-2">Bạn sẽ nhận được gì khi làm tại đây </h6>
+                                        <ul>
+                                            <div class="form-group shadow-textarea">
+                                                <textarea class="form-control z-depth-1" name="bonus" id="exampleFormControlTextarea6" rows="3" placeholder="Extra Medical Insurance.
+Macbook is provided.
+14 days annual leaves, working Monday - Friday."></textarea>
+                                              </div>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                            <div class="card w-100" style="border: none;">
+                                <div class="card-body text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">Lưu thông tin</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="../public/css/bootstrap_file_field.css">
+<script type="text/javascript" src="../public/js/bootstrap_file_field.js"></script>
+<link rel="stylesheet" type="text/css" href="../../public/css/companies.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<script src="../../public/js/jquery.min.js"></script>
+<script src="../../public/js/bootstrap.bundle.min.js"></script>
+<script src="../../public/js/agency.min.js"></script>
+<script src="../../public/js/showcpn.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script>
+    $('.smart-file').bootstrapFileField({
+    maxNumFiles: 10,
+    fileTypes: 'image/jpeg,image/png',
+    maxFileSize: 80000 // 80kb in bytes
+}); 
+</script>
+<style>
+    .col-right{
+        max-width: 32%;
+        float: right;
+        }
+    @media (max-width:1200px){
+    .col-right{
+        margin-top: 10px;
+        max-width: 100%;
+        height: 33%;
+    }
+}
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
+.b1{
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    padding: 0px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+.set{
+    margin-top: 5px;
+    border-radius: 40px;
+    margin-left: 5px;
+}
+.tab .nav-link {
+    color: black;
+}
+.tab .nav-item{
+    background-color: #e3e3e3;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid #e3e3e3;
+    border-bottom: none;
+}
+.review:hover a{
+    text-decoration: none;
+    color: azure;
+}
+</style>

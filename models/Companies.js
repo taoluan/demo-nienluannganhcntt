@@ -2,33 +2,33 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var CompanySchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    name: String,
+    name:String,
     email:String,
-    pws: String,
+    pws:String,
     Address: {
         linkwedsite : String,
         city : String,
-        Country: String,
+        country: String,
         address: String
     },
-    title : String,
-    Work:String,
-    Member:{
+    title:String,
+    work:String,
+    member:{
         type:String,
-        default: ''
+        default:''
     },
-    Workday:{
+    workday:{
         type:String,
         default: ''
     },
     image:{
-        logo :  String,    
-        backgrounp:String  
+        logo:String,    
+        background:String
     },
     follow:[
-        { User: {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'companies'
+        {user:{
+            type:mongoose.Schema.Types.ObjectId, 
+            ref:'companies'
             }
         }
     ]

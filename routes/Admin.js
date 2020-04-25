@@ -44,7 +44,7 @@ router.post('/signup',function(req,res){
                 Address:{
                     linkwedsite:link,
                     city:city,
-                    Country:country,
+                    country:country,
                     address:address
                 },
                 title:title,
@@ -107,5 +107,32 @@ router.get('/home',function(req,res){
        }) 
     }else res.redirect('/admin/registration')
     
+})
+router.get('/page-ad',function(req,res){
+    if(req.session.adid && req.session.adname){
+        res.render('./admin/page', {
+            title: 'Nhà tuyển dụng',
+            name: req.session.adname,
+            id: req.session.adid
+        }) 
+     }else res.redirect('/admin/registration')
+})
+router.post('/edit',function(req,res){
+    if(req.session.adid && req.session.adname){
+        mongoose.connect(url,async function(err){
+            const CompaniesFind =await Companies.findById(req.session.adid);
+            res.render('./xuly/editadmin', {
+                data: CompaniesFind
+            }) 
+        })
+        
+     }else res.redirect('/admin/registration')
+})
+router.post('/introcpn',function(req,res){
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, file) {
+        if(err) throw err;
+        console.log(file.images)
+    })
 })
 module.exports = router;

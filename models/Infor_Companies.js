@@ -7,26 +7,17 @@ var InforSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'companies'
      },
- 
     os:{
         skills: [String],
         os_intro: String
     },
     choose_us: {
         reason : String,
-        imange: [String]
+        image: [String]
     },
     Benefits : {
         work_environment: String,
         bonus : String
-    },
-    Work:String,
-    Member:String,
-    Country:String,
-    Workday:String,
-    image:{
-        logo :  String,    
-        backgrounp:String 
     },
 });
 module.exports = mongoose.model('InforCompanies',InforSchema)
