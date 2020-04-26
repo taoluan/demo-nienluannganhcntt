@@ -10,3 +10,10 @@ function set(){
     }
     console.log(kq)
 }
+// xu ly chuoi 
+let temp = intro.split('*');
+temp.forEach(function(element,index) {
+    if(element !== '\r\n'){
+      //  console.log(element.trim())
+    }
+});

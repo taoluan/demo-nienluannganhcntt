@@ -151,7 +151,8 @@ router.post('/introcpn',function(req,res){
     });
     form.parse(req, function (err, fields, file) {
         let intro = fields.intro;
-        let skills = fields.skills.replace(/ /gi, '').split(',');
+      //  let skills = fields.skills.replace(/ /gi, '').split(',');
+        let skills = fields.skills;
         let os_intro = fields.os_intro;
         let environ = fields.environment;
         let bonus = fields.bonus;
