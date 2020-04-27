@@ -47,66 +47,66 @@
                     </div>
                 </div>
                 <div class="col-md-9 register-right">
-                                <h3 class="register-heading">Trở thành nhà tuyển dụng</h3>
-                                <form id='f_signupad' enctype="multipart/form-data" action="/admin/signup" method="post" >
-                                    <div class="row register-form">
-                                        <div class="col-md-6">                       
-                                            <div class="form-group">
-                                                <input type="text" class="check form-control"  name='namecpn' placeholder="Tên nhà tuyển dụng "  required/>
-                                                <div class="valid-feedback">Có thể sử dụng tên công ty này</div>
-                                                <div class="invalid-feedback">Tên công ty đã được sử dụng</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name='link' placeholder="Website của NTD"  required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name='title' placeholder="Title của NTD"  required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name='address'  placeholder="Địa chỉ hiện tại" required/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="country" placeholder="Thuộc quốc gia nào ?" required/>
-                                            </div>
-                                            <div class="form-group ">
-                                            <input type="text" class="form-control" name='city'  placeholder="Thuộc thành phố nào ?" required/>
-                                            </div>
-                                            <div class="form-group">
-                                                <select id='sel'name='work' class="custom-select browser-default " style="width:350px" required>
-                                                    <option value="" class="hidden"  selected disabled>Công việc</option>
-                                                    <option value="Product">Product</option>
-                                                    <option value="Outsourcing">Outsourcing</option>
-                                                </select>
-                                                <button type="button" class="btn btn-primary" style="margin-left: 4px;" data-toggle="modal" data-target="#exampleModalCenter">
-                                                    <i class="fas fa-plus-circle"></i>
-                                                  </button>
-                                            </div>
-                                            <div class="form-group ">
-                                                <div class="custom-file ">
-                                                    <input type="file" class="custom-file-input btn-default" name="uplogo" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" required>
-                                                    <label class="custom-file-label" for="customFile">Logo của công ty</label>
-                                                  </div>
-                                                </div>
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <div class="form-group">
-                                                <input type="email" class="check form-control" name="email" placeholder="Email "required/>
-                                                <div class="valid-feedback">Bạn có thể sử dụng email này</div>
-                                                <div class="invalid-feedback">Email đã có người sử dụng</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 ">
-                                           <div class="form-group">
-                                            <input type="password" class="form-control" name="password" placeholder="Password *"  required/>
-                                        </div> 
-                                        </div>
-                                        <div class=" col-md-12 d-flex justify-content-center">
-                                            <button type="submit" class="btcheck btn btn-primary w-50">Đăng ký</button> 
+                    <h3 class="register-heading">Trở thành nhà tuyển dụng</h3>
+                    <form id='f_signupad' enctype="multipart/form-data" action="/admin/signup" method="post" >
+                        <div class="row register-form">
+                            <div class="col-md-6">                       
+                                <div class="form-group">
+                                    <input type="text" class="check form-control"  name='namecpn' placeholder="Tên nhà tuyển dụng "  required/>
+                                    <div class="valid-feedback">Có thể sử dụng tên công ty này</div>
+                                    <div class="invalid-feedback">Tên công ty đã được sử dụng</div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name='link' placeholder="Website của NTD"  required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name='title' placeholder="Title của NTD"  required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name='address'  placeholder="Địa chỉ hiện tại" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="country" placeholder="Thuộc quốc gia nào ?" required/>
+                                </div>
+                                <div class="form-group ">
+                                <input type="text" class="form-control" name='city'  placeholder="Thuộc thành phố nào ?" required/>
+                                </div>
+                                <div class="form-group">
+                                    <select id='sel'name='work' class="custom-select browser-default " style="width:350px" required>
+                                        <option value="" class="hidden"  selected disabled>Công việc</option>
+                                        <option value="Product">Product</option>
+                                        <option value="Outsourcing">Outsourcing</option>
+                                    </select>
+                                    <button type="button" class="btn btn-primary" style="margin-left: 4px;" data-toggle="modal" data-target="#exampleModalCenter">
+                                        <i class="fas fa-plus-circle"></i>
+                                        </button>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="custom-file ">
+                                        <input type="file" class="custom-file-input btn-default" name="uplogo" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" required>
+                                        <label class="custom-file-label" for="customFile">Logo của công ty</label>
                                         </div>
                                     </div>
-                                </form>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <input type="email" class="check form-control" name="email" placeholder="Email "required/>
+                                    <div class="valid-feedback">Bạn có thể sử dụng email này</div>
+                                    <div class="invalid-feedback">Email đã có người sử dụng</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Password *"  required/>
+                            </div> 
+                            </div>
+                            <div class=" col-md-12 d-flex justify-content-center">
+                                <button type="submit" class="btcheck btn btn-primary w-50">Đăng ký</button> 
+                            </div>
+                        </div>
+                    </form>
                 </div>
         </div>
         <div class="row login" style="margin-top: 100px;">

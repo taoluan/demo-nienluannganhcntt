@@ -10,6 +10,7 @@ const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
 var fs = require('fs');
 var addcompanies_elas= require('../models_function/model_elas');
+var form = new formidable.IncomingForm();
 router.get('/registration',function(req,res){
     if(req.session.adid && req.session.adname){
         res.redirect('/admin/home')
@@ -19,8 +20,7 @@ router.get('/registration',function(req,res){
    
 })
 router.post('/signup',function(req,res){
-    var form = new formidable.IncomingForm();
-    form.uploadDir="public/image/"
+    form.uploadDir="/public/image/"
     form.parse(req, function (err, fields, file) {
         if(err) throw err;
         let cpnname = fields.namecpn;
@@ -122,8 +122,10 @@ router.post('/edit',function(req,res){
     if(req.session.adid && req.session.adname){
         mongoose.connect(url,async function(err){
             const CompaniesFind =await Companies.findById(req.session.adid);
-            res.render('./xuly/editadmin', {
-                data: CompaniesFind
+            const CompaniesInforFind =await Infor_Companies.findOne({companies:req.session.adid});
+            res.render('./xuly/edit_pageadmin', {
+                data: CompaniesFind,
+                info: CompaniesInforFind
             }) 
         })
         
@@ -131,46 +133,81 @@ router.post('/edit',function(req,res){
 })
 router.post('/introcpn',function(req,res){
     if(req.session.adid && req.session.adname){
-    var form = new formidable.IncomingForm();
     files = [],
     fields = [];
     let images = [];
-    //form.uploadDir = "public/image/company";
+    form.uploadDir = "public/image/company/";
     form.on('field', function(field, value) {
         fields.push([field, value]);
     })
     form.on('file', function(field, file) {
-      /*  fs.rename(file.path,form.uploadDir+file.name, function (err) {
+        fs.rename(file.path,form.uploadDir+file.name, function (err) {
             if (err) throw err;
-        });*/
+        });
         files.push([field, file]);
-        images.push("public/image/company"+file.name)
+        images.push("/public/image/company/"+file.name)
     })
     form.on('end', function() {
-        console.log('done');
     });
     form.parse(req, function (err, fields, file) {
         let intro = fields.intro;
-      //  let skills = fields.skills.replace(/ /gi, '').split(',');
-        let skills = fields.skills;
+        let os_skills = fields.skills.split(',');
         let os_intro = fields.os_intro;
-        let environ = fields.environment;
-        let bonus = fields.bonus;
+        let choose_us_reasons = fields.reasons;
+        let choose_us_others = fields.others;
+        let benefits_environ = fields.environment;
+        let benefits_bonus = fields.bonus;
         let idcpn = req.session.adid;
-      /*  mongoose.connect(url,async function(err){
+        mongoose.connect(url,async function(err){
             let Info_new = await new Infor_Companies({
                 _id: new mongoose.Types.ObjectId(),
-                choose_us: {
-                    reason : '123',
-                    image: images
+                intro: intro,
+                companies:idcpn,
+                os:{
+                    skills: os_skills,
+                    os_intro: os_intro
                 },
+                choose_us: {
+                    reason : choose_us_reasons,
+                    image: images,
+                    others:choose_us_others
+                },
+                Benefits : {
+                    work_environment: benefits_environ,
+                    bonus : benefits_bonus
+                }
             })
             Info_new .save(function(err){
                 if (err) throw err;
-                res.redirect('/admin/home')
+                res.redirect('/admin/page-ad')
               })
-        })*/
+        })
     })
     }else res.redirect('/admin/registration')
+})
+router.post('/edit_profile',function(req,res){
+    if(req.session.adid && req.session.adname){
+        form.uploadDir="/public/image/";
+        form.parse(req,function(err,fields,file){
+            if(err) throw err;
+            let link = fields.link;
+            let title = fields.title;
+            let address = fields.address;
+            let country = fields.country;
+            let city = fields.city;
+            let work = fields.work;
+            let email = fields.email;
+            let password = fields.password;
+            let workday = fields.workday;
+            let member = fields.member;
+            let uplogo = file.uplogo.name;
+            let upbg = file.upbg.name;
+            let newpath_uplogo = form.uploadDir + uplogo; 
+            let oldpath_uplogo  = file.uplogo.path;
+            let newpath_upbg = form.uploadDir + upbg; 
+            let oldpath_upbg  = file.upbg.path;
+            console.log(oldpath_upbg)
+        })
+    }else res.redirect('/admin/registration');
 })
 module.exports = router;

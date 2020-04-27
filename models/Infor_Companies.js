@@ -9,15 +9,28 @@ var InforSchema = new Schema({
      },
     os:{
         skills: [String],
-        os_intro: String
+        os_intro: {
+            type:String,
+            default: ''
+        }
     },
     choose_us: {
-        reason : String,
-        image: [String]
+        reasons : {
+            type:String,
+            default: ''
+        },
+        image: [String],
+        others: {
+            type:String,
+            default:''
+        }
     },
     Benefits : {
         work_environment: String,
-        bonus : String
+        bonus : {
+            type:String,
+            default:''
+        }
     },
 });
 module.exports = mongoose.model('InforCompanies',InforSchema)

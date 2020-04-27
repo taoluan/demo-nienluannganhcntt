@@ -11,7 +11,7 @@
                     <div class="card w-100 " style="border:none">
                         <div class="row no-gutters">
                             <div class="col-lg-3 col-sm-4 col-4">   
-                                <a href=""><img src="/<%= data.image.logo %>" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
+                                <a href=""><img src="<%= data.image.logo %>" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
                             </div>
                             <div class="col-lg-7 col-sm-7 col-7">
                                 <div class="card-body" style="padding-top: 5px;">
@@ -32,7 +32,7 @@
                                 </div> 
                             </div>
                             <div class="col-lg-2">
-                                <div class="card-title float-right " style="margin-right: 10px;"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button></div>
+                                <div class="card-title float-right " style="margin-right: 10px;"><button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-pencil-alt"></i></button></div>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                     <li><h5 class="card-text font-2" >Giới thiệu</h5>
                                         <ul>
                                             <div class="form-group shadow-textarea">
-                                                <textarea id='format' class="form-control z-depth-1" name='intro' id="exampleFormControlTextarea6" rows="5" placeholder="Hãy giới thiệu về công ty của bạn..."></textarea>
+                                                <textarea id='format_intro' class="form-control z-depth-1" name='intro' id="exampleFormControlTextarea6" rows="5" placeholder="Hãy giới thiệu về công ty của bạn..." required><%= info.intro%></textarea>
                                             </div>
                                         </ul>
                                     </li>
@@ -61,18 +61,16 @@
                                         <li><h5 class="card-title font-2">Chuyên Môn Của Chúng Tôi</h5>
                                             <div class="form-group shadow-textarea">
                                                 <label for="exampleFormControlTextarea6">Các kỹ năng</label>
-                                                    <input type="text" name='skills' >
+                                                    <input type="text" name='skills' value="<%= info.os.skills%>" required>
                                                 </div>
                                             </li>
                                             <li>
                                             <div class="form-group shadow-textarea">
                                                 <label for="exampleFormControlTextarea6">Một số chuyên môn khác</label>
-                                                <textarea class="form-control z-depth-1" name="os_intro" id="exampleFormControlTextarea6" rows="3" placeholder="Ví dụ: AWS cloud infrastructure with auto-scaling abilities. Mobile app platform coverage: Native iOS and Android."></textarea>
+                                                <textarea id='format_os_intro' class="form-control z-depth-1" name="os_intro" id="exampleFormControlTextarea6" rows="3" placeholder="Ví dụ: AWS cloud infrastructure with auto-scaling abilities. Mobile app platform coverage: Native iOS and Android."><%= info.os.os_intro%></textarea>
                                                 </div>
                                         </li>
                                     </ul>
-                                    
-                                
                                 </div>
                             </div>
                         </div>
@@ -81,15 +79,15 @@
                                 <div class="card-body" style="padding-bottom: 5px;">
                                 <h3 class="conten card-title font-2">Tại sao bạn sẽ chọn chúng tôi ?</h3>
                                     <div class="form-group shadow-textarea">
-                                        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="Twice performance bonus/year
+                                        <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3" placeholder="Twice performance bonus/year
 Company Trip & Health Care
-Attractive Salary"></textarea>
+Attractive Salary" required><%= info.choose_us.reasons%></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="card w-100" style="border: none;">
                                 <div class="card-body" style="padding-bottom: 5px;">
-                                    <input type="file" class="smart-file" name="images"  data-btn-class="btn-primary" data-field-type="bootstrap-file-filed"  multiple>
+                                    <input type="file" class="smart-file" name="images" value="<%= info.choose_us.image%>"  data-btn-class="btn-primary" data-field-type="bootstrap-file-filed"  multiple required>
                                 </div>
                             </div>
                             <div class="card w-100" style="border: none;">
@@ -97,7 +95,7 @@ Attractive Salary"></textarea>
                                 <ul>
                                     <div class="form-group shadow-textarea">
                                         <label for="exampleFormControlTextarea6">Nhưng lý do khác (nếu có)</label>
-                                        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="We ship on quality instead of on time. When a feature is ready we deploy ..."></textarea>
+                                        <textarea id='format_reasons_others' name="others" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="We ship on quality instead of on time. When a feature is ready we deploy ..." ></textarea>
                                       </div>
                                 </ul>
                                 </div>
@@ -109,14 +107,14 @@ Attractive Salary"></textarea>
                                     <li><h6 class="font-2">Môi trường làm việc</h6>
                                         <ul>
                                             <div class="form-group shadow-textarea">
-                                                <textarea class="form-control z-depth-1" name="environment" id="exampleFormControlTextarea6" rows="3" placeholder="We care a great deal about code quality. We often go back and improve core parts of the codebase to make it better or more lean..."></textarea>
+                                                <textarea  id='format_benefits_environment' class="form-control z-depth-1" name="environment" id="exampleFormControlTextarea6" rows="3" placeholder="We care a great deal about code quality. We often go back and improve core parts of the codebase to make it better or more lean..."></textarea>
                                             </div>
                                         </ul>
                                     </li>
                                     <li><h6 class="font-2">Bạn sẽ nhận được gì khi làm tại đây </h6>
                                         <ul>
                                             <div class="form-group shadow-textarea">
-                                                <textarea class="form-control z-depth-1" name="bonus" id="exampleFormControlTextarea6" rows="3" placeholder="Extra Medical Insurance.
+                                                <textarea id='format_benefits_bonus' class="form-control z-depth-1" name="bonus" id="exampleFormControlTextarea6" rows="3" placeholder="Extra Medical Insurance.
 Macbook is provided.
 14 days annual leaves, working Monday - Friday."></textarea>
                                               </div>
@@ -136,19 +134,106 @@ Macbook is provided.
                     </form>
                 </div>
         </div>
+        <!-- Button trigger modal -->
+        <div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông tin của công ty</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form id='editprofile' enctype="multipart/form-data" action="/admin/edit_profile" method="post" >
+                <div class="modal-body container-fluid">
+                    <div class="row ">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <div class="card" style="border: none;max-width: 18rem;">
+                                <img id='avt' src="<%= data.image.logo %>" class="rounded-circle card-img-top" alt="..." style="border: 1px solid #e3e3e3;">
+                                <h5 class="card-title text-center mt-3 mbt-0"><%= data.name %></h5>
+                                <div class="card-body p-0 mx-auto">
+                                    <input type="file" name="uplogo" class="checkup"  
+                                    data-field-type="bootstrap-file-filed"  
+                                    data-label="Logo File"  
+                                    data-btn-class="btn-primary"  
+                                    data-file-types="image/jpeg,image/png,image/gif"  
+                                    data-preview="on"
+                                    value="<%= data.image.logo %>"
+                                    multiple >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row register-form">
+                        <div class="col-md-6">                       
+                            <div class="form-group">
+                                <input type="text" class="form-control" value="<%= data.Address.linkwedsite %>" name='link' placeholder="Website của NTD"  required/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name='title' value="<%= data.title %>" placeholder="Title của NTD"  required/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name='address' value="<%= data.Address.address %> " placeholder="Địa chỉ hiện tại" required/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name='member' value="<%= data.member%>" placeholder="Số nhân viên của công ty" required/>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="check form-control" value="<%= data.email %>" name="email" placeholder="Email "required/>
+                                <div class="valid-feedback">Bạn có thể sử dụng email này</div>
+                                <div class="invalid-feedback">Email đã có người sử dụng</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" value="<%= data.Address.country %>" name="country" placeholder="Thuộc quốc gia nào ?" required/>
+                            </div>
+                            <div class="form-group ">
+                            <input type="text" class="form-control" value="<%= data.Address.city %>"  name='city'  placeholder="Thuộc thành phố nào ?" required/>
+                            </div>
+                            <div class="form-group ">
+                                <input type="text" class="form-control" value="<%= data.workday %>"  name='workday'  placeholder="Ngày là việc" required/>
+                                </div>
+                            <div class="form-group">
+                                <select id='sel'name='work' value="<%= data.work %>" class="custom-select browser-default " style="width:410px" required>
+                                    <option value="" class="hidden"  selected disabled>Công việc</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Outsourcing">Outsourcing</option>
+                                </select>
+                                <button type="button" class="btn btn-primary" style="margin-left: 4px;" data-toggle="modal" data-target="#exampleModalCenter">
+                                    <i class="fas fa-plus-circle"></i>
+                                    </button>
+                            </div>
+                            <div class="form-group ">
+                                <div class="custom-file ">
+                                    <input type="file" class="custom-file-input btn-default" value="<%= data.image.background %>" name="upbg" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" required>
+                                    <label class="custom-file-label" for="customFile">Background của công ty</label>
+                                    </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                </div>
+            </form>
+            </div>
+            </div>
+        </div>
     </div>
     </div>
 </div>
 <link rel="stylesheet" href="../../public/css/tagsinput.css">
-<script src="../../public/js/tagsinput.js"></script>
-<link rel="stylesheet" type="text/css" href="../public/css/bootstrap_file_field.css">
-<script type="text/javascript" src="../public/js/bootstrap_file_field.js"></script>
-<link rel="stylesheet" type="text/css" href="../../public/css/companies.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../../public/css/companies.css">
+<link rel="stylesheet" type="text/css" href="../../public/css/bootstrap_file_field.css">
+<script type="text/javascript" src="../../public/js/bootstrap_file_field.js"></script>
+<script src="../../public/js/tagsinput.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script>
     $(document).ready(function(){
-        var skills = [ "JavaScript","PHP","C++","C#","Python","Java","Nodejs","MongoDB","Ruby","AI","Css/Boostrap","MySQL","Elasticsearch","Cassandra","FondEnd","BackEnd","Scala","Swift","TypeScript","Objective-C"];
+        var skills = [ "JavaScript","PHP","C++","C#","Python","Java","Nodejs","MongoDB","Ruby","AI","Css/Boostrap","MySQL","Elasticsearch","Cassandra","FondEnd","BackEnd","Scala","Swift","TypeScript","Objective-C","English","SQL","Android",".NET"];
     var skills = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -184,8 +269,23 @@ Macbook is provided.
         });*/
     })
        
-    $('#format').keypress(function(){
-      formattext ($('#format'));
+    $('#format_intro').keypress(function(){
+      formattext ($('#format_intro'));
+    })
+    $('#format_os_intro').keypress(function(){
+      formattext ($('#format_os_intro'));
+    })
+    $('#format_reasons').keypress(function(){
+      formattext ($('#format_reasons'));
+    })
+    $('#format_reasons_others').keypress(function(){
+      formattext ($('#format_reasons_others'));
+    })
+    $('#format_benefits_environment').keypress(function(){
+      formattext ($('#format_benefits_environment'));
+    })
+    $('#format_benefits_bonus').keypress(function(){
+      formattext ($('#format_benefits_bonus'));
     })
     function formattext (id){
         var key = window.event.keyCode;
