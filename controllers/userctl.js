@@ -37,7 +37,6 @@ exports.editprofile_user =  function(req,res){
             var path = file.upcv.path;
             await User.findByIdAndUpdate({_id:req.session.usid},{$set: {upCV:form.uploadDir+upcv}},{new: true})
             fs.rename(path, newpath, function (err) {
-                if (err) throw err;
             });
         }
         if(upavt != ''){
@@ -45,7 +44,6 @@ exports.editprofile_user =  function(req,res){
             var newpath_avt = "public/image/"+upavt;
             await User.findByIdAndUpdate({_id:req.session.usid},{$set: {upAvt:"public/image/"+upavt}},{new: true})
             fs.rename(path_avt,newpath_avt, function (err) {
-                if (err) throw err;
             });
         }
     })

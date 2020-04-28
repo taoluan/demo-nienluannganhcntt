@@ -4,7 +4,7 @@
         <div class="container" >
                 <div class="row" >
                     <% if(data.image.background) {%>
-                    <img src="../../public/image/grap-bg.png" class="img-fluid" alt="Responsive image">
+                    <img src="<%= data.image.background %>"class="img-fluid" alt="Background image" style="height:400px;width:100%">
                     <% } %>
                 </div>
                 <div class="row">
@@ -149,39 +149,39 @@ Macbook is provided.
                     <div class="row ">
                         <div class="col-md-12 d-flex justify-content-center">
                             <div class="card" style="border: none;max-width: 18rem;">
-                                <img id='avt' src="<%= data.image.logo %>" class="rounded-circle card-img-top" alt="..." style="border: 1px solid #e3e3e3;">
+                                <img id='avt' src="<%=data.image.logo%>"  class="rounded-circle card-img-top" alt="..." style="border: 1px solid #e3e3e3;">
                                 <h5 class="card-title text-center mt-3 mbt-0"><%= data.name %></h5>
                                 <div class="card-body p-0 mx-auto">
-                                    <input type="file" name="uplogo" class="checkup"  
+                                    <input type="file" name="uplogo"
                                     data-field-type="bootstrap-file-filed"  
                                     data-label="Logo File"  
                                     data-btn-class="btn-primary"  
                                     data-file-types="image/jpeg,image/png,image/gif"  
                                     data-preview="on"
-                                    value="<%= data.image.logo %>"
-                                    multiple >
+                                    value="<%=data.image.logo%>"
+                                     >
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row register-form">
-                        <div class="col-md-6">                       
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" value="<%= data.Address.linkwedsite %>" name='link' placeholder="Website của NTD"  required/>
+                                <input type="email" class="check form-control" value="<%= data.email %>" name="email" placeholder="Email " disabled required/>
+                                <div class="valid-feedback">Bạn có thể sử dụng email này</div>
+                                <div class="invalid-feedback">Email đã có người sử dụng</div>
+                            </div>                      
+                            <div class="form-group">
+                                <input type="text" class="form-control" value="<%= data.Address.linkwebsite %>" name='link' placeholder="Website của NTD"  required/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name='title' value="<%= data.title %>" placeholder="Title của NTD"  required/>
                             </div>
+                            <div class="form-group ">
+                                <input type="text" class="form-control" value="<%= data.workday %>"  name='workday'  placeholder="Ngày là việc" required/>
+                                </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name='address' value="<%= data.Address.address %> " placeholder="Địa chỉ hiện tại" required/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name='member' value="<%= data.member%>" placeholder="Số nhân viên của công ty" required/>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="check form-control" value="<%= data.email %>" name="email" placeholder="Email "required/>
-                                <div class="valid-feedback">Bạn có thể sử dụng email này</div>
-                                <div class="invalid-feedback">Email đã có người sử dụng</div>
+                                <input type="text" class="form-control" name='member' value="<%=data.member%>" placeholder="Số nhân viên của công ty" required/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -191,14 +191,17 @@ Macbook is provided.
                             <div class="form-group ">
                             <input type="text" class="form-control" value="<%= data.Address.city %>"  name='city'  placeholder="Thuộc thành phố nào ?" required/>
                             </div>
-                            <div class="form-group ">
-                                <input type="text" class="form-control" value="<%= data.workday %>"  name='workday'  placeholder="Ngày là việc" required/>
-                                </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name='address' value="<%= data.Address.address %> " placeholder="Địa chỉ hiện tại" required/>
+                            </div>
                             <div class="form-group">
                                 <select id='sel'name='work' value="<%= data.work %>" class="custom-select browser-default " style="width:410px" required>
-                                    <option value="" class="hidden"  selected disabled>Công việc</option>
+                                    <% if(data.work === "Product"){%>
+                                    <option value="Product" selected>Product</option> <option value="Outsourcing">Outsourcing</option>
+                                    <% }else { %>
                                     <option value="Product">Product</option>
-                                    <option value="Outsourcing">Outsourcing</option>
+                                    <option selected value="Outsourcing">Outsourcing</option>
+                                    <% } %>
                                 </select>
                                 <button type="button" class="btn btn-primary" style="margin-left: 4px;" data-toggle="modal" data-target="#exampleModalCenter">
                                     <i class="fas fa-plus-circle"></i>
@@ -206,7 +209,11 @@ Macbook is provided.
                             </div>
                             <div class="form-group ">
                                 <div class="custom-file ">
-                                    <input type="file" class="custom-file-input btn-default" value="<%= data.image.background %>" name="upbg" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" required>
+                                    <% if(data.image.background){ %>
+                                    <input type="file" class="custom-file-input btn-default" value="<%= data.image.background %>" name="upbg" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" >
+                                    <% }else{ %>
+                                        <input type="file" class="custom-file-input btn-default" value="<%= data.image.background %>" name="upbg" data-file-types="image/jpeg,image/png,image/gif" data-field-type="bootstrap-file-filed" id="customFile" required>
+                                    <% }%>
                                     <label class="custom-file-label" for="customFile">Background của công ty</label>
                                     </div>
                             </div>

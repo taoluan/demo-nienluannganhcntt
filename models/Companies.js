@@ -6,7 +6,7 @@ var CompanySchema = new Schema({
     email:String,
     pws:String,
     Address: {
-        linkwedsite : String,
+        linkwebsite : String,
         city : String,
         country: String,
         address: String
@@ -22,7 +22,7 @@ var CompanySchema = new Schema({
         default: ''
     },
     image:{
-        logo:String,    
+        logo:String,
         background:String
     },
     follow:[

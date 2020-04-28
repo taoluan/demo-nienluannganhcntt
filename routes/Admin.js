@@ -11,6 +11,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var addcompanies_elas= require('../models_function/model_elas');
 var form = new formidable.IncomingForm();
+form.uploadDir = "public/image/company/";
 router.get('/registration',function(req,res){
     if(req.session.adid && req.session.adname){
         res.redirect('/admin/home')
@@ -185,28 +186,38 @@ router.post('/introcpn',function(req,res){
     })
     }else res.redirect('/admin/registration')
 })
-router.post('/edit_profile',function(req,res){
+router.post('/edit_profile', function(req,res){
     if(req.session.adid && req.session.adname){
-        form.uploadDir="/public/image/";
-        form.parse(req,function(err,fields,file){
-            if(err) throw err;
-            let link = fields.link;
-            let title = fields.title;
-            let address = fields.address;
-            let country = fields.country;
-            let city = fields.city;
-            let work = fields.work;
-            let email = fields.email;
-            let password = fields.password;
-            let workday = fields.workday;
-            let member = fields.member;
-            let uplogo = file.uplogo.name;
-            let upbg = file.upbg.name;
-            let newpath_uplogo = form.uploadDir + uplogo; 
-            let oldpath_uplogo  = file.uplogo.path;
-            let newpath_upbg = form.uploadDir + upbg; 
-            let oldpath_upbg  = file.upbg.path;
-            console.log(oldpath_upbg)
+        const edit_profile = require('../models_function/Companies_fmd');
+        form.parse(req,async function(error,fields,file){
+            let companies_Edit = await {
+             link : fields.link,
+             title : fields.title,
+             address : fields.address,
+             country : fields.country,
+             city : fields.city,
+             work : fields.work,
+             workday : fields.workday,
+             member : fields.member,
+             uplogo : file.uplogo.name,
+             upbg : file.upbg.name,
+            };
+            await edit_profile.editprofile_companies(companies_Edit,req.session.adid)
+            /*if(companies_Edit.uplogo){
+             let newpath_uplogo =  form.uploadDir + file.uplogo.name;
+             let oldpath_uplogo  = file.uplogo.path;
+                fs.rename(oldpath_uplogo,newpath_uplogo, function (err) {
+                if (err) console.log(err);
+                });
+            }
+            if(companies_Edit.upbg){
+                let newpath_upbg =  form.uploadDir + file.upbg.name;
+                let oldpath_upbg  = file.upbg.path;
+                fs.rename(oldpath_upbg,newpath_upbg, function (err) {
+                if (err) console.log(err) ;
+                });
+            }*/
+            res.redirect('/admin/home#') 
         })
     }else res.redirect('/admin/registration');
 })
