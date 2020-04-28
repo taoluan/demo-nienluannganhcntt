@@ -20,7 +20,7 @@ app.use('/',require('./routes/Index'));
 app.use('/user',require('./routes/User'));
 app.use('/admin',require('./routes/Admin'));
 app.use('/XulySearch',require('./routes/XulySearch'));
-app.use('/login',require('./routes/Login'));
+//app.use('/login',require('./routes/Login'));
 app.use('/logout',require('./routes/Logout'));
 app.use('/check',require('./routes/Check'));
 

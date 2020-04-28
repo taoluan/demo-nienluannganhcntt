@@ -100,15 +100,12 @@ router.post('/signin',urlencodedParser,function(req,res){
         }else res.redirect('/admin/registration')
     })
 })
-router.get('/home',function(req,res){
-    if(req.session.adid && req.session.adname){
+router.get('/home',checklogin,function(req,res){
        res.render('./admin/home', {
            title: 'Nhà tuyển dụng',
            name: req.session.adname,
            id: req.session.adid
        }) 
-    }else res.redirect('/admin/registration')
-    
 })
 router.get('/page-ad',function(req,res){
     if(req.session.adid && req.session.adname){
@@ -186,8 +183,7 @@ router.post('/introcpn',function(req,res){
     })
     }else res.redirect('/admin/registration')
 })
-router.post('/edit_profile', function(req,res){
-    if(req.session.adid && req.session.adname){
+router.post('/edit_profile',checklogin,function(req,res){
         const edit_profile = require('../models_function/Companies_fmd');
         form.parse(req,async function(error,fields,file){
             let companies_Edit = await {
@@ -203,7 +199,7 @@ router.post('/edit_profile', function(req,res){
              upbg : file.upbg.name,
             };
             await edit_profile.editprofile_companies(companies_Edit,req.session.adid)
-            /*if(companies_Edit.uplogo){
+            if(companies_Edit.uplogo){
              let newpath_uplogo =  form.uploadDir + file.uplogo.name;
              let oldpath_uplogo  = file.uplogo.path;
                 fs.rename(oldpath_uplogo,newpath_uplogo, function (err) {
@@ -216,9 +212,20 @@ router.post('/edit_profile', function(req,res){
                 fs.rename(oldpath_upbg,newpath_upbg, function (err) {
                 if (err) console.log(err) ;
                 });
-            }*/
+            }
             res.redirect('/admin/home#') 
         })
-    }else res.redirect('/admin/registration');
 })
+function checklogin(req,res,next){
+    if(req.session.adid && req.session.adname){
+       return next()
+    }
+    res.redirect('/admin/registration')
+}
+function checklogout(req,res,next){
+    if(req.session.adid && req.session.adname){
+        res.redirect('/admin/registration')
+    }
+    next()
+}
 module.exports = router;
