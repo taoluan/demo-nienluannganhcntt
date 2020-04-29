@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const url = 'mongodb://localhost/Nienluannganh';
 const Companies = require('../models/Companies');
+const Infor_Companies = require('../models/Infor_Companies')
 module.exports.editprofile_companies = function(data,id){
         mongoose.connect(url,async function(err){
             if (err) throw err;
@@ -26,5 +27,22 @@ module.exports.editprofile_companies = function(data,id){
         })
            
         })
-   
+}
+module.exports.loadprofile_companies = function(id){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let profile = Companies.findById(id);
+            resolve(profile)
+        })
+    })
+}
+module.exports.loadInfor_companies = function(id){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let Infor = Infor_Companies.findOne({companies:id});
+            resolve(Infor)
+        })
+    })
 }

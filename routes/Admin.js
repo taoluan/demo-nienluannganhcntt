@@ -9,6 +9,7 @@ var client = require('../elasticsearch/connection');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
 var fs = require('fs');
+const Companies_fmd = require('../models_function/Companies_fmd');
 var addcompanies_elas= require('../models_function/model_elas');
 var form = new formidable.IncomingForm();
 form.uploadDir = "public/image/company/";
@@ -100,19 +101,22 @@ router.post('/signin',urlencodedParser,function(req,res){
         }else res.redirect('/admin/registration')
     })
 })
-router.get('/home',checklogin,function(req,res){
+router.get('/home',checklogin,async function(req,res){
+    let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
        res.render('./admin/home', {
            title: 'Nhà tuyển dụng',
-           name: req.session.adname,
-           id: req.session.adid
+           profiles:load_profile
        }) 
 })
-router.get('/page-ad',function(req,res){
+router.get('/page-ad',async function(req,res){
     if(req.session.adid && req.session.adname){
+        let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
+        let load_Infor = await Companies_fmd.loadInfor_companies(req.session.adid)
+        //let intro = load_Infor.intro.split('*');
         res.render('./admin/page', {
             title: 'Nhà tuyển dụng',
-            name: req.session.adname,
-            id: req.session.adid
+            profiles: load_profile,
+            Infor: load_Infor,
         }) 
      }else res.redirect('/admin/registration')
 })
@@ -121,10 +125,17 @@ router.post('/edit',function(req,res){
         mongoose.connect(url,async function(err){
             const CompaniesFind =await Companies.findById(req.session.adid);
             const CompaniesInforFind =await Infor_Companies.findOne({companies:req.session.adid});
-            res.render('./xuly/edit_pageadmin', {
-                data: CompaniesFind,
-                info: CompaniesInforFind
-            }) 
+                if(CompaniesInforFind === null){
+                    res.render('./xuly/createpage_admin', {
+                    data: CompaniesFind,
+                    }) 
+                }else{
+                    res.render('./xuly/editpage_admin', {
+                    data: CompaniesFind,
+                    info: CompaniesInforFind
+                    }) 
+                }
+                
         })
         
      }else res.redirect('/admin/registration')
@@ -175,8 +186,9 @@ router.post('/introcpn',function(req,res){
                     bonus : benefits_bonus
                 }
             })
-            Info_new .save(function(err){
+            Info_new.save(async function(err){
                 if (err) throw err;
+                await Companies.update({_id:Info_new.companies},{$set:{'status':"active"}})
                 res.redirect('/admin/page-ad')
               })
         })
@@ -184,7 +196,6 @@ router.post('/introcpn',function(req,res){
     }else res.redirect('/admin/registration')
 })
 router.post('/edit_profile',checklogin,function(req,res){
-        const edit_profile = require('../models_function/Companies_fmd');
         form.parse(req,async function(error,fields,file){
             let companies_Edit = await {
              link : fields.link,
@@ -198,7 +209,7 @@ router.post('/edit_profile',checklogin,function(req,res){
              uplogo : file.uplogo.name,
              upbg : file.upbg.name,
             };
-            await edit_profile.editprofile_companies(companies_Edit,req.session.adid)
+            await Companies_fmd.editprofile_companies(companies_Edit,req.session.adid)
             if(companies_Edit.uplogo){
              let newpath_uplogo =  form.uploadDir + file.uplogo.name;
              let oldpath_uplogo  = file.uplogo.path;

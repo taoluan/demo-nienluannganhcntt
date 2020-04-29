@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%= name %></title>
+    <title><%= profiles.name %></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="../../public/css/home_ad.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -17,7 +17,7 @@
     <div class="wrapper">
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3><%= name %></h3>
+                <h3><%= profiles.name %></h3>
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
@@ -72,8 +72,8 @@
                             </li>
                             <li class="nav-item active">
                                 <button type="button" id="sidebarCollapse" class="btn btn-secondary w-100" style="border-radius:50%">
-                                    <img src='../../public/image/fpt-software-logo.png' height="30" width="30" style="float: left;border-radius:50%">
-                                    <span style="margin-left: 2px;line-height: 30px;"><%= name %></span>
+                                    <img src='<%= profiles.image.logo %>' height="30" width="30" style="float: left;border-radius:50%">
+                                    <span style="margin-left: 2px;line-height: 30px;"><%= profiles.name %></span>
                                 </button>
                             </li>
                         </ul>

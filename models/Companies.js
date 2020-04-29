@@ -25,6 +25,10 @@ var CompanySchema = new Schema({
         logo:String,
         background:String
     },
+    status: {
+        type: String,
+        default: 'inactive'
+    },
     follow:[
         {user:{
             type:mongoose.Schema.Types.ObjectId, 
