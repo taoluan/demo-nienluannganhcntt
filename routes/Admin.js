@@ -112,7 +112,6 @@ router.get('/page-ad',async function(req,res){
     if(req.session.adid && req.session.adname){
         let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
         let load_Infor = await Companies_fmd.loadInfor_companies(req.session.adid)
-        //let intro = load_Infor.intro.split('*');
         res.render('./admin/page', {
             title: 'Nhà tuyển dụng',
             profiles: load_profile,

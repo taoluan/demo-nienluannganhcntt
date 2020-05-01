@@ -27,7 +27,7 @@
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="/admin/page-ad">Trang của công ty</a>
+                            <a class="check_true" href="/admin/page-ad">Trang của công ty</a>
                         </li>
                         <li>
                             <a class='edit' href="#">Sửa thông tin công ty</a>
@@ -281,6 +281,20 @@
                     } 
                 })
             });
+            $('.check_true').click(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: '/check/Default_profile',
+                    method: 'post',
+                    success:function(data){
+                        if(data === 'true'){
+                            location.href='/admin/page-ad'
+                        }else{
+                            alert('Vui lòng thêm thông tin của công ty')
+                        }
+                    }
+                })
+            })  
         });
     </script>
 </html>

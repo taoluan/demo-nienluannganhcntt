@@ -6,6 +6,7 @@ const url = 'mongodb://localhost/Nienluannganh';
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 const User = require('../models/User');
 const Companies = require('../models/Companies');
+const Infor_Companies = require('../models/Infor_Companies');
 router.post('/signup',urlencodedParser,function(req,res){
     let checkusn = req.body.name;
     mongoose.connect(url,async function(err){
@@ -53,5 +54,19 @@ router.post('/signinadmin',urlencodedParser,function(req,res){
             console.log(error);
         }
     })
+})
+router.post('/Default_profile',urlencodedParser,function(req,res){
+    if(req.session.adid && req.session.adname){
+        mongoose.connect(url,async function(err){
+            if(err) throw err;
+            const Default_profile = await Infor_Companies.findOne({companies:req.session.adid})
+            if(Default_profile){
+                res.send('true')
+            }else{
+               res.send('false') 
+            }
+            
+        })
+    }
 })
 module.exports = router;
