@@ -191,10 +191,6 @@ a.article:hover {
     color: #fff !important;
 }
 
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-
 #content {
     width: 100%;
     padding: 20px;
@@ -215,6 +211,9 @@ a.article:hover {
     background: #d93737!important;
     background: linear-gradient(45deg,#e55353 0%,#d93737 100%)!important;
     border-color: #d93737!important;
+}
+.bg-gradient-blue{
+    background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
 }
 .text-value-lg{
     font-weight: 600;

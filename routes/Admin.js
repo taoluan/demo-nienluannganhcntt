@@ -57,7 +57,6 @@ router.post('/signup',function(req,res){
                 }
             });
             newCompany.save(async function(err){
-               console.log(newCompany._id) 
                 if(err) throw err;
                 await client.index({
                     index: 'companies',
@@ -225,6 +224,13 @@ router.post('/edit_profile',checklogin,function(req,res){
             }
             res.redirect('/admin/home#') 
         })
+})
+router.post('/post-job',checklogin,async function(req,res){
+    let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
+    res.render('./admin/post-job',{
+        logo : load_profile.image.logo,
+        companies: load_profile.name,
+    })
 })
 function checklogin(req,res,next){
     if(req.session.adid && req.session.adname){

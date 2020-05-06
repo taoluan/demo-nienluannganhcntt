@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-md bg-white" style=" border: 1px solid #e3e3e3 ">
+        <form id='editprofile' enctype="multipart/form-data" action="/admin/edit_profile" method="post" >
+            <div class="container" style="width:90%">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <div class="card w-100" style="border: none;max-width: 18rem;">
+                            <h2 class="text-center mt-3"><%= companies %> Tuyển dụng</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center mbt-4">
+                        <div class="card" style="border: none;max-width: 22rem;">
+                            <img id='avt' src="<%=logo%>"  class="rounded-circle card-img-top" alt="..." style="border: 1px solid #e3e3e3;">
+                        </div>
+                    </div>
+                </div>
+                <div class="row register-form mt-3">
+                    <div class="col-md-12 ">
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="text" class="check form-control w-50" name="job-name" placeholder="Tên công việc " required/>
+                        </div>                      
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="text" class="form-control w-50" name='job-address' placeholder="Địa chỉ nơi làm việc"  required/>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="text" class="form-control w-50" name='job-salary' value="" placeholder="Mức lương"  required/>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="text" class="form-control w-50" name='skills' style="width:50%" placeholder="Các kỹ năng" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <h4 class="ml-2">Mô tả</h4>
+                        <div class="card w-100 mt-0" style="border: none;">
+                            <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
+                                <div class="form-group shadow-textarea">
+                                    <label for="exampleFormControlTextarea6">Mô tả công việc</label>
+                                    <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3" placeholder="Sử dụng CMS (như WordPress) hoặc những kỹ thuật như HTML, CSS, JavaScript (AngularJS/ ReactJS/ VueJS) v.v.
+Lên kế hoạch, thiết kế, tạo Website mới." required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="ml-2">Yêu cầu về công việc</h4>
+                        <div class="card w-100 mt-0" style="border: none;">
+                            <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
+                                <div class="form-group shadow-textarea">
+                                    <label for="exampleFormControlTextarea6">Về kỹ năng và trình độ</label>
+                                    <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3"
+                                    placeholder="Bachelor’s degree in Mathematics, Computer Science, Economics, or related fields.
+4+ years experience as a data analyst, reporting data analytics is preferred." required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card w-100 mt-0" style="border: none;">
+                            <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
+                                <div class="form-group shadow-textarea">
+                                    <label for="exampleFormControlTextarea6">Các yêu cầu khác</label>
+                                    <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3" 
+                                    placeholder="At least 4 years working in a data analytics reporting role.
+Demonstrated experience in design, develop and maintain" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="ml-2">Một số hình ảnh về công việc</h4>
+                        <div class="card w-100" style="border: none;">
+                            <div class="card-body" style="padding-bottom: 5px;">
+                                <input type="file" class="smart-file" name="images"  data-btn-class="btn-primary" data-field-type="bootstrap-file-filed"  multiple required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                 <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<link rel="stylesheet" href="../../public/css/tagsinput.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../../public/css/companies.css">
+<link rel="stylesheet" type="text/css" href="../../public/css/bootstrap_file_field.css">
+<script type="text/javascript" src="../../public/js/bootstrap_file_field.js"></script>
+<script src="../../public/js/tagsinput.js"></script>
+<style>
+    .bootstrap-tagsinput{
+        width: 50%;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        var skills = [ "JavaScript","PHP","C++","C#","Python","Java","Nodejs","MongoDB","Ruby","AI","Css/Boostrap","MySQL","Elasticsearch","Cassandra","FondEnd","BackEnd","Scala","Swift","TypeScript","Objective-C","English","SQL","Android",".NET"];
+        var skills = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: skills
+        });
+        $('input[name="skills"]').tagsinput({
+            typeaheadjs: {
+            name: 'skills',
+            source: skills
+            }
+        });
+    })
+</script>
+</html>

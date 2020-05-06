@@ -41,7 +41,7 @@
       
       <!-- Modal footer -->
       <div class="modal-footer d-flex justify-content-center">
-        <button  type="button" class="checkok btn btn-primary text-center w-50" data-dismiss="modal">Hoàn tất</button>
+        <button  type="button" class="check_false btn btn-primary text-center w-50" data-dismiss="modal">Trở về</button>
       </div>
       
     </div>
@@ -75,7 +75,10 @@
                     }
                   })
                 })
-             });
+                $('.check_false').click(function(){
+                  location.reload();
+                })
+              });
         </script>
     <style>
         :root {
