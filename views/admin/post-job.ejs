@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 <body>
     <div class="container-md bg-white" style=" border: 1px solid #e3e3e3 ">
-        <form id='editprofile' enctype="multipart/form-data" action="/admin/edit_profile" method="post" >
+        <form id='editprofile' enctype="multipart/form-data" action="/admin/edit_post_job" method="post" >
             <div class="container" style="width:90%">
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
@@ -24,16 +19,24 @@
                 <div class="row register-form mt-3">
                     <div class="col-md-12 ">
                         <div class="form-group d-flex justify-content-center">
-                            <input type="text" class="check form-control w-50" name="job-name" placeholder="Tên công việc " required/>
+                            <input type="text" class="check form-control w-50" name="job_name" placeholder="Tên công việc " required/>
                         </div>                      
                         <div class="form-group d-flex justify-content-center">
-                            <input type="text" class="form-control w-50" name='job-address' placeholder="Địa chỉ nơi làm việc"  required/>
+                            <input type="text" class="form-control w-50" name='job_address' placeholder="Địa chỉ nơi làm việc"  required/>
                         </div>
                         <div class="form-group d-flex justify-content-center">
-                            <input type="text" class="form-control w-50" name='job-salary' value="" placeholder="Mức lương"  required/>
+                            <input type="text" class="form-control mr-2" style="width:35%" name='job_salary' placeholder="Mức lương"  required/>
+                            <select id='sel'name='unit' class="custom-select browser-default " style="width:10%">
+                                <option value="" class="hidden"  selected disabled>Đơn vị</option>
+                                <option value="VND">VND</option>
+                                <option value="USA">USA</option>
+                            </select>
+                            <button type="button" class="btn btn-primary" style="margin-left: 4px;" data-toggle="modal" data-target="#exampleModalCenter">
+                                <i class="fas fa-plus-circle"></i>
+                            </button>
                         </div>
                         <div class="form-group d-flex justify-content-center">
-                            <input type="text" class="form-control w-50" name='skills' style="width:50%" placeholder="Các kỹ năng" required>
+                            <input type="text" class="form-control w-50" name='skills' placeholder="Các kỹ năng" required>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -42,7 +45,7 @@
                             <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
                                 <div class="form-group shadow-textarea">
                                     <label for="exampleFormControlTextarea6">Mô tả công việc</label>
-                                    <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3" placeholder="Sử dụng CMS (như WordPress) hoặc những kỹ thuật như HTML, CSS, JavaScript (AngularJS/ ReactJS/ VueJS) v.v.
+                                    <textarea id='format_reasons' class="form-control z-depth-1" name="descript"  id="exampleFormControlTextarea6" rows="3" placeholder="Sử dụng CMS (như WordPress) hoặc những kỹ thuật như HTML, CSS, JavaScript (AngularJS/ ReactJS/ VueJS) v.v.
 Lên kế hoạch, thiết kế, tạo Website mới." required></textarea>
                                 </div>
                             </div>
@@ -52,7 +55,7 @@ Lên kế hoạch, thiết kế, tạo Website mới." required></textarea>
                             <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
                                 <div class="form-group shadow-textarea">
                                     <label for="exampleFormControlTextarea6">Về kỹ năng và trình độ</label>
-                                    <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3"
+                                    <textarea id='format_reasons' class="form-control z-depth-1" name="req_skill"  id="exampleFormControlTextarea6" rows="3"
                                     placeholder="Bachelor’s degree in Mathematics, Computer Science, Economics, or related fields.
 4+ years experience as a data analyst, reporting data analytics is preferred." required></textarea>
                                 </div>
@@ -62,7 +65,7 @@ Lên kế hoạch, thiết kế, tạo Website mới." required></textarea>
                             <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
                                 <div class="form-group shadow-textarea">
                                     <label for="exampleFormControlTextarea6">Các yêu cầu khác</label>
-                                    <textarea id='format_reasons' class="form-control z-depth-1" name="reasons"  id="exampleFormControlTextarea6" rows="3" 
+                                    <textarea id='format_reasons' class="form-control z-depth-1" name="req_additional"  id="exampleFormControlTextarea6" rows="3" 
                                     placeholder="At least 4 years working in a data analytics reporting role.
 Demonstrated experience in design, develop and maintain" required></textarea>
                                 </div>
@@ -82,6 +85,28 @@ Demonstrated experience in design, develop and maintain" required></textarea>
                 </div>
             </div>
         </form>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Thêm công việc</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name"  class="col-form-label">Tên công việc:</label>
+                    <input type="text" class="form-control" id="addname">
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary save">Save changes</button>
+            </div>
+          </div>
+        </div>
     </div>
 </body>
 <link rel="stylesheet" href="../../public/css/tagsinput.css">
@@ -109,6 +134,13 @@ Demonstrated experience in design, develop and maintain" required></textarea>
             source: skills
             }
         });
+        $('.save').click(function(){
+               let addname =  $('#addname').val();
+               if(addname !== ''){
+                $('#sel').append( '<option value="'+addname+'">'+addname+'</option>');
+                $('.save').attr("data-dismiss","modal");  
+               }
+            })
     })
 </script>
 </html>

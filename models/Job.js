@@ -18,11 +18,12 @@ var JobSchema = new Schema ({
         type: Date,
         default: Date.now
     },
-    description: String,
+    descript: String,
     requirements:{
         skill: String,
         additional: String
     },
+    images:[String],
     join:[
         { User: {
             type: mongoose.Schema.Types.ObjectId, 

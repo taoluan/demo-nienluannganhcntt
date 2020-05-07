@@ -3,8 +3,9 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const Companies = require('../models/Companies');
-const mongoose = require('mongoose');
 const Infor_Companies = require('../models/Infor_Companies');
+const PostJob = require('../models/Job');
+const mongoose = require('mongoose');
 var client = require('../elasticsearch/connection');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
@@ -230,6 +231,70 @@ router.post('/post-job',checklogin,async function(req,res){
     res.render('./admin/post-job',{
         logo : load_profile.image.logo,
         companies: load_profile.name,
+    })
+})
+router.post('/edit_post_job',checklogin,async function(req,res){
+    files = [],
+    fields = [];
+    let images = [];
+    form.uploadDir = "public/image/company/";
+    form.on('field', function(field, value) {
+        fields.push([field, value]);
+    })
+    form.on('file', function(field, file) {
+        fs.rename(file.path,form.uploadDir+file.name, function (err) {
+            if (err) throw err;
+        });
+        files.push([field, file]);
+        images.push("/public/image/company/"+file.name)
+    })
+    form.on('end', function() {
+    });
+    form.parse(req,async function(error,fields,file){
+            title = fields.job_name;
+            address = fields.job_address,
+            salary = fields.job_salary,
+            unit = fields.unit,
+            skills = fields.skills.split(','),
+            descript = fields.descript,
+            req_skill = fields.req_skill,
+            req_additional = fields.req_additional,
+            upimages = file.upbg.images,
+        mongoose.connect(url,async function(err){
+            let Post_Job = await new PostJob({
+                _id: new mongoose.Types.ObjectId(),
+                title:title,
+                companies:req.session.adid,
+                salary:salary,
+                skills:skills,
+                address:address,
+                descript:descript,
+                requirements:{
+                    skills:req_skill,
+                    additional:req_additional
+                },
+                images:images
+            })
+            Post_Job.save(async function(err){
+                if(err) throw err;
+                console.log(Post_Job._id)
+            })
+        })
+        if(companies_Edit.uplogo){
+            let newpath_uplogo =  form.uploadDir + file.uplogo.name;
+            let oldpath_uplogo  = file.uplogo.path;
+            fs.rename(oldpath_uplogo,newpath_uplogo, function (err) {
+            if (err) console.log(err);
+            });
+        }
+        if(companies_Edit.upbg){
+            let newpath_upbg =  form.uploadDir + file.upbg.name;
+            let oldpath_upbg  = file.upbg.path;
+            fs.rename(oldpath_upbg,newpath_upbg, function (err) {
+            if (err) console.log(err) ;
+            });
+        }
+        res.redirect('/admin/home#') 
     })
 })
 function checklogin(req,res,next){
