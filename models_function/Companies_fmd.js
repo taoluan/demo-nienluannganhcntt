@@ -51,8 +51,27 @@ module.exports.loadJob_companies = function(id){
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
+            let count_job = Job.countDocuments({companies:id})
             let list_job = Job.find({companies:id});
             resolve(list_job)
+        })
+    })
+}
+module.exports.countJob_companies = function(id){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let count_job = Job.countDocuments({companies:id});
+            resolve(count_job)
+        })
+    })
+}
+module.exports.countCandidate_companies = function(id){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let count_job = Job.countDocuments({companies:id});
+            resolve(count_job)
         })
     })
 }

@@ -271,8 +271,18 @@ router.post('/edit_post_job',checklogin,async function(req,res){
 })
 router.post('/list-job',checklogin,async function(req,res){
     let load_list_job = await Companies_fmd.loadJob_companies(req.session.adid);
+    let count_job = await Companies_fmd.countJob_companies(req.session.adid);
     res.render('./admin/list-job',{
         list_job:load_list_job,
+        count_job:count_job
+    })
+})
+router.get('/update_status',checklogin,function(req,res){
+    let id_job = req.query.id_job;
+    mongoose.connect(url,async function(err){
+        if(err) throw err;
+         await PostJob.updateOne({_id:id_job},{$set:{'status':'Ngừng tuyển'}})
+         res.send('ok')
     })
 })
 function checklogin(req,res,next){
