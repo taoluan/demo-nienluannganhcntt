@@ -44,7 +44,7 @@
                             <a href="#" class="post-job">Thêm công việc mới</a>
                         </li>
                         <li>
-                            <a href="#">Danh sách công việc</a>
+                            <a href="#" class="list-job">Danh sách công việc</a>
                         </li>
                     </ul>
                 </li>
@@ -115,7 +115,7 @@
                         <div class="card mb-3 w-100">
                             <div class="card-header bg-white">Thông kê các đánh giá công ty</div>
                             <div class="card-body text-primary">
-                                <canvas id="danhgia" style="max-width: 500px;"></canvas>
+                                <canvas id="danhgia"></canvas>
                             </div>
                           </div>
                     </div>
@@ -129,75 +129,75 @@
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-12">
                         <div class="card mb-3 w-100">
                             <div class="card-header bg-white">Bảng danh sách các ứng viên đã ứng tuyển công việc</div>
-                            <div class="card-body">
-                                <table id="example" class="table table-striped table-bordered" style="width:100% ; margin-top: 20px;">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên công việc</th>
-                                            <th>Kĩ năng</th>
-                                            <th>Mức lương</th>
-                                            <th>Nơi làm việc</th>
-                                            <th>Người ứng tuyển</th>
-                                            <th>CV</th>
-                                            <th>Trang thái</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td><i class="far fa-file-alt"></i</td>
-                                            <td>2011/04/25</td>
-                                            <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
-                                                <a href="../../public/image/cv/cv1.docx" download="cv1.docx">
-                                                    <i class="fas fa-download"></i></a>
-                                            </button></td>
-                                            <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td><i class="far fa-file-alt"></i</td>
-                                            <td>2011/04/25</td>
-                                            <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
-                                                <a href="../../public/image/cv/cv1.docx" download>
-                                                    <i class="fas fa-download"></i></a>
-                                            </button></td>
-                                            <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td><i class="far fa-file-alt"></i</td>
-                                            <td>2011/04/25</td>
-                                            <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
-                                                <a href="../../public/image/cv/cv1.docx" download="cv1.docx">
-                                                    <i class="fas fa-download"></i></a>
-                                            </button></td>
-                                            <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Tên công việc</th>
-                                            <th>Kĩ năng</th>
-                                            <th>Mức lương</th>
-                                            <th>Nơi làm việc</th>
-                                            <th>Người ứng tuyển</th>
-                                            <th>CV</th>
-                                            <th>Trang thái</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                <div class="card-body">
+                                    <table id="example1" class="table table-striped table-bordered" style=" margin-top: 20px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên công việc</th>
+                                                <th>Kĩ năng</th>
+                                                <th>Mức lương</th>
+                                                <th>Nơi làm việc</th>
+                                                <th>Người ứng tuyển</th>
+                                                <th>CV</th>
+                                                <th>Trang thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td><i class="far fa-file-alt"></i</td>
+                                                <td>2011/04/25</td>
+                                                <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
+                                                    <a href="../../public/image/cv/cv1.docx" download="cv1.docx">
+                                                        <i class="fas fa-download"></i></a>
+                                                </button></td>
+                                                <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td><i class="far fa-file-alt"></i</td>
+                                                <td>2011/04/25</td>
+                                                <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
+                                                    <a href="../../public/image/cv/cv1.docx" download>
+                                                        <i class="fas fa-download"></i></a>
+                                                </button></td>
+                                                <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td><i class="far fa-file-alt"></i</td>
+                                                <td>2011/04/25</td>
+                                                <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
+                                                    <a href="../../public/image/cv/cv1.docx" download="cv1.docx">
+                                                        <i class="fas fa-download"></i></a>
+                                                </button></td>
+                                                <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Tên công việc</th>
+                                                <th>Kĩ năng</th>
+                                                <th>Mức lương</th>
+                                                <th>Nơi làm việc</th>
+                                                <th>Người ứng tuyển</th>
+                                                <th>CV</th>
+                                                <th>Trang thái</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
-                    </div>
-                     </div>   
+                      </div>   
                 </div>
             </div>
         </div>
@@ -263,11 +263,15 @@
         responsive: true
         }
         });
+        $(window).on("load", function() {
+            console.log( "window loaded" );
+        });
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
-            $('#example').DataTable();
+            $('#example1').DataTable();
+            $('#mytable').DataTable();
             $('.edit').click(function(){
                 $.ajax({
                     url: '/admin/edit',
@@ -295,6 +299,15 @@
             $('.post-job').click(function(){
                 $.ajax({
                     url: '/admin/post-job',
+                    method:'post',
+                    success: function (data){
+                        $('#ctn').html(data)
+                    } 
+                })
+            });
+            $('.list-job').click(function(){
+                $.ajax({
+                    url: '/admin/list-job',
                     method:'post',
                     success: function (data){
                         $('#ctn').html(data)

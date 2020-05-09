@@ -23,7 +23,6 @@ var JobSchema = new Schema ({
         skill: String,
         additional: String
     },
-    images:[String],
     join:[
         { User: {
             type: mongoose.Schema.Types.ObjectId, 

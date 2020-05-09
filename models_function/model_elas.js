@@ -23,3 +23,25 @@ module.exports.addCompanies = function(data){
             console.log(req);
         })   
 }
+module.exports.postjob = function(data,logo){
+    return new Promise((resolve,reject)=>{
+        client.index({
+            index: 'jobs',
+            id: (data._id).toString(),
+            type: '_doc',
+            body:{
+                'title':data.title,
+                'companies':data.companies,
+                'salary':data.salary,
+                'skills':data.skills,
+                'address':address,
+                'descript':data.descript,
+                'logo':logo,
+                'created':data.created
+            }
+        },function(err,req,status){
+            if(err) reject(err);
+            resolve(req);
+        })
+    })
+}

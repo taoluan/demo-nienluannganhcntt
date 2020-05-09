@@ -5,13 +5,13 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const Companies = require('../models/Companies');
 const Infor_Companies = require('../models/Infor_Companies');
 const PostJob = require('../models/Job');
+const PostJob_Elas = require('../models_function/model_elas')
 const mongoose = require('mongoose');
 var client = require('../elasticsearch/connection');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
 var fs = require('fs');
 const Companies_fmd = require('../models_function/Companies_fmd');
-var addcompanies_elas= require('../models_function/model_elas');
 var form = new formidable.IncomingForm();
 form.uploadDir = "public/image/company/";
 router.get('/registration',function(req,res){
@@ -234,67 +234,45 @@ router.post('/post-job',checklogin,async function(req,res){
     })
 })
 router.post('/edit_post_job',checklogin,async function(req,res){
-    files = [],
-    fields = [];
-    let images = [];
-    form.uploadDir = "public/image/company/";
-    form.on('field', function(field, value) {
-        fields.push([field, value]);
-    })
-    form.on('file', function(field, file) {
-        fs.rename(file.path,form.uploadDir+file.name, function (err) {
-            if (err) throw err;
-        });
-        files.push([field, file]);
-        images.push("/public/image/company/"+file.name)
-    })
-    form.on('end', function() {
-    });
     form.parse(req,async function(error,fields,file){
             title = fields.job_name;
             address = fields.job_address,
-            salary = fields.job_salary,
+            money = fields.job_salary,
             unit = fields.unit,
             skills = fields.skills.split(','),
             descript = fields.descript,
+            logo = fields.logo,
             req_skill = fields.req_skill,
             req_additional = fields.req_additional,
-            upimages = file.upbg.images,
-        mongoose.connect(url,async function(err){
+            mongoose.connect(url,async function(err){
             let Post_Job = await new PostJob({
                 _id: new mongoose.Types.ObjectId(),
                 title:title,
                 companies:req.session.adid,
-                salary:salary,
+                salary:{
+                    money : money,
+                    unit : unit,
+                },
                 skills:skills,
                 address:address,
                 descript:descript,
                 requirements:{
-                    skills:req_skill,
+                    skill:req_skill,
                     additional:req_additional
                 },
-                images:images
             })
             Post_Job.save(async function(err){
                 if(err) throw err;
-                console.log(Post_Job._id)
+                let post_elas = await PostJob_Elas.postjob(Post_Job,logo)
             })
         })
-        if(companies_Edit.uplogo){
-            let newpath_uplogo =  form.uploadDir + file.uplogo.name;
-            let oldpath_uplogo  = file.uplogo.path;
-            fs.rename(oldpath_uplogo,newpath_uplogo, function (err) {
-            if (err) console.log(err);
-            });
-        }
-        if(companies_Edit.upbg){
-            let newpath_upbg =  form.uploadDir + file.upbg.name;
-            let oldpath_upbg  = file.upbg.path;
-            fs.rename(oldpath_upbg,newpath_upbg, function (err) {
-            if (err) console.log(err) ;
-            });
-        }
-        res.redirect('/admin/home#') 
+        res.redirect('/admin/home') 
+    })
+})
+router.post('/list-job',checklogin,async function(req,res){
+    let load_list_job = await Companies_fmd.loadJob_companies(req.session.adid);
+    res.render('./admin/list-job',{
+        list_job:load_list_job,
     })
 })
 function checklogin(req,res,next){
