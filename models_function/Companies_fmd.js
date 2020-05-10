@@ -75,3 +75,12 @@ module.exports.countCandidate_companies = function(id){
         })
     })
 }
+module.exports.viewJob_companies = function(id){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let list_job = Job.findById(id);
+            resolve(list_job)
+        })
+    })
+}

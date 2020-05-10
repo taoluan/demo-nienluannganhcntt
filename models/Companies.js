@@ -32,7 +32,7 @@ var CompanySchema = new Schema({
     follow:[
         {user:{
             type:mongoose.Schema.Types.ObjectId, 
-            ref:'companies'
+            ref:'user'
             }
         }
     ]

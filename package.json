@@ -19,6 +19,7 @@
     "express-session": "^1.17.0",
     "formidable": "^1.2.2",
     "get-json": "^1.0.1",
+    "moment-timezone": "^0.5.28",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.9",
     "passport": "^0.4.1"

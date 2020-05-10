@@ -10,7 +10,7 @@ var ReviewSchema = new Schema ({
      },
      User: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'companies'
+        ref: 'user'
      },
     numofStart: String,
     vote : String,

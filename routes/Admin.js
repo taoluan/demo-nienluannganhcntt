@@ -7,6 +7,7 @@ const Infor_Companies = require('../models/Infor_Companies');
 const PostJob = require('../models/Job');
 const PostJob_Elas = require('../models_function/model_elas')
 const mongoose = require('mongoose');
+const Date = require('../models_function/xuly')
 var client = require('../elasticsearch/connection');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
@@ -279,10 +280,36 @@ router.post('/list-job',checklogin,async function(req,res){
 })
 router.get('/update_status',checklogin,function(req,res){
     let id_job = req.query.id_job;
+    let status = req.query.status;
     mongoose.connect(url,async function(err){
-        if(err) throw err;
-         await PostJob.updateOne({_id:id_job},{$set:{'status':'Ngừng tuyển'}})
-         res.send('ok')
+        try {
+            if(status !== 'Đang tuyển'){
+                await PostJob.updateOne({_id:id_job},{$set:{'status':'Đang tuyển'}})
+            }else {
+                await PostJob.updateOne({_id:id_job},{$set:{'status':'Ngưng tuyển'}})
+            }
+            let load_list_job = await Companies_fmd.loadJob_companies(req.session.adid);
+            let count_job = await Companies_fmd.countJob_companies(req.session.adid);
+            res.render('./admin/list-job',{
+                list_job:load_list_job,
+                count_job:count_job
+            })
+        } catch (error) {
+            
+        }   
+    })
+})
+router.get('/viewjob/:id',checklogin,async function(req,res){
+    let id = req.params.id;
+    let Company = await Companies.findById(req.session.adid);
+    let CompaniesInforFind = await Infor_Companies.findOne({companies:req.session.adid});
+    let job = await Companies_fmd.viewJob_companies(id);
+    let date_format = Date.Date(job.created);
+    res.render('./admin/viewjob',{
+        Companies:Company,
+        Companies_infor:CompaniesInforFind,
+        Job:job,
+        date:date_format
     })
 })
 function checklogin(req,res,next){
