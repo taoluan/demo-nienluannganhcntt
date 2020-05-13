@@ -114,7 +114,7 @@ router.get('/page-ad',async function(req,res){
         let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
         let load_Infor = await Companies_fmd.loadInfor_companies(req.session.adid)
         res.render('./admin/page', {
-            title: 'Nhà tuyển dụng',
+            title: load_profile.name + ' | Nhà tuyển dụng  ',
             profiles: load_profile,
             Infor: load_Infor,
         }) 
@@ -243,8 +243,8 @@ router.post('/edit_post_job',checklogin,async function(req,res){
             skills = fields.skills.split(','),
             descript = fields.descript,
             logo = fields.logo,
-            req_skill = fields.req_skill,
-            req_additional = fields.req_additional,
+            req_mandotory = fields.req_skill,
+            req_others = fields.req_additional,
             mongoose.connect(url,async function(err){
             let Post_Job = await new PostJob({
                 _id: new mongoose.Types.ObjectId(),
@@ -258,8 +258,8 @@ router.post('/edit_post_job',checklogin,async function(req,res){
                 address:address,
                 descript:descript,
                 requirements:{
-                    skill:req_skill,
-                    additional:req_additional
+                    mandatory:req_mandotory,
+                    others:req_others
                 },
             })
             Post_Job.save(async function(err){
@@ -307,7 +307,7 @@ router.get('/viewjob/:id',checklogin,async function(req,res){
     let date_format = Date.Date(job.created);
     res.render('./admin/viewjob',{
         Companies:Company,
-        Companies_infor:CompaniesInforFind,
+        Cpn_infor:CompaniesInforFind,
         Job:job,
         date:date_format
     })

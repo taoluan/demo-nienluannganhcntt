@@ -20,8 +20,8 @@ var JobSchema = new Schema ({
     },
     descript: String,
     requirements:{
-        skill: String,
-        additional: String
+        mandatory: String,
+        others: String
     },
     join:[
         { User: {
