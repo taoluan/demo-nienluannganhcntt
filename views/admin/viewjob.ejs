@@ -5,9 +5,9 @@
     <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="../../public/css/job.css">
     <link href="../../public/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../public/css/formlogin.css">
     <link href="../../public/css/agency.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../public/css/tagsinput.css">
 </head>
 <body>
     <div class="container-md">
@@ -86,32 +86,156 @@
                                                 <td><p class="card-text" style="line-height: 1.5"> <%= Companies.workday%></p></td>
                                             </tr>
                                         </table>
-                                        <center>
-                                            <a href="#" class="card-link" >3 Job <i class="fas fa-search-plus"></i></a>
-                                            <a href="/companies/Grab(Vietnam)Ltd." class="card-link" style="margin-top:15px" >Thông tin <i class="fas fa-arrow-right"></i></a>
-                                        </center>
-                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="row">
-                                    <div class="card w-100  border-bottom" style="border:none ; margin-top: 0px;">
-                                        <div class="card-body" style="padding-top: 0px;">
-                                          <h2 class="card-title font "><%= Job.title %> (<%= Job.skills%>)</h2>
-                                          <div class="skills">
-                                            <% Job.skills.forEach(element => {%>
-                                                <a class="shadow-sm bg-white rounded" href="#java"><%= element%></a>
-                                            <% })%>
-                                          </div>
-                                          <div class="intro-job">
-                                            <p style="margin-bottom: 2px;" class="text-primary"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal"> <%= Job.salary.money%></a></p>
-                                            <p style="margin-bottom: 2px"><i class="fas fa-map-marker-alt"></i> <%= Job.address%></p>
-                                            <p id="created" style="margin-bottom: 10px; color: #58595b ; font-size: 14px;" ><i class="far fa-calendar-alt"></i> <%= date%></p>
-                                        </div>
+                                    <div class="col-sm-11 col-11">
+                                        <div class="card w-100  border-bottom" style="border:none ; margin-top: 0px;">
+                                            <div class="card-body" style="padding-top: 0px;">
+                                            <h2 class="card-title font "><%= Job.title %> (<%= Job.skills%>)</h2>
+                                            <div class="skills">
+                                                <% Job.skills.forEach(element => {%>
+                                                    <a class="shadow-sm bg-white rounded" href="#java"><%= element%></a>
+                                                <% })%>
+                                            </div>
+                                            <div class="intro-job">
+                                                <p style="margin-bottom: 2px;" class="text-primary"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal"> <%= Job.salary.money%></a></p>
+                                                <p style="margin-bottom: 2px"><i class="fas fa-map-marker-alt"></i> <%= Job.address%></p>
+                                                <p id="created" style="margin-bottom: 10px; color: #58595b ; font-size: 14px;" ><i class="far fa-calendar-alt"></i> <%= date%></p>
+                                            </div>
+                                            <p class="card-text text-success">Trạng thái: <span class="badge badge-warning"><%= Job.status%></span> </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>                         
+                                    <div class="col-sm-1 col-1">
+                                        <div class="float-right " style="margin-right: 10px;"><button class="btn btn-primary" style="border: none;" data-toggle="modal" data-target="#show_update_infor"><i class="fas fa-pencil-alt"></i></button></div>
+                                    </div>
+                                    <div  class="modal fade" id="show_update_infor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" style="max-width:700px">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Sửa thông tin công việc</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id='editprofile' action="/admin/update_post_job" method="get" >
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-12 d-flex justify-content-center">
+                                                                <div class="card w-100" style="border: none;max-width: 18rem;">
+                                                                    <h2 class="text-center mt-3"><%= Companies.name %> Tuyển dụng</h2>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 d-flex justify-content-center mbt-4">
+                                                                <div class="card" style="border: none;max-width: 22rem;">
+                                                                    <img id='avt' src="<%=Companies.image.logo%>"  class="rounded-circle card-img-top" alt="..." style="border: 1px solid #e3e3e3;">
+                                                                    <input type="text" class="check form-control " value="<%=Companies.image.logo%>" name="logo" style="display: none;"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row register-form mt-3">
+                                                            <div class="col-md-12 ">
+                                                                <div class="form-group d-flex justify-content-center">
+                                                                    <label for="job_name" style="width:15%; padding-top: 8px;">Công việc</label>
+                                                                    <input type="text" class="check form-control " style="width:85%" name="job_name" value="<%=Job.title%>" placeholder="Tên công việc " required/>
+                                                                </div>                      
+                                                                <div class="form-group d-flex justify-content-center">
+                                                                    <label for="job_address" style="width:15%; padding-top: 8px;">Địa chỉ</label>
+                                                                    <input type="text" class="form-control" style="width:85%" name='job_address' value="<%=Job.address%>" placeholder="Địa chỉ nơi làm việc"  required/>
+                                                                </div>
+                                                                <div class="form-group d-flex justify-content-center">
+                                                                    <label for="job_salary" style="width:15%; padding-top: 8px;">Mức lương</label>
+                                                                    <input type="text" class="form-control mr-2" style="width:60%" name='job_salary'  value="<%=Job.salary.money%>" placeholder="Mức lương"  />
+                                                                    <select id='sel'name='unit' class="custom-select browser-default " value="<%=Job.salary.init%>" style="width:20%">
+                                                                        <option value="" class="hidden"  selected disabled>Đơn vị</option>
+                                                                        <option value="VND">VND</option>
+                                                                        <option value="USA">USA</option>
+                                                                    </select>
+                                                                    <button type="button" class="btn btn-primary" style="margin-left: 4px;border: none;" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                        <i class="fas fa-plus-circle"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="form-group d-flex justify-content-center">
+                                                                    <label for="skills" style="width:15%; padding-top: 8px;">Kỹ năng</label>
+                                                                    <input type="text" style="width:85%" class="form-control" name='skills' value="<%=Job.skills%>" required>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <hr>
+                                                        <div class="d-flex justify-content-center mb-3">
+                                                            <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                    <div class="row">
+                                            <div class="col-sm-12">
+                                                <button class="btn btn-primary float-right" style="border: none;" data-toggle="modal" data-target="#show_update_fullinfor"><i class="fas fa-pencil-alt"></i></button>
+                                            </div>
+                                            <div  class="modal fade" id="show_update_fullinfor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" style="max-width:900px">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="staticBackdropLabel">Sửa thông tin công việc</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id='editprofile' action="/admin/update_post_job_infor" method="get" >
+                                                            <div class="container">
+                                                                <div class="row register-form mt-3">
+                                                                    <div class="col-md-12">
+                                                                        <h4 class="ml-2">Mô tả</h4>
+                                                                        <div class="card w-100 mt-0" style="border: none;">
+                                                                            <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
+                                                                                <div class="form-group shadow-textarea">
+                                                                                    <label for="exampleFormControlTextarea6">Mô tả công việc</label>
+                                                                                    <textarea id='format_descript' class="form-control z-depth-1" name="descript"  id="exampleFormControlTextarea6" rows="5" required><%= Job.descript%></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="ml-2">Yêu cầu về công việc</h4>
+                                                                        <div class="card w-100 mt-0" style="border: none;">
+                                                                            <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
+                                                                                <div class="form-group shadow-textarea">
+                                                                                    <label for="exampleFormControlTextarea6">Về kỹ năng và trình độ</label>
+                                                                                    <textarea id='format_req_skill' class="form-control z-depth-1" name="req_skill"  id="exampleFormControlTextarea6" rows="5"
+                                                                                    required><%=Job.requirements.mandatory%></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card w-100 mt-0" style="border: none;">
+                                                                            <div class="card-body mt-0 pt-0" style="padding-bottom: 5px;">
+                                                                                <div class="form-group shadow-textarea">
+                                                                                    <label for="exampleFormControlTextarea6">Các yêu cầu khác</label>
+                                                                                    <textarea id='format_req_additional' class="form-control z-depth-1" name="req_additional"  id="exampleFormControlTextarea6" rows="5" ><%=Job.requirements.others%></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+        
+                                                                </div>
+                                                                <hr>
+                                                                <div class="d-flex justify-content-center mb-3">
+                                                                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                    </div>       
                                     <% str = Cpn_infor.choose_us.reasons%>
                                         <% if(str){%>
                                         <div class="row bonus-job font">    
@@ -119,9 +243,9 @@
                                                     <div class="card-body pb-0">
                                                         <h5 class="card-title">3 Lý Do Để Gia Nhập Công Ty </h5>
                                                         <ul>
-                                                <% temp =str.split('*') %>
-                                                <% temp.forEach(function(element,index) {%>
-                                                <%  element = element.trim()%>
+                                                    <% temp =str.split('*') %>
+                                                    <% temp.forEach(function(element,index) {%>
+                                                    <%  element = element.trim()%>
                                                     <% if(element !== ''){%>
                                                     <li>
                                                         <p class="card-text"><%= element%> </p>
@@ -206,16 +330,13 @@
         
     </div>
 </body>
-    <script src="../../public/js/jquery.min.js"></script>
-    <script src="../../public/js/bootstrap.bundle.min.js"></script>
-    <script src="../../public/js/agency.min.js"></script>
-    <script src="../../public/js/forms.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script> const choices = new Choices('[data-trigger]',
-        {
-            searchEnabled: false,
-            itemSelectText: '',
-        });
+    <script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+    <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="../../public/js/tagsinput.js"></script>
+    <script type="text/javascript" src="../../public/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../public/js/agency.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script>
         $(document).ready(function(){
             $(".nav-tabs a").click(function(){
                 $(this).tab('show');
@@ -223,12 +344,29 @@
             $('#test').click(function(){
                 let val =  $('#created').attr('value')
                 alert(val)
-            })
+            });
+            $('#show_update_infor').on('shown.bs.modal', function (e) {
+                var skills = [ "JavaScript","PHP","C++","C#","Python","Java","Nodejs","MongoDB","Ruby","AI","Css/Boostrap","MySQL","Elasticsearch","Cassandra","FondEnd","BackEnd","Scala","Swift","TypeScript","Objective-C","English","SQL","Android",".NET"];
+                var skills = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: skills
+                });
+                $('input[name="skills"]').tagsinput({
+                    typeaheadjs: {
+                    name: 'skills',
+                    source: skills
+                    }
+                });
+                })
         });
         </script>
         <style>
             body{
                 background-color: whitesmoke;
+            }
+            .bootstrap-tagsinput{
+                 width: 100%;
             }
         </style>
 </html>

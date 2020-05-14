@@ -65,14 +65,13 @@
                       email:email_ad,
                       pass:passwd_ad
                     },
-                    success:function(data){
-                      if(data == 'true'){
+                  }).done(function(data){
+                    if(data == 'true'){
                        e.currentTarget.submit();
                       }else{
                         $('.btfalse').attr('data-toggle', 'modal');
                        $('.btfalse').attr('data-target', '#false_signin');
                       }
-                    }
                   })
                 })
                 $('.check_false').click(function(){

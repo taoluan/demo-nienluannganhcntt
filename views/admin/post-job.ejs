@@ -130,11 +130,11 @@ Demonstrated experience in design, develop and maintain"></textarea>
             }
         });
         $('.save').click(function(){
-               let addname =  $('#addname').val();
-               if(addname !== ''){
+            let addname =  $('#addname').val();
+            if(addname !== ''){
                 $('#sel').append( '<option value="'+addname+'">'+addname+'</option>');
                 $('.save').attr("data-dismiss","modal");  
-               }
+            }
             });
             function formattext (id){
                 var key = window.event.keyCode;
