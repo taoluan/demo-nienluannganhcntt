@@ -37,7 +37,8 @@ module.exports.postjob = function(data,logo){
                 'address':address,
                 'descript':data.descript,
                 'logo':logo,
-                'created':data.created
+                'created':data.created,
+                'status':data.status
             }
         },function(err,req,status){
             if(err) reject(err);

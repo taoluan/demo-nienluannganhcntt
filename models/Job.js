@@ -6,7 +6,7 @@ var JobSchema = new Schema ({
     title: String,
     companies: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'companies'
+        ref: 'Companies'
      },
     salary: {
         money : String,
@@ -24,14 +24,14 @@ var JobSchema = new Schema ({
         others: String
     },
     join:[
-        { User: {
+        { 
+        id_user: {
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'user'
-         },
-            UpCV: String,
-            status: {
-                type : String,
-                default: 'Đợi duyệt'
+            },
+        status:{
+            type : String,
+            default: 'Đợi duyệt'
             }
         }
     ],

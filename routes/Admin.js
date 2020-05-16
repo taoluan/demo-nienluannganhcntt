@@ -24,7 +24,6 @@ router.get('/registration',function(req,res){
    
 })
 router.post('/signup',function(req,res){
-    form.uploadDir="/public/image/"
     form.parse(req, function (err, fields, file) {
         if(err) throw err;
         let cpnname = fields.namecpn;
@@ -76,7 +75,7 @@ router.post('/signup',function(req,res){
                         title:title,
                         work:work,
                         image:{
-                            logo:newpath
+                            logo:"/"+newpath
                         }
                     }
                 },function(err,req,status){
@@ -104,10 +103,14 @@ router.post('/signin',urlencodedParser,function(req,res){
 })
 router.get('/home',checklogin,async function(req,res){
     let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
-       res.render('./admin/home', {
-           title: 'Nhà tuyển dụng',
-           profiles:load_profile
-       }) 
+    let count_job = await Companies_fmd.countJob_companies(req.session.adid)
+    let list_job = await Companies_fmd.loadJob_companies(req.session.adid)
+    res.render('./admin/home', {
+        title: 'Nhà tuyển dụng',
+        profiles:load_profile,
+        count:count_job,
+        listjob: list_job
+    }) 
 })
 router.get('/page-ad',async function(req,res){
     if(req.session.adid && req.session.adname){
@@ -264,7 +267,7 @@ router.post('/edit_post_job',checklogin,async function(req,res){
             })
             Post_Job.save(async function(err){
                 if(err) throw err;
-                let post_elas = await PostJob_Elas.postjob(Post_Job,logo)
+                await PostJob_Elas.postjob(Post_Job,logo)
             })
         })
         res.redirect('/admin/home') 

@@ -49,11 +49,11 @@ module.exports.loadInfor_companies = function(id){
 }
 module.exports.loadJob_companies = function(id){
     return new Promise((resolve,reject)=>{
-        mongoose.connect(url,function(err){
+        mongoose.connect(url,async function(err){
             if(err) throw reject(err);
-            let count_job = Job.countDocuments({companies:id})
-            let list_job = Job.find({companies:id});
+            list_job = await Job.find({companies:id}).populate('join.id_user')
             resolve(list_job)
+            //list_job[0].join[0].id_user.fullname
         })
     })
 }
@@ -61,7 +61,7 @@ module.exports.countJob_companies = function(id){
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
-            let count_job = Job.countDocuments({companies:id});
+            let count_job = Job.count({companies:id});
             resolve(count_job)
         })
     })

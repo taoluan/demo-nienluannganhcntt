@@ -82,7 +82,7 @@
                         <div class="card text-white bg-gradient-info mb-3 " style="max-width: 20rem">
                             <div class="card-body text-center">
                                 <div>
-                                    <div class="text-value-lg">10</div>
+                                    <div class="text-value-lg"><%= count%></div>
                                     <div>Công việc đã đăng</div>
                                     </div>
                             </div>
@@ -92,7 +92,11 @@
                         <div class="card text-white bg-gradient-danger mb-3 " style="max-width: 20rem">
                             <div class="card-body text-center">
                                 <div>
-                                    <div class="text-value-lg">20</div>
+                                    <% let sum = 0 %>
+                                    <% for(let i = 0 ; i < listjob.length;i++){%>
+                                        <% sum += listjob[i].join.length%>
+                                    <%}%>
+                                    <div class="text-value-lg"><%=sum%></div>
                                     <div>Người đã Apply</div>
                                     </div>
                             </div>
@@ -146,42 +150,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td><i class="far fa-file-alt"></i</td>
-                                                <td>2011/04/25</td>
-                                                <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
-                                                    <a href="../../public/image/cv/cv1.docx" download="cv1.docx">
-                                                        <i class="fas fa-download"></i></a>
-                                                </button></td>
-                                                <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td><i class="far fa-file-alt"></i</td>
-                                                <td>2011/04/25</td>
-                                                <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
-                                                    <a href="../../public/image/cv/cv1.docx" download>
-                                                        <i class="fas fa-download"></i></a>
-                                                </button></td>
-                                                <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td><i class="far fa-file-alt"></i</td>
-                                                <td>2011/04/25</td>
-                                                <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
-                                                    <a href="../../public/image/cv/cv1.docx" download="cv1.docx">
-                                                        <i class="fas fa-download"></i></a>
-                                                </button></td>
-                                                <td><span class="badge badge-warning">Đang đợi duyệt</span></td>
-                                            </tr>
+                                           <% for(i = 0 ; i < listjob.length;i++) {%>
+                                                <%if(listjob[i].join.length > 0){%>
+                                                    <% for(let j = 0 ; j < listjob[i].join.length ; j++){ %>
+                                                        <tr>
+                                                            <td><%= listjob[i].title%></td>
+                                                            <td><%= listjob[i].skills%></td>
+                                                            <td><%= listjob[i].salary.money%> <%= listjob[i].salary.unit%></td>
+                                                            <td><%= listjob[i].address%></i</td>
+                                                            <td><%= listjob[i].join[j].id_user.fullname%></td>
+                                                            <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
+                                                                <a href="<%= listjob[i].join[j].id_user.upCV%>" download>
+                                                                    <i class="fas fa-download"></i></a>
+                                                            </button></td>
+                                                            <td><span class="badge badge-warning"><%= listjob[i].join[j].status%></span></td>
+                                                        </tr>
+                                                    <%}%>
+                                                <%}%>
+                                            <%}%>
                                         </tbody>
                                         <tfoot>
                                             <tr>

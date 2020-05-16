@@ -111,8 +111,8 @@
                                                                <% }); %>
                                                             </div>
                                                             <ul>
-                                                                <% if(Infor.os.intro){%>
-                                                                    <% temp = Infor.os.intro.split('*') %>
+                                                                <% if(Infor.os.os_intro){%>
+                                                                    <% temp = Infor.os.os_intro.split('*') %>
                                                                     <% temp.forEach(function(element,index) {%>
                                                                     <%  element = element.trim()%>
                                                                         <% if(element !== ''){%>
@@ -256,7 +256,7 @@
                                                         </li>   
                                                     <%}%>
                                                     <% if(Infor.Benefits.bonus){%>
-                                                        <li><h6 class="font-2">Môi trường làm việc</h6>
+                                                        <li><h6 class="font-2">Bạn sẽ nhận được gì khi làm tại đây</h6>
                                                         <ul>
                                                             <% temp = Infor.Benefits.bonus.split('*') %>
                                                             <% temp.forEach(element => {%>
@@ -544,6 +544,9 @@
         });
     </script>
      <style>
+         p{
+             color: black;
+         }
         .col-right{
             max-width: 32%;
             float: right;
