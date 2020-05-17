@@ -2,6 +2,7 @@ var express =  require('express');
 var router = express.Router();
 var client = require('../elasticsearch/connection.js');
 var url = require('url');
+const Companies_fmd = require('../models_function/Companies_fmd');
 router.get('/',function(req,res){
   var namejob = req.query.job;
   var city = req.query.city;
@@ -207,5 +208,11 @@ router.get('/loadcompany',function(req,res){
       res.render('./xuly/loadcompany', {kq: results});
       }
   });
+})
+router.get('/update_job',(req,res)=>{
+  let id_job = req.query.id_job;
+  let id_user = req.query.id_user;
+  let update = Companies_fmd.UpdateJob_agree(id_job,id_user)
+  console.log(update)
 })
 module.exports = router;

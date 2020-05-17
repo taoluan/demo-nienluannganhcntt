@@ -146,7 +146,8 @@
                                                 <th>Nơi làm việc</th>
                                                 <th>Người ứng tuyển</th>
                                                 <th>CV</th>
-                                                <th>Trang thái</th>
+                                                <th>Trạng thái</th>
+                                                <th style="width:100px">Xét tuyển</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -163,7 +164,16 @@
                                                                 <a href="<%= listjob[i].join[j].id_user.upCV%>" download>
                                                                     <i class="fas fa-download"></i></a>
                                                             </button></td>
+                                                            <% if(listjob[i].join[j].status === 'Đợi duyệt'){%>
                                                             <td><span class="badge badge-warning"><%= listjob[i].join[j].status%></span></td>
+                                                            <td class="text-center"><button type="input" class="btn btn-labeled bg-success bt_duyet mr-2"  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
+                                                                <i class="far fa-check-circle text-white"></i></button><button type="input" class="btn btn-labeled bg-danger bt_huy "  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
+                                                                    <i class="far fa-times-circle text-white"></i></button></td>
+                                                            <%}else{%>
+                                                                <td><span class="badge badge-primary"><%= listjob[i].join[j].status%></span></td>
+                                                            <td class="text-center"><button type="input" class="btn btn-labeled bg-danger bt_huy "  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
+                                                                <i class="far fa-times-circle text-white"></i></button></td>
+                                                                <% }%>
                                                         </tr>
                                                     <%}%>
                                                 <%}%>
@@ -178,6 +188,7 @@
                                                 <th>Người ứng tuyển</th>
                                                 <th>CV</th>
                                                 <th>Trang thái</th>
+                                                <th>Xét tuyển</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -300,6 +311,21 @@
                     } 
                 })
             });
+            $('.bt_duyet').click(()=>{
+                let id = $('.bt_duyet').val();
+                let str_id = id.substring(0,id.indexOf('*'))
+                let str_user = id.substring(id.indexOf('*')+1,id.length)
+                $.ajax({
+                    url: '/XulySearch/update_job',
+                    method: 'get',
+                    data:{
+                        id_job : str_id,
+                        id_user : str_user
+                    }
+                }).done((data)=>{
+
+                })
+            })
         });
     </script>
 </html>

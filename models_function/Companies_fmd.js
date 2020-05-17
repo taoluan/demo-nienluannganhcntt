@@ -84,3 +84,12 @@ module.exports.viewJob_companies = function(id){
         })
     })
 }
+module.exports.UpdateJob_agree = function(id_job,id_user){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let update = Job.updateOne({'_id':id_job,'join.id_user':id_user},{$set:{'join.$.status':'Đã được duyệt'}})
+            resolve(update)
+        })
+    })
+}
