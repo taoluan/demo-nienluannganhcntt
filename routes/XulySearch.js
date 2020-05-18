@@ -3,6 +3,10 @@ var router = express.Router();
 var client = require('../elasticsearch/connection.js');
 var url = require('url');
 const Companies_fmd = require('../models_function/Companies_fmd');
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+var admin = require('firebase-admin');
+const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
 router.get('/',function(req,res){
   var namejob = req.query.job;
   var city = req.query.city;
@@ -209,10 +213,40 @@ router.get('/loadcompany',function(req,res){
       }
   });
 })
-router.get('/update_job',(req,res)=>{
+router.get('/update_job',async (req,res)=>{
   let id_job = req.query.id_job;
   let id_user = req.query.id_user;
-  let update = Companies_fmd.UpdateJob_agree(id_job,id_user)
+  let update =await Companies_fmd.UpdateJob_agree(id_job,id_user)
   console.log(update)
+  res.send(update)
+})
+router.post('/send_mail',urlencodedParser,function(req,res){
+ /* var config = {
+    apiKey: "AIzaSyDUL1FX3aHjQdymwsrQLgT-UH5HzVJqKHI",
+    authDomain: "nienluannganh-3c1c3.firebaseapp.com",
+    databaseURL: "https://nienluannganh-3c1c3.firebaseio.com",
+    projectId: "nienluannganh-3c1c3",
+  };*/
+  //firebase.initializeApp(config);
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://nienluannganh-3c1c3.firebaseio.com'
+  });
+  // Get a reference to the database service
+  let str = req.body.to;
+  let message = req.body.massage;
+  let job_id = req.body.id_job;
+  let user_name = str.substring(0,str.indexOf('@'));
+  let user_id = str.substring(str.indexOf('@')+1,str.length);
+  var Ref = admin.database().ref('Send_Email');
+  var newMessageRef = Ref.push();
+  newMessageRef.set({
+    send: job_id,
+    to: user_id,
+    message: message
+  });
+  var path = newMessageRef.toString();
+  console.log(path)
+  res.redirect('/admin/home')
 })
 module.exports = router;

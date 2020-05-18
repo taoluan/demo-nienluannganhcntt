@@ -159,20 +159,19 @@
                                                             <td><%= listjob[i].skills%></td>
                                                             <td><%= listjob[i].salary.money%> <%= listjob[i].salary.unit%></td>
                                                             <td><%= listjob[i].address%></i</td>
-                                                            <td><%= listjob[i].join[j].id_user.fullname%></td>
-                                                            <td class="text-center"> <button type="button" class="btn btn-labeled btn-success">
+                                                            <td id="fullname"><%= listjob[i].join[j].id_user.fullname%></td>
+                                                            <td class="text-center"> <button type="button" class="btn btn-labeled btn-success name">
                                                                 <a href="<%= listjob[i].join[j].id_user.upCV%>" download>
                                                                     <i class="fas fa-download"></i></a>
                                                             </button></td>
                                                             <% if(listjob[i].join[j].status === 'Đợi duyệt'){%>
                                                             <td><span class="badge badge-warning"><%= listjob[i].join[j].status%></span></td>
-                                                            <td class="text-center"><button type="input" class="btn btn-labeled bg-success bt_duyet mr-2"  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
+                                                            <td class="text-center"><button type="input" class="btn btn-labeled bg-success bt_duyet mr-2"  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>$<%=listjob[i].join[j].id_user.fullname%>" >
                                                                 <i class="far fa-check-circle text-white"></i></button><button type="input" class="btn btn-labeled bg-danger bt_huy "  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
                                                                     <i class="far fa-times-circle text-white"></i></button></td>
                                                             <%}else{%>
                                                                 <td><span class="badge badge-primary"><%= listjob[i].join[j].status%></span></td>
-                                                            <td class="text-center"><button type="input" class="btn btn-labeled bg-danger bt_huy "  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
-                                                                <i class="far fa-times-circle text-white"></i></button></td>
+                                                                <td class="text-center"><span class="badge badge-secondary">Đã gữi mail</span></td>
                                                                 <% }%>
                                                         </tr>
                                                     <%}%>
@@ -192,6 +191,38 @@
                                             </tr>
                                         </tfoot>
                                     </table>
+                                    <div class="modal fade" id="send_email" tabindex="-1" role="dialog" aria-labelledby="send_emailLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="send_emailLabel">Hẹn phỏng vấn</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <form action="/XulySearch/send_mail" method="post">
+                                                <div class="form-group">
+                                                  <label for="recipient-name" class="col-form-label">Gữi đến:</label>
+                                                  <input type="text" class="form-control" name="to" id="guiden">
+                                                  <input type="text" class="form-control" name="id_job" id="id_job" style="display: none;">
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="message-text" class="col-form-label">Message:</label>
+                                                  <textarea class="form-control" name="massage" id="message"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button id="email" type="submit" class="btn btn-primary">Send message</button>
+                                                  </div>
+                                              </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                               
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                 </div>
                             </div>
                       </div>   
@@ -207,6 +238,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+<script>
+        var config = {
+        apiKey: "AIzaSyDUL1FX3aHjQdymwsrQLgT-UH5HzVJqKHI",
+        authDomain: "nienluannganh-3c1c3.firebaseapp.com",
+        databaseURL: "https://nienluannganh-3c1c3.firebaseio.com",
+        projectId: "nienluannganh-3c1c3",
+        };
+        firebase.initializeApp(config);
+</script>
 <script type="text/javascript">
         var ctx = document.getElementById('applyjob').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -264,6 +305,7 @@
             console.log( "window loaded" );
         });
         $(document).ready(function () {
+            const database_realtime = firebase.database();
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
@@ -311,10 +353,11 @@
                     } 
                 })
             });
-            $('.bt_duyet').click(()=>{
-                let id = $('.bt_duyet').val();
-                let str_id = id.substring(0,id.indexOf('*'))
-                let str_user = id.substring(id.indexOf('*')+1,id.length)
+            $('.bt_duyet').click(function(){
+                let id = $(this).val();
+                let str_id = id.substring(0,id.indexOf('*'));
+                let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
+                let name = id.substring(id.indexOf('$')+1,id.length);
                 $.ajax({
                     url: '/XulySearch/update_job',
                     method: 'get',
@@ -323,7 +366,17 @@
                         id_user : str_user
                     }
                 }).done((data)=>{
-
+                    if(data){
+                        $('#guiden').val(name+'@'+str_user);
+                        $('#id_job').val(str_id);
+                        $('#send_email').modal('show');
+                        /*$('#email').click(function(e){
+                            let mess = $('#message').val()
+                            database_realtime.ref('SendEmail/').set({send:str_id,to:str_user,message:mess})
+                            window.location.reload();
+                        })*/
+                    }
+                
                 })
             })
         });
