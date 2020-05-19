@@ -67,10 +67,10 @@
                                     <span class="btn-label"><i class="fas fa-plus-square left text-white"></i></span><span class='text-white'>Thêm công việc</span> </button>
                             </li>
                             <li class="nav-item active">
-                                <button type="button" id="sidebarCollapse" class="btn btn-secondary w-100" style="border-radius:50%">
+                                <a href="/admin/home"><button type="button" id="sidebarCollapse" class="btn btn-secondary w-100" style="border-radius:50%">
                                     <img src='<%= profiles.image.logo %>' height="30" width="30" style="float: left;border-radius:50%">
                                     <span style="margin-left: 2px;line-height: 30px;"><%= profiles.name %></span>
-                                </button>
+                                </button></a>
                             </li>
                         </ul>
                     </div>
@@ -167,12 +167,15 @@
                                                             <% if(listjob[i].join[j].status === 'Đợi duyệt'){%>
                                                             <td><span class="badge badge-warning"><%= listjob[i].join[j].status%></span></td>
                                                             <td class="text-center"><button type="input" class="btn btn-labeled bg-success bt_duyet mr-2"  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>$<%=listjob[i].join[j].id_user.fullname%>" >
-                                                                <i class="far fa-check-circle text-white"></i></button><button type="input" class="btn btn-labeled bg-danger bt_huy "  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>" >
+                                                                <i class="far fa-check-circle text-white"></i></button><button type="input" class="btn btn-labeled bg-danger bt_huy"  value="<%=listjob[i]._id%>*<%=listjob[i].join[j].id_user._id%>$<%=listjob[i].join[j].id_user.fullname%>" >
                                                                     <i class="far fa-times-circle text-white"></i></button></td>
-                                                            <%}else{%>
-                                                                <td><span class="badge badge-primary"><%= listjob[i].join[j].status%></span></td>
-                                                                <td class="text-center"><span class="badge badge-secondary">Đã gữi mail</span></td>
-                                                                <% }%>
+                                                            <%}else if(listjob[i].join[j].status === 'Không được duyệt'){%>
+                                                                <td><span class="badge badge-danger"><%= listjob[i].join[j].status%></span></td>
+                                                                <td class="text-center"><span class="badge badge-secondary">Không đủ điều kiện</span></td>
+                                                                <%}else{%>
+                                                                    <td><span class="badge badge-primary"><%= listjob[i].join[j].status%></span></td>
+                                                                    <td class="text-center"><span class="badge badge-secondary">Đã gữi mail</span></td>
+                                                                <%}%>
                                                         </tr>
                                                     <%}%>
                                                 <%}%>
@@ -249,14 +252,39 @@
         firebase.initializeApp(config);
 </script>
 <script type="text/javascript">
-        var ctx = document.getElementById('applyjob').getContext('2d');
-        var myChart = new Chart(ctx, {
+      //  var ctx1 = document.getElementById('applyjob').getContext('2d');
+        var rs = []
+        var ctxP = document.getElementById('danhgia').getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+        type: 'pie',
+        data: {
+        labels: ["1 Sao", "2 Sao", "3 Sao", "4 Sao", "5 Sao"],
+        datasets: [{
+        data: rs,
+        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+        }]
+        },
+        options: {
+        responsive: true
+        }
+        });
+        $(document).ready(function () {
+            $.ajax({
+                method:'get',
+                url:'/XulySearch/loadChart_job',
+            }).done((data)=>{
+                var ctx = document.getElementById('applyjob').getContext('2d');
+                var myChart = new Chart(ctx, {
             type: 'bar',
+            title:{
+            fontSize: 10,
+            },
             data: {
-                labels: ['1 Sao', '2 Sao', '3 Sao', '4 Sao', '5 Sao'],
+                labels: data.name,
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2],
+                    data: data.count,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -278,33 +306,17 @@
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            stepSize: 1,
+                            
                         }
                     }]
                 }
             }
         });
-      //  var ctx1 = document.getElementById('applyjob').getContext('2d');
-        var rs = [300, 50, 100, 40, 120]
-        var ctxP = document.getElementById('danhgia').getContext('2d');
-        var myPieChart = new Chart(ctxP, {
-        type: 'pie',
-        data: {
-        labels: ["1 Sao", "2 Sao", "3 Sao", "4 Sao", "5 Sao"],
-        datasets: [{
-        data: rs,
-        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-        }]
-        },
-        options: {
-        responsive: true
-        }
-        });
-        $(window).on("load", function() {
-            console.log( "window loaded" );
-        });
-        $(document).ready(function () {
+                console.log(typeof data)
+            })
             const database_realtime = firebase.database();
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
@@ -375,6 +387,26 @@
                             database_realtime.ref('SendEmail/').set({send:str_id,to:str_user,message:mess})
                             window.location.reload();
                         })*/
+                    }
+                
+                })
+            })
+            $('.bt_huy').click(function(){
+                let id = $(this).val();
+                let str_id = id.substring(0,id.indexOf('*'));
+                let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
+                $.ajax({
+                    url: '/XulySearch/update_huy_job',
+                    method: 'get',
+                    data:{
+                        id_job : str_id,
+                        id_user : str_user
+                    }
+                }).done((data)=>{
+                    if(data){
+                        $('#guiden').val(name+'@'+str_user);
+                        $('#id_job').val(str_id);
+                        $('#send_email').modal('show');
                     }
                 
                 })

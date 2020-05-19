@@ -93,3 +93,12 @@ module.exports.UpdateJob_agree = function(id_job,id_user){
         })
     })
 }
+module.exports.UpdateJob_notagree = function(id_job,id_user){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let update = Job.updateOne({'_id':id_job,'join.id_user':id_user},{$set:{'join.$.status':'Không được duyệt'}})
+            resolve(update)
+        })
+    })
+}

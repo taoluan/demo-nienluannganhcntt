@@ -220,6 +220,25 @@ router.get('/update_job',async (req,res)=>{
   console.log(update)
   res.send(update)
 })
+router.get('/update_huy_job',async (req,res)=>{
+  let id_job = req.query.id_job;
+  let id_user = req.query.id_user;
+  let update_huy =await Companies_fmd.UpdateJob_notagree(id_job,id_user)
+  res.send(update_huy)
+})
+router.get('/loadChart_job',async function(req,res){
+  let id_cpn = req.session.adid;
+  let list_job = await Companies_fmd.loadJob_companies(id_cpn)
+  let data = {
+    name: [],
+    count: []
+  };
+  list_job.forEach(element => {
+    data.name.push(element.title)
+    data.count.push(element.join.length)
+  });
+  res.send(data)
+})
 router.post('/send_mail',urlencodedParser,function(req,res){
  /* var config = {
     apiKey: "AIzaSyDUL1FX3aHjQdymwsrQLgT-UH5HzVJqKHI",
