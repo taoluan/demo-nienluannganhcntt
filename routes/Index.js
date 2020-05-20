@@ -3,10 +3,26 @@ const router = express.Router();
 const client = require('../elasticsearch/connection.js');
 const url = require('url');
 var formidable = require('formidable');
-router.get('/',function(req,res){
+const models_function = require('../models_function/Companies_fmd')
+const date = require('../models_function/xuly')
+router.get('/', async (req,res)=>{
+  let list_job = await models_function.loadJob_index();
+  let date_format = []
+  list_job.forEach(element => {
+    date_format.push(date.Date(element.created)) 
+  })
   if(req.session.usid && req.session.usname){
-    res.render('./user/user',{ title: 'Chào mừng đến với VietJob',  nameuser : req.session.usname}) 
-  }else res.render('index', { title: 'VietJob'});
+    res.render('./user/user',{ 
+      title: 'Chào mừng đến với VietJob',  
+      nameuser : req.session.usname,
+      job_list: list_job,
+      date_format:date_format
+    }) 
+  }else res.render('index', { 
+        title: 'VietJob' , 
+        job_list: list_job,
+        date_format:date_format
+      });
 })
 router.get('/vieclamit',async function(req,res){
     try{

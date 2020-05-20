@@ -102,3 +102,13 @@ module.exports.UpdateJob_notagree = function(id_job,id_user){
         })
     })
 }
+module.exports.loadJob_index = function(){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            list_job_desc = await Job.find({status:'Đang tuyển'}).sort({'created': -1}).populate('companies').limit(20)
+            resolve(list_job_desc)
+            //list_job[0].join[0].id_user.fullname
+        })
+    })
+}
