@@ -97,6 +97,14 @@ a.tag:hover{
 }
 .card:hover{
   box-shadow: 4px 4px 8px 2px rgba(26, 25, 25, 0.2);
+
+}
+.card:hover .card-title{
+  color: rgb(241, 41, 41);
+}
+.card:hover .skills a{
+  border-color: rgb(241, 41, 41);
+  color: rgb(241, 41, 41);
 }
 .bt{
   margin-bottom: 0px;

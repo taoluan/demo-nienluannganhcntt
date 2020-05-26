@@ -31,12 +31,15 @@
         display: none;
     }
 }
-.hv:hover .card{
+.card:hover {
     box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
 }
-.hv:hover .card-title{
-    color: #ffc107;
-}
+.card:hover .card-title{
+    color: rgb(241, 41, 41);
+  }
+.card:hover .skill a{
+    background-color: rgb(212, 212, 212);
+  }
 #list-job a{
     color: black;
     text-decoration: none;
@@ -117,3 +120,86 @@ a:hover .card-title{
     padding: 0px;
     margin-top: 0px;
 }
+.mb-3{
+    margin-bottom: 0.5rem!important;
+    }
+    #myInput:focus {outline: 3px solid #ddd;}
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #e9ecef;
+      min-width: 230px;
+      overflow: auto;
+      border: 1px solid #ddd;
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    #myUL {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    #myUL li a {
+      border: 1px solid #ddd;
+      margin-top: -1px; /* Prevent double borders */
+      background-color: #f6f6f6;
+      padding: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+      display: block
+    }
+    
+    #myUL li a:hover:not(.header) {
+      background-color: #eee;
+    }
+    #myDropdown a:hover {background-color: #ddd;}
+    .text-tt{
+            color: black;
+        }
+    .text-tt:hover {
+        text-decoration: none;
+        color: black;
+    }
+    .show {display: block;}
+    .skill {
+        list-style-type: none;
+        height: 25px;
+        margin-left: 0px;
+        margin-bottom: 2px;
+    }
+    .skill a {
+        font-weight: 50;
+        font-family: "Roboto Condensed", sans-serif;
+        border: 1px solid gray;
+        line-height: 1.5;
+        border-radius: 4px;
+        margin-right: 5px;
+        display: inline-block;
+        margin-left: 0px;
+        text-align: -webkit-match-parent;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: black;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .text-tt{
+            color: black;
+        }
+    .text-tt:hover {
+        text-decoration: none;
+        color: black;
+    }

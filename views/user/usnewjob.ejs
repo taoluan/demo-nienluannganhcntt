@@ -8,111 +8,69 @@
         <div class="row">
             <div class="col-12" id="page">
                 <div class="row">
-                    <div class="col-6">
-                        <div class="card mb-3" style="max-width: 540px">
-                            <div class="row no-gutters">
-                            <div class="col-md-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i> 500-1000 </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
+                    <% job_list.forEach((element,index) => { %>
+                        <div class="col-6">
+                            <div class="card mb-3">
+                                <div class="row no-gutters">
+                                <div class="col-md-2" id="logo">
+                                    <img src="<%=element.companies.image.logo%>" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <a class='text-tt' href="/vieclamit/<%=element.title%>&<%=element._id%>&<%=element.companies._id%>"><h5 class="card-title "><%=element.title%></h5> </a>
+                                    <p class="card-text">
+                                        <i class="fas fa-dollar-sign text-success"></i> <span class="text-success"><%=element.salary.money%></span></br>
+                                        <i class="fas fa-map-marked-alt"></i><span style="font-size: 14px;"> <%=element.address%></span></br>
+                                        <small class="text-secondary">"<%= element.descript.substring(0, element.descript.indexOf('*')-20)%>..."</small>
+                                         <div class="skills row">
+                                             <% element.skills.forEach(skill => {%>
+                                            <a href="#<%=skill%>" ><%=skill%></a>
+                                            <% })%>
+                                          </div>
+                                    </p> 
+                                    <p class="card-text"><small class="text-muted "><%=date_format[index]%></small> </p>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
-                            </div>
+                            
                         </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card mb-3" style="max-width: 540px">
-                            <div class="row no-gutters">
-                            <div class="col-md-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i> 500-1000 </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="card mb-3" style="max-width: 540px">
-                            <div class="row no-gutters">
-                            <div class="col-md-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i> 500-1000 </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card mb-3" style="max-width: 540px">
-                            <div class="row no-gutters">
-                            <div class="col-md-2" id="logo">
-                                <img src="../public/image/logo-axon.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                <h5 class="card-title">Senior Mobile Software Engineer</h5>
-                                <p class="card-text">
-                                    <i class="fas fa-dollar-sign"></i> 500-1000 </br>
-                                    <i class="fas fa-map-marked-alt"></i> Hố Chí Minh </br>
-                                    <i class="fas fa-code"></i> Javascript , NodeJs , MySQL , Mongo </br>
-                                    <button type="button" class="btn btn-warning float-right" style="margin-top:5px">Ứng tuyển</button>
-                                </p> 
-                                <p class="card-text"><small class="text-muted ">Last updated 3 mins ago</small> </p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+                       
+                    <%});%>
                 </div>
             </div>
-        </div>
-        <div class="row">
-               <div class="col-12">
-                <nav aria-label="...">
-                <ul class="pagination pagination-sm justify-content-center">
-                  <li class="page-item active" aria-current="page-1">
-                    <span class="page-link">
-                      1
-                      <span class="sr-only">(current)</span>
-                    </span>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#page-2">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#page-3">3</a></li>
-                </ul>
-              </nav>
-            </div>
-           
         </div>
     </div>
 </div>
+<style>
+    .skills {
+        list-style-type: none;
+        height: 25px;
+        margin-top: 8px;
+        margin-left: 0px;
+        margin-bottom: 5px;
+    }
+    .skills a {
+        font-weight: 50;
+        font-family: "Roboto Condensed", sans-serif;
+        border: 1px solid gray;
+        line-height: 1.5;
+        border-radius: 4px;
+        margin-right: 5px;
+        display: inline-block;
+        margin-left: 0px;
+        text-align: -webkit-match-parent;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: black;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .text-tt{
+        color: black;
+    }
+    .text-tt:hover {
+        text-decoration: none;
+        color: black;
+    }
+    </style>

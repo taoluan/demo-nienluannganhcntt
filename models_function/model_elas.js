@@ -46,3 +46,25 @@ module.exports.postjob = function(data,logo){
         })
     })
 }
+module.exports.loadjob =  function(){
+    return new Promise((resolve, reject) => {
+      client.search({  
+        index: 'jobs',
+        type: '_doc',
+        body: {
+          query: {
+            match_all: {
+            }
+          }
+        }
+      },function (error, response,status) {
+          if (error){
+            return reject(error)
+          }
+          else {
+          let  results = response.hits;
+          resolve(results);
+          }
+      });
+    })
+  }

@@ -112,3 +112,41 @@ module.exports.loadJob_index = function(){
         })
     })
 }
+module.exports.countJob_inSkills = function(skill){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let count_job=[];
+            let count;
+            for(let i = 0 ; i < skill.length ; i++){
+                count = await Job.countDocuments({skills:skill[i]});
+                count_job.push({skill: skill[i],count_num:count})
+            }
+            resolve(count_job)
+        })
+    })
+}
+module.exports.random_companies = function(){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let count = await Companies.count();
+            var random =Math.floor(Math.random() * count)
+            let result = await Companies.findOne().skip(random)
+            let result2 = await Companies.findOne().skip(Math.floor(Math.random() * count))
+            let arr_rs = [result,result2]
+            resolve(arr_rs)
+        })
+    })
+}
+module.exports.random_companies_job = function(id_1,id_2){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result = await Job.find({companies:id_1}).select('title')
+            let result2 =await Job.find({companies:id_2})
+            let arr_rs = [result,result2]
+            resolve(result)
+        })
+    })
+}

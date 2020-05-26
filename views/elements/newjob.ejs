@@ -12,16 +12,20 @@
                 <div class="row">
                     <% job_list.forEach((element,index) => { %>
                         <div class="col-6">
-                            <div class="card mb-3" style="max-height:300px">
+                            <div class="card mb-3">
                                 <div class="row no-gutters">
                                 <div class="col-md-2" id="logo">
                                     <img src="<%=element.companies.image.logo%>" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-9">
                                     <div class="card-body">
-                                    <h5 class="card-title "><%=element.title%></h5>
+                                        <a class='text-tt' href="/vieclamit/<%=element.title%>&<%=element._id%>"><h5 class="card-title "><%=element.title%></h5></a>
                                     <p class="card-text">
-                                        <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
+                                        <% if(authentication){%>
+                                            <i class="fas fa-dollar-sign text-success"></i> <span class="text-success"><%=element.salary.money%></span></br>
+                                            <%}else{%>
+                                                <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a> </br>
+                                        <%}%>
                                         <i class="fas fa-map-marked-alt"></i><span style="font-size: 14px;"> <%=element.address%></span></br>
                                         <small class="text-secondary">"<%= element.descript.substring(0, element.descript.indexOf('*')-20)%>..."</small>
                                          <div class="skills">
@@ -65,5 +69,12 @@
     color: black;
     font-size: 16px;
     text-decoration: none;
+}
+.text-tt{
+        color: black;
+    }
+.text-tt:hover {
+    text-decoration: none;
+    color: black;
 }
 </style>

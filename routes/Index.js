@@ -5,23 +5,29 @@ const url = require('url');
 var formidable = require('formidable');
 const models_function = require('../models_function/Companies_fmd')
 const date = require('../models_function/xuly')
+const models_elas = require('../models_function/model_elas')
 router.get('/', async (req,res)=>{
   let list_job = await models_function.loadJob_index();
+  let countjob_skill = await models_function.countJob_inSkills(['Java','PHP','Python','JavaScript','C','Ruby']);
   let date_format = []
   list_job.forEach(element => {
     date_format.push(date.Date(element.created)) 
   })
   if(req.session.usid && req.session.usname){
-    res.render('./user/user',{ 
+    res.render('index',{ 
       title: 'Chào mừng đến với VietJob',  
       nameuser : req.session.usname,
       job_list: list_job,
-      date_format:date_format
+      date_format:date_format,
+      skills:countjob_skill,
+      authentication:req.session.usid
     }) 
   }else res.render('index', { 
         title: 'VietJob' , 
         job_list: list_job,
-        date_format:date_format
+        date_format:date_format,
+        skills:countjob_skill,
+        authentication:req.session.usid
       });
 })
 router.get('/vieclamit',async function(req,res){
@@ -30,11 +36,18 @@ router.get('/vieclamit',async function(req,res){
     let perPage = 5;
     let start = (page-1)*perPage;
     let end = page * perPage;
-    let results = await loadjob();
+    let results = await models_elas.loadjob();
     let result = results.hits;
+    let date_format = []
+    result.forEach(element => {
+      date_format.push(date.Date(element.created)) 
+    })
     let numlist = results.total.value;
+    let random = await models_function.random_companies();
+    let job = await models_function.random_companies_job(random[0].id,random[1].id)
+    console.log(job)
     if(req.session.usid && req.session.usname){
-        res.render('./user/vieclamit', {
+        res.render('vieclamit', {
         title: 'Việc làm IT',
         dsjob: result.slice(start,end) ,
         namejob: '',
@@ -42,7 +55,9 @@ router.get('/vieclamit',async function(req,res){
         num: numlist,
         pages: Math.ceil(numlist / perPage),
         current: page,
-        nameuser : req.session.usname
+        nameuser : req.session.usname,
+        date:date_format,
+        authentication:req.session.usid
       });
     }else res.render('vieclamit', {
       title: 'Việc làm IT',
@@ -51,7 +66,9 @@ router.get('/vieclamit',async function(req,res){
       where: '',
       num: numlist,
       pages: Math.ceil(numlist / perPage),
-      current: page
+      current: page,
+      authentication:req.session.usid,
+      date:date_format,
     });
   }catch (err){
     console.log(err);
