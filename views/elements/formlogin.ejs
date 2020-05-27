@@ -21,6 +21,7 @@
                         <div class="card-body">
                             <form id='check_signin' class="form-signin" action="/user/signin" method="post">
                               <div class="form-label-group">
+                                <input type="text" id='geturl' name="url" style="display: none;">
                                 <input type="text" id="inputNameLogin" class="form-control" name="username" placeholder="Tên đăng nhập" required autofocus>
                                 <label for="inputNameLogin">Tên đăng nhập</label>
                               </div>
@@ -96,6 +97,9 @@
   </div>
 </div>
 <script>
+        $(document).ready(function(){
+            $('#geturl').val($(location).attr('pathname'))
+        });
     $('#check_signup').submit(function(event){
       let val = $("#check input[name='username']").val();
       event.preventDefault();

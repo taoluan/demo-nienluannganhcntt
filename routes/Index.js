@@ -6,6 +6,8 @@ var formidable = require('formidable');
 const models_function = require('../models_function/Companies_fmd')
 const date = require('../models_function/xuly')
 const models_elas = require('../models_function/model_elas')
+const Infor_Companies = require('../models/Infor_Companies');
+const Date = require('../models_function/xuly')
 router.get('/', async (req,res)=>{
   let list_job = await models_function.loadJob_index();
   let countjob_skill = await models_function.countJob_inSkills(['Java','PHP','Python','JavaScript','C','Ruby']);
@@ -45,7 +47,6 @@ router.get('/vieclamit',async function(req,res){
     let numlist = results.total.value;
     let random = await models_function.random_companies();
     let job = await models_function.random_companies_job(random[0].id,random[1].id)
-    console.log(job)
     if(req.session.usid && req.session.usname){
         res.render('vieclamit', {
         title: 'Việc làm IT',
@@ -57,7 +58,9 @@ router.get('/vieclamit',async function(req,res){
         current: page,
         nameuser : req.session.usname,
         date:date_format,
-        authentication:req.session.usid
+        authentication:req.session.usid,
+        rd_cpn:random,
+        cpn_job:job
       });
     }else res.render('vieclamit', {
       title: 'Việc làm IT',
@@ -69,6 +72,8 @@ router.get('/vieclamit',async function(req,res){
       current: page,
       authentication:req.session.usid,
       date:date_format,
+      rd_cpn:random,
+      cpn_job:job
     });
   }catch (err){
     console.log(err);
@@ -76,6 +81,8 @@ router.get('/vieclamit',async function(req,res){
 })
 router.get('/vieclamit/search',async function(req,res){
     try {
+    let random = await models_function.random_companies();
+    let job = await models_function.random_companies_job(random[0].id,random[1].id)
     let planets = req.query.planets;
     let city = req.query.city;
     var output ;
@@ -86,21 +93,13 @@ router.get('/vieclamit/search',async function(req,res){
     let parse = url.parse(req.url, true);
     let path = parse.search;
     if (city === "all"){
-      const searchall = await SearchAll(planets);
+      const searchall = await models_elas.SearchAll(planets);
       const results = searchall.hits;
-      const numlist = searchall.total.value;
-    if(req.session.usid && req.session.usname){
-      res.render('./user/vieclamit', {
-        title: 'Việc làm IT',
-        dsjob: results.slice(start,end) ,
-        namejob: planets,
-        where: '',
-        num: numlist,
-        pages: Math.ceil(numlist / perPage),
-        current: page,
-        nameuser : req.session.usname
+      let date_format = []
+      results.forEach(element => {
+      date_format.push(date.Date(element.created)) 
       })
-    }else{
+      const numlist = searchall.total.value;
       res.render('vieclamit', {
         title: 'Việc làm IT',
         dsjob: results.slice(start,end) ,
@@ -108,82 +107,80 @@ router.get('/vieclamit/search',async function(req,res){
         where: '',
         num: numlist,
         pages: Math.ceil(numlist / perPage),
-        current: page
+        current: page,
+        nameuser : req.session.usname,
+        authentication:req.session.usid,
+        date:date_format,
+        rd_cpn:random,
+        cpn_job:job
       })
-    }
     }else if (city === "Orthers"){
-        const searchorthers =  await SearchOrthers(planets);
+        const searchorthers =  await models_elas.SearchOrthers(planets);
         results = searchorthers.hits;
+        let date_format = []
+        results.forEach(element => {
+        date_format.push(date.Date(element.created)) 
+        })
         numlist = searchorthers.total.value;
-        if(req.session.usid && req.session.usname){
-          res.render('./user/vieclamit', {
-            title: 'Việc làm IT',
-            dsjob: results.slice(start,end) ,
-            namejob: planets,
-            where: '',
-            num: numlist,
-            pages: Math.ceil(numlist / perPage),
-            current: page,
-            nameuser : req.session.usname
-          })
-        }else{
-          res.render('vieclamit', {
+        res.render('vieclamit', {
           title: 'Việc làm IT',
           dsjob: results.slice(start,end) ,
           namejob: planets,
           where: '',
           num: numlist,
           pages: Math.ceil(numlist / perPage),
-          current: page
+          current: page,
+          nameuser : req.session.usname,
+          authentication:req.session.usid,
+          rd_cpn:random,
+          cpn_job:job,
+          date:date_format,
         })
-      }
     }else{
-        const search = await Search(planets,city)
+        const search = await models_elas.Search(planets,city)
         results = search.hits;
+        let date_format = []
+        results.forEach(element => {
+        date_format.push(date.Date(element.created)) 
+        })
         numlist = search.total.value;
-        if(req.session.usid && req.session.usname){
-          res.render('./user/vieclamit', {
-            title: 'Việc làm IT',
-            dsjob: results.slice(start,end) ,
-            num: numlist,
-            namejob: planets,
-            where: 'tại '+city,
-            pages: Math.ceil(numlist / perPage),
-            current: page,
-            nameuser : req.session.usname
-          });
-        }else{
-          res.render('vieclamit', {
+        res.render('vieclamit', {
           title: 'Việc làm IT',
           dsjob: results.slice(start,end) ,
           num: numlist,
           namejob: planets,
           where: 'tại '+city,
           pages: Math.ceil(numlist / perPage),
-          current: page
-        });}
-          
+          current: page,
+          nameuser : req.session.usname,
+          authentication:req.session.usid,
+          date:date_format,
+          rd_cpn:random,
+          cpn_job:job,
+        });     
     }
   }catch (err){
       console.log(err);
   } 
 })
-router.get('/vieclamit/:val1&:val2',function(req,res){
-  const name_job =req.params.val1;
-  const id_job=req.params.val2;
-  if(req.session.usid && req.session.usname){
-    res.render('./user/us_job',{
-      title: name_job,
-      nameuser : req.session.usname
-     })
-  }else{ 
+router.get('/vieclamit/:name&:id',async function(req,res){
+  const name_job =req.params.name;
+  const id_job=req.params.id;
+  let job = await models_function.viewJob_companies(id_job);
+  let InforCompanies = await models_function.loadInfor_companies(job.companies._id);
+  let date_format = Date.Date(job.created);
+  //let Job_not = await models_function.loadjob_not1vl(job.companies._id,id_job)
+  //console.log(Job_not)
     res.render('job',{
-    title: name_job
+    title: name_job,
+    nameuser:req.session.usname,
+    authentication:req.session.usid,
+    Job:job,
+    Cpn_infor:InforCompanies,
+    date:date_format
    })
-  }
- 
 })
-router.get('/companies/:val1',function(req,res){
+router.get('/companies/:val1&:val2',function(req,res){
   const name_company =req.params.val1;
   if(req.session.usid && req.session.usname){
     res.render('./user/companies',{
@@ -308,110 +305,6 @@ function loadjob(){
         else {
         let  results = response.hits;
         resolve(results);
-        }
-    });
-  })
-}
-function SearchAll(planets){
-  return new Promise ((resolve, reject) => {
-      client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        query: {
-          multi_match : {
-            query:    planets, 
-            fields: [ "namejob", "skills" ] 
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          return reject(error+" SearchAll")
-        }
-        else {
-        const results = response.hits;
-        resolve(results)
-          }
-    });
-  })
-}
-function SearchOrthers(planets){
-  return new Promise ((resolve,reject)=> {
-    client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        "query": {
-          "bool" : {
-            "must" : {
-               "multi_match" : {
-                        "query":    planets, 
-                        "fields": [ "namejob", "skills" ] 
-                      }
-            },
-             "must_not" : [{
-                  "match" : {  "address" : "Ho Chi Minh" }
-              },
-              {
-                  "match" : {  "address" : "Ha Noi" }
-              },{
-                  "match" : {  "address" : "Can Tho" }
-              }
-              ]
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          reject(error+" SearchOrthers ")
-        }
-        else {
-        const results = response.hits;
-        resolve(results)
-        }
-    });
-  })
-}
-function Search(planets,city){
-  return new Promise((resolve,reject)=>{
-      client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        query: {
-          bool: {
-            must: [{
-              bool: {
-                must: [{
-                    match: {
-                      address : city
-                    }
-                }]
-              }
-            },{
-              bool: {
-                should: [{
-                    match: {
-                      skills: planets
-                  }
-                }, {
-                  match: {
-                    namejob: planets
-                  }
-                }]
-              }
-            }]
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          reject(error+" Search ")
-        }
-        else {
-        const results = response.hits
-        resolve(results)
         }
     });
   })

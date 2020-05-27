@@ -129,85 +129,30 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-lg-12" style="text-align: center;margin-bottom: 30px;">
-                    <div class="card hovercard" style="text-align:center">
-                        <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);">
-                            <a href="/companies/AXON"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 80px;"></a>
-                        </div>
-                        <div class="info" style="margin-top: 25px;">
-                            <div class="title">
-                                <h5>AXON</h5>
-                            </div> 
-                            <div class="desc"><i class="fas fa-users"></i> 1000</div>
-                            <div class="desc"><i class="fas fa-cogs"></i> Sản phẩm</div>
-                            <div class="desc">
-                                <ul class="skills">
-                                    <li class="list-skills"><a href="#java">Java</a></li>
-                                    <li class="list-skills"><a href="#php">PHP</a></li>
-                                    <li class="list-skills"><a href="#js">JavaScript</a></li>
-                                </ul>
+                <% rd_cpn.forEach((rs,idx)=>{%>
+                    <div class="col-lg-12" style="text-align: center;margin-bottom: 30px;">
+                        <div class="card hovercard" style="text-align:center">
+                            <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);">
+                                <a href="/companies/<%=rs.name%>&<%=rs._id%>"><img alt="" src="<%=rs.image.logo%>" height="60px" width="60px" style=" margin-top: 80px;"></a>
                             </div>
-                        </div>
-                        <div class="job" style="background-color: whitesmoke;" >
-                            <div class="list-job">
-                                <a href="/vieclamit/Senior QA Automation Engineer&Cw7blHABkFGb5DmRi5gj">Senior QA Automation Engineer</a>
+                            <div class="info" style="margin-top: 25px;">
+                                <div class="title">
+                                    <h5><%=rs.name%></h5>
+                                </div> 
+                                <div class="desc"><i class="fas fa-users"></i> <%=rs.member%></div>
+                                <div class="desc"><i class="fas fa-cogs"></i> <%=rs.work%></div>
+                                <div class="desc">"<%=rs.title%>"</div>
                             </div>
-                            <div class="list-job">
-                                <a href="/vieclamit/Senior QA Automation Engineer&Cw7blHABkFGb5DmRi5gj">Senior Mobile Software Engineer</a>
+                            <div class="job" style="background-color: whitesmoke;margin-top: 10px;" >
+                                <% cpn_job[idx].forEach(rs=>{%>
+                                    <div class="list-job">
+                                        <a href="/vieclamit/<%=rs.title%>&<%=rs._id%>"><%=rs.title%></a>
+                                    </div>
+                                <%})%>
                             </div>
-                            <div class="list-job">
-                                <a href="/vieclamit/Senior QA Automation Engineer&Cw7blHABkFGb5DmRi5gj">Senior Product Designer (UI/UX)</a>
-                            </div>
-                            <!-- <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                    <td><a href="#1">Senior QA Automation Engineer</a></td>
-                                    </tr>
-                                    <tr>
-                                    <td><a href="#1">Senior Mobile Software Engineer Software Engineer</a></td>
-                                    </tr>
-                                    <tr>
-                                    <td><a href="#1">Senior Product Designer (UI/UX)</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>--->
-                        </div>
-                        <div class="viewjob"><a href="#q"><i class="fas fa-forward"></i> View job 3 job</a></div>
-                    </div> 
-                </div>
-                <div class="col-lg-12" style="text-align: center;margin-bottom: 30px;">
-                    <div class="card hovercard" style="text-align: center;">
-                        <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);">
-                            <a href="#axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 80px;"></a>
-                        </div>
-                        <div class="info" style="margin-top: 25px;">
-                            <div class="title">
-                                <h5>AXON</h5>
-                            </div> 
-                            <div class="desc"><i class="fas fa-users"></i> 1000</div>
-                            <div class="desc"><i class="fas fa-cogs"></i> Sản phẩm</div>
-                            <div class="desc">
-                                <ul class="skills">
-                                    <li><a href="#java">Java</a></li>
-                                    <li><a href="#php">PHP</a></li>
-                                    <li><a href="#js">JavaScript</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="job" style="background-color: whitesmoke;" >
-                            <div class="list-job">
-                                <a href="#1">Senior QA Automation Engineer</a>
-                            </div>
-                            <div class="list-job">
-                                <a href="#1">Senior Mobile Software Engineer</a>
-                            </div>
-                            <div class="list-job">
-                                <a href="#1">Senior Product Designer (UI/UX)</a>
-                            </div>
-                        </div>
-                         <div class="viewjob"><a href="#q"><i class="fas fa-forward"></i> View job 3 job</a></div>
-                    </div> 
-                </div>
+                        </div> 
+                    </div>
+                <%})%>
             </div>
             </div>
         </div>
@@ -221,4 +166,4 @@
         });
     });
         
-    </script>
+</script>

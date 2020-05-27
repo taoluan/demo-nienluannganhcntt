@@ -44,7 +44,9 @@
     color: black;
     text-decoration: none;
 }
-
+.viewjob a{
+    text-decoration: none;
+}
 a:hover .card-title{
     color: #ffc107;
     text-decoration: none;
@@ -104,6 +106,9 @@ a:hover .card-title{
 .list-job:hover a{
     color: red;
     text-decoration: none;
+}
+.list-job:hover .list-job{
+    border-color: red;
 }
 .viewjob a{
     color: red;

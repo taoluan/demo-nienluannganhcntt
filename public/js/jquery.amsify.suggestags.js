@@ -125,7 +125,6 @@
                 });
                 $("#myUL li").click(function(){
                   var textsearch = $(this).text();
-                  console.log(textsearch)
                   _self.addTag(textsearch);
                   $("#search").val("");
                   $("#myDropdown").css("display","none");
@@ -135,7 +134,7 @@
                    var value = $.trim($(this).val().replace(/,/g , ''));
                    $("#myDropdown").css("display","none");
                    $(this).val('');
-                  _self.addTag(value);
+                  //_self.addTag(value);
                 } else if(keycode == '8' && !$(this).val()) {
                   var removeClass = _self.classes.readyToRemove.substring(1);
                   if($(this).hasClass(removeClass)) {

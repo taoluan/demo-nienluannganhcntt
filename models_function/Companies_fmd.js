@@ -79,7 +79,7 @@ module.exports.viewJob_companies = function(id){
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
-            let list_job = Job.findById(id);
+            let list_job = Job.findById(id).populate('companies');
             resolve(list_job)
         })
     })
@@ -144,8 +144,17 @@ module.exports.random_companies_job = function(id_1,id_2){
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
             let result = await Job.find({companies:id_1}).select('title')
-            let result2 =await Job.find({companies:id_2})
+            let result2 =await Job.find({companies:id_2}).select('title')
             let arr_rs = [result,result2]
+            resolve(arr_rs)
+        })
+    })
+}
+module.exports.loadjob_not1vl = function(id_1,id_not){
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result =await Job.find({companies:id_2},{ $not: { _id: id_not }})
             resolve(result)
         })
     })

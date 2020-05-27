@@ -67,4 +67,108 @@ module.exports.loadjob =  function(){
           }
       });
     })
-  }
+}
+module.exports.SearchAll = function(planets){
+    return new Promise ((resolve, reject) => {
+        client.search({  
+        index: 'jobs',
+        type: '_doc',
+        body: {
+          query: {
+            multi_match : {
+              query:    planets, 
+              fields: [ "title", "skills" ] 
+            }
+          }
+        }
+      },function (error, response,status) {
+          if (error){
+            return reject(error+" SearchAll")
+          }
+          else {
+          const results = response.hits;
+          resolve(results)
+            }
+      });
+    })
+}
+module.exports.SearchOrthers = function(planets){
+    return new Promise ((resolve,reject)=> {
+      client.search({  
+        index: 'jobs',
+        type: '_doc',
+        body: {
+          "query": {
+            "bool" : {
+              "must" : {
+                 "multi_match" : {
+                          "query":    planets, 
+                          "fields": [ "title", "skills" ] 
+                        }
+              },
+               "must_not" : [{
+                    "match" : {  "address" : "Ho Chi Minh" }
+                },
+                {
+                    "match" : {  "address" : "Ha Noi" }
+                },{
+                    "match" : {  "address" : "Can Tho" }
+                }
+                ]
+            }
+          }
+        }
+      },function (error, response,status) {
+          if (error){
+            reject(error+" SearchOrthers ")
+          }
+          else {
+          const results = response.hits;
+          resolve(results)
+          }
+      });
+    })
+}
+module.exports.Search = function(planets,city){
+    return new Promise((resolve,reject)=>{
+        client.search({  
+        index: 'jobs',
+        type: '_doc',
+        body: {
+          query: {
+            bool: {
+              must: [{
+                bool: {
+                  must: [{
+                      match: {
+                        address : city
+                      }
+                  }]
+                }
+              },{
+                bool: {
+                  should: [{
+                      match: {
+                        skills: planets
+                    }
+                  }, {
+                    match: {
+                      title: planets
+                    }
+                  }]
+                }
+              }]
+            }
+          }
+        }
+      },function (error, response,status) {
+          if (error){
+            reject(error+" Search ")
+          }
+          else {
+          const results = response.hits
+          resolve(results)
+          }
+      });
+    })
+}

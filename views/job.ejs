@@ -11,8 +11,12 @@
 </head>
 <body>
     <div class="container-md" style="background-color:#e9e9e9">
-        <%- include('elements/headerjob'); -%>
-        <%- include('elements/formlogin'); -%>
+        <% if(authentication){%>
+            <%- include('user/header_2'); -%>
+        <%}else{%>
+            <%- include('elements/headerjob'); -%>
+            <%- include('elements/formlogin'); -%>
+        <%}%>
         <div class="container-fluid">
             <div class="row" style=" margin-top: 55px;margin-bottom: 10px;">
             <%- include('elements/containerjob'); -%>
@@ -38,5 +42,7 @@
             $(".nav-tabs a").click(function(){
                 $(this).tab('show');
             });
-        });</script>
+           
+        });
+        </script>
 </html>
