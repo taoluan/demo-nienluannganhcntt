@@ -154,7 +154,14 @@ module.exports.loadjob_not1vl = function(id_1,id_not){
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
-            let result =await Job.find({companies:id_2},{ $not: { _id: id_not }})
+            let result =await Job.find({companies:id_1,status:'Đang tuyển'})
+            let temp;
+            result.forEach((element,index) => {
+                if(element._id == id_not){
+                    temp = index
+                }
+            });
+            result.splice(temp,1)
             resolve(result)
         })
     })

@@ -169,30 +169,36 @@ router.get('/vieclamit/:name&:id',async function(req,res){
   let job = await models_function.viewJob_companies(id_job);
   let InforCompanies = await models_function.loadInfor_companies(job.companies._id);
   let date_format = Date.Date(job.created);
-  //let Job_not = await models_function.loadjob_not1vl(job.companies._id,id_job)
-  //console.log(Job_not)
+  let Job_not = await models_function.loadjob_not1vl(job.companies._id,id_job)
+  let date_jobother = []
+  Job_not.forEach(element => {
+    date_jobother.push(date.Date(element.created)) 
+  })
     res.render('job',{
     title: name_job,
     nameuser:req.session.usname,
     authentication:req.session.usid,
     Job:job,
     Cpn_infor:InforCompanies,
-    date:date_format
+    date:date_format,
+    Job_other:Job_not,
+    date_other:date_jobother
    })
 })
-router.get('/companies/:val1&:val2',function(req,res){
+router.get('/companies/:val1&:val2',async function(req,res){
   const name_company =req.params.val1;
-  if(req.session.usid && req.session.usname){
-    res.render('./user/companies',{
-      title: name_company,
-      nameuser : req.session.usname
-      })
-  }else{
+  const id_company =req.params.val2;
+  let companies = await models_function.loadprofile_companies(id_company)
+  let Infor_cpn = await models_function.loadInfor_companies(id_company)
+  let job_cpn = await models_function.loadJob_companies(id_company)
     res.render('companies',{
-    title: name_company
-    })
-  }
-  
+    title: name_company,
+    authentication:req.session.usid,
+    nameuser : req.session.usname,
+    profiles:companies,
+    Infor:Infor_cpn,
+    Job:job_cpn
+    }) 
 })
 router.get('/companies',function(req,res){
   if(req.session.usid && req.session.usname){

@@ -1,29 +1,39 @@
 <div class="container" >
     <div class="row" >
-        <img src="../../public/image/grap-bg.png" class="img-fluid" alt="Responsive image">
+        <% if(profiles.image.background){%>
+        <img src="<%= profiles.image.background%>" class="img-fluid" alt="Responsive image">
+        <%}%>
     </div>
     <div class="row">
         <div class="card w-100 " style="border:none">
             <div class="row no-gutters">
                 <div class="col-lg-3 col-sm-4 col-4">   
-                    <a href=""><img src="../../public/image/logo-grab.jpg" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
+                    <a href=""><img src="<%= profiles.image.logo%>" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
                 </div>
                 <div class="col-lg-7 col-sm-7 col-7">
                     <div class="card-body" style="padding-top: 5px;">
-                        <h1 class="card-title font" >Toshiba Software Development</h1>
+                        <h1 class="card-title font" ><%= profiles.name%></h1>
                             <div class="company-info">
-                                <div class="company address"> <span class="icon fas fa-map-marker-alt"><a>District 4, Ho Chi Minh</a></span></div>
+                                <div class="company address"> <span class="icon fas fa-map-marker-alt"><a><%= profiles.Address.address%></a></span></div>
                                 <div class="company member"> 
-                                    <span class="fas fa-users">  <a> 301-500</a></span>
-                                    <span class="fas fa-flag-usa"> <a>United States</a></span>
+                                    <span class="fas fa-users">  <a> <%=profiles.member%></a></span>
+                                    <span class="fas fa-flag-usa"> <a><%=profiles.Address.country%></a></span>
                                 </div>
-                                <div class="company job"> <span class="fas fa-cogs"><a>Product</a> </span> </div>
-                                <div class="company wday"> <span class="fas fa-calendar-alt"><a>Monday - Friday</a> </span> </div>
+                                <div class="company job"> <span class="fas fa-cogs"><a><%=profiles.work%></a> </span> </div>
+                                <div class="company wday"> <span class="fas fa-calendar-alt"><a><%=profiles.workday%></a> </span> </div>
                             </div>
                      </div> 
                 </div>
                 <div class="col-lg-2 none text-center" >
-                    <button type="button" style="width: 150px;background-color: #EA1E30;color: white;" class="bt1 btn btn-md btn-block" data-toggle="tooltip" title="Đăng nhập để theo dõi"><a data-toggle="modal" data-target="#myModal">Theo dõi</a></button>
+                        <% if(authentication){%>
+                            <button id='follow' type="button" style="width: 150px;background-color: #EA1E30;color: white;" class="bt1 btn btn-md btn-block" >
+                                <a>Theo dõi</a>
+                            </button>
+                        <%}else{%>
+                            <button type="button" style="width: 150px;background-color: #EA1E30;color: white;" class="bt1 btn btn-md btn-block" data-toggle="tooltip" title="Đăng nhập để theo dõi">
+                                <a data-toggle="modal" data-target="#myModal">Theo dõi</a>
+                            </button>
+                        <%}%>
                     <button type="button" style="width: 150px;" class="bt1 btn btn-secondary btn-md btn-block review"><a  href="#danhgia">Viết đánh giá</a></button>
                 </div>
             </div>
@@ -46,20 +56,19 @@
                     <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3;"> 
                         <div class="card w-100" style="border: none;">
                             <div class="card-body">
-                            <h2 class="card-title text-center">JOIN US ON MISSION INCREDIBLE</h2>
+                            <h2 class="card-title text-center"><%= profiles.title %></h2>
                             <ul style="list-style-type: none">
                                 <li><h5 class="card-text font-2" >Giới thiệu</h5>
                                     <ul>
-                                        <li>
-                                    <p class="card-text">Grab is more than just the leading ride-hailing and mobile payments platform in Southeast Asia. 
-                                        We use data and technology to improve everything from transportation to payments and financial services across a 
-                                        region of more than 620 million people. We work with Working with governments, drivers, passengers, merchants, 
-                                        and the community, to solve critical problems in Southeast Asia.</p>
-                                    </li>
-                                    <li>
-                                        <p class="card-text">Grab began as a taxi-hailing app in 2012, but we have since extended our product platform to include GrabCar, G
-                                            rabShare, GrabBike, GrabHitch, GrabExpress, GrabFood, GrabCoach, GrabShuttle, GrabCycle.</p>
-                                    </li>
+                                        <% let temp = Infor.intro.split('*') %>
+                                        <% temp.forEach(function(element,index) {%>
+                                        <%  element = element.trim()%>
+                                            <% if(element !== ''){%>
+                                            <li>
+                                                <p class="card-text"><%= element%> </p>
+                                            </li> 
+                                            <%}%>
+                                        <%});%>
                                     </ul>
                                 </li>
                             </ul>
@@ -70,20 +79,22 @@
                                 <ul style="list-style-type: none">
                                     <li><h5 class="card-title font-2">Chuyên Môn Của Chúng Tôi</h5>
                                         <div class="skills">
-                                            <a href="#java">Java</a>
-                                            <a href="#php">PHP</a>
-                                            <a href="#js">JavaScript</a>
+                                            <% Infor.os.skills.forEach(element => { %>
+                                                <a href="#java"><%=element%></a>
+                                           <% }); %>
                                         </div>
                                         <ul>
-                                            <li>
-                                            <p class="card-text">Core tech stack: Golang, Redis, MySQL, Redshift, Postgres, Cassandra, Spark.</p>
-                                            </li>
-                                            <li>
-                                                <p class="card-text">Mobile app platform coverage: Native iOS and Android.</p>
-                                            </li>
-                                            <li>
-                                                <p class="card-text">AWS cloud infrastructure with auto-scaling abilities.</p>
-                                            </li>
+                                            <% if(Infor.os.os_intro){%>
+                                                <% temp = Infor.os.os_intro.split('*') %>
+                                                <% temp.forEach(function(element,index) {%>
+                                                <%  element = element.trim()%>
+                                                    <% if(element !== ''){%>
+                                                    <li>
+                                                        <p class="card-text"><%= element%> </p>
+                                                    </li> 
+                                                    <%}%>
+                                                <%});%>
+                                            <%}%>
                                         </ul>
                                     </li>
                                 </ul>
@@ -95,132 +106,131 @@
                     <div class="row" style="background-color:#fff ;margin-top: 10px;border: 1px solid #e3e3e3;"> 
                         <div class="col-12 card w-100" style="border: none;">
                             <div class="card-body">
-                            <h5 class="font card-title">Grab (Vietnam) Ltd. Tuyển Dụng</h5>
+                            <h5 class="font card-title"><%= profiles.name%> Tuyển dụng</h5>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="row">
-                                <div class="card mb-3 hv" style="max-width: 720px">
-                                    <div class="row no-gutters">
-                                        <div class="col-xl-2 col-2" id="logo">   
-                                            <a href=""><img src="../../public/image/logo-axon.png" class="card-img" alt="..."></a>
-                                        </div>
-                                        <div class="col-xl-10 col-10">
-                                            <div class="card-body">
-                                                <a class="card-title"  href="/vieclamit/job/" style="font-size: 22px;font-weight: 450;">Frontend Developer ( CSS, JavaScript, JQuery)</a>
-                                                <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
-                                                <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> 67 10th level Saigon Centre Tower 2 Lê Lợi, District 1, Ho Chi Minh</p>
-                                                <div class="skills">
-                                                    <a href="#java">Java</a>
-                                                    <a href="#php">PHP</a>
-                                                    <a href="#js">JavaScript</a>
-                                                </div>
-                                                <p style="margin-bottom: 5px"><small class="text-muted "> 2020/04/25 12:30 </small>
+                            <% Job.forEach(rs => {%>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="card mb-3 hv" style="max-width: 720px">
+                                        <div class="row no-gutters">
+                                            <div class="col-2" id="logo">   
+                                                <a href=""><img src="<%=profiles.image.logo%>" class="card-img" alt="..."></a>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="card-body">
+                                                    <a class="card-title" href="/vieclamit/<%=rs.title%>&<%=rs._id%>" style="font-size: 22px;font-weight: 450;"><%=rs.title%> (<%=rs.skills%>)</a>
+                                                    <% if(authentication){%>
+                                                        <p class='text-success' style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i> <%=rs.salary.money%> <%=rs.salary.unit%></p>
+                                                    <%}else{%>
+                                                        <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
+                                                        <%}%>
+                                                    <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> <%=rs.address%></p>
+                                                    <div class="skills">
+                                                        <% rs.skills.forEach(element => { %>
+                                                            <a href="#java"><%=element%></a>
+                                                       <% }); %>
+                                                    </div>
+                                                    <p style="margin-bottom: 5px"><small class="text-muted "> 2020/04/25 12:30 </small>
+                                                </p></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="card mb-3 hv" style="max-width: 720px">
-                                    <div class="row no-gutters">
-                                        <div class="col-xl-2 col-2" id="logo">   
-                                            <a href=""><img src="../../public/image/logo-axon.png" class="card-img" alt="..."></a>
-                                        </div>
-                                        <div class="col-xl-10 col-10">
-                                            <div class="card-body">
-                                                <a class="card-title"  href="/vieclamit/job/" style="font-size: 22px;font-weight: 450;">Frontend Developer ( CSS, JavaScript, JQuery)</a>
-                                                <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
-                                                <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> 67 10th level Saigon Centre Tower 2 Lê Lợi, District 1, Ho Chi Minh</p>
-                                                <div class="skills">
-                                                    <a href="#java">Java</a>
-                                                    <a href="#php">PHP</a>
-                                                    <a href="#js">JavaScript</a>
-                                                </div>
-                                                <p style="margin-bottom: 5px"><small class="text-muted "> 2020/04/25 12:30 </small> </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%})%>
                         </div>
                     </div>
                     <div class="row"  style="background-color:#fff;margin-top: 10px;border: 1px solid #e3e3e3;">
                         <div class="card w-100" style="border: none;">
                             <div class="card-body" style="padding-bottom: 5px;">
                             <h3 class="conten card-title font-2">Tại sao bạn sẽ chọn chúng tôi ?</h3>
-                            <ul>
-                                <li> <p class="card-text">Twice performance bonus/year</p></li>
-                                <li> <p class="card-text">Company Trip & Health Care</p></li>
-                                <li> <p class="card-text">Attractive Salary</p></li>
-                            </ul>
+                            <% if(Infor.choose_us.reasons){%>
+                                <ul>
+                                    <% temp = Infor.choose_us.reasons.split('*') %>
+                                    <% temp.forEach(function(element,index) {%>
+                                    <%  element = element.trim()%>
+                                        <% if(element !== ''){%>
+                                        <li>
+                                            <p class="card-text"><%= element%> </p>
+                                        </li> 
+                                        <%}%>
+                                    <%});%>
+                                </ul>
+                            <%}%>
                             </div>
                         </div>
                         <div class="container">
-                        <div class="mySlides">
-                            <img src="../../public/image/s.jpg" style="width:100%;height: 500px;">
-                        </div>
-                        <div class="mySlides">
-                            <img src="../../public/image/show-grap-3.jfif" style="width:100%;height: 500px;">
-                        </div>
-                        <div class="mySlides">
-                            <img src="../../public/image/show-grap.jfif" style="width:100%;height: 500px;">
-                        </div>   
+                        <% Infor.choose_us.image.forEach(element => { %>
+                            <div class="mySlides">
+                                <img src="<%= element%>" style="width:100%;height: 500px;">
+                            </div>
+                        <%});%>
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
                             <div class="roww">
-                            <div class="column">
-                            <img class="demo cursor" src="../../public/image/s.jpg" style="width:90%;height:50px;" onclick="currentSlide(1)" >
+                                <% Infor.choose_us.image.forEach(element => {%>
+                                <div class="column">
+                                    <img class="demo cursor" src="<%= element%>" style="width:90%;height:50px;" onclick="currentSlide(1)" >
+                                    </div>
+                                <%});%>
                             </div>
-                            <div class="column">
-                            <img class="demo cursor" src="../../public/image/show-grap-3.jfif" style="width:90%;height:50px;" onclick="currentSlide(2)" >
-                            </div>
-                            <div class="column">
-                            <img class="demo cursor" src="../../public/image/show-grap.jfif" style="width:90%;height:50px;" onclick="currentSlide(3)" >
-                            </div>   
-                        </div>
                         </div>
                         <div class="card w-100" style="border: none;">
                             <div class="card-body" style="padding-bottom: 5px;">
-                            <ul>
-                                <li> <p class="card-text">We care a great deal about code quality. We often go back and improve core parts of the codebase to make it better or more lean. We can do this because of 
-                                    great test coverage which will immediately sound the alarm when something goes wrong.</p></li>
-                                <li> <p class="card-text">We ship on quality instead of on time. When a feature is ready we deploy it immediately to everyone or use an internal system to roll it out to a certain percentage of customers. 
-                                    Various teams deploy new code many times throughout the day.</p></li>
-                            </ul>
+                            <% if(Infor.choose_us.others){%>
+                                <ul>
+                                    <% temp = Infor.choose_us.others.split('*') %>
+                                    <% temp.forEach(element => {%>
+                                    <%  element = element.trim()%>
+                                        <% if(element !== ''){%>
+                                        <li>
+                                            <p class="card-text"><%= element%> </p>
+                                        </li> 
+                                        <%}%>
+                                    <%});%>
+                                </ul>
+                            <%}%>
                             </div>
                         </div>
+                        <% if(Infor.Benefits.work_environment || Infor.Benefits.bonus){ %>
                         <div class="card w-100" style="border: none;">
                             <div class="card-body" style="padding-top: 5px;padding-bottom: 5px;">
                             <h3 class="conten card-title font-2">Lợi ích khi làm việc tại đây</h3>
                             <ul style="list-style-type: none">
-                                <li><h6 class="font-2">Môi trường làm việc</h6>
+                                <% if(Infor.Benefits.work_environment){%>
+                                    <li><h6 class="font-2">Môi trường làm việc</h6>
                                     <ul>
-                                        <li> <p class="card-text">We care a great deal about code quality. We often go back and improve core parts of the codebase to make it better or more lean. We can do this because of 
-                                            great test coverage which will immediately sound the alarm when something goes wrong.</p></li>
-                                        <li> <p class="card-text">We ship on quality instead of on time. When a feature is ready we deploy it immediately to everyone or use an internal system to roll it out to a certain percentage of customers. 
-                                            Various teams deploy new code many times throughout the day.</p></li>
+                                        <% temp = Infor.Benefits.work_environment.split('*') %>
+                                        <% temp.forEach(element => {%>
+                                        <%  element = element.trim()%>
+                                            <% if(element !== ''){%>
+                                            <li>
+                                                <p class="card-text"><%= element%> </p>
+                                            </li> 
+                                            <%}%>
+                                        <%});%>
                                     </ul>
-                                </li>
-                                <li><h6 class="font-2">Bạn sẽ nhận được gì khi làm tại đây </h6>
+                                    </li>   
+                                <%}%>
+                                <% if(Infor.Benefits.bonus){%>
+                                    <li><h6 class="font-2">Bạn sẽ nhận được gì khi làm tại đây</h6>
                                     <ul>
-                                    <li>
-                                        <p class="card-text">Extra Medical Insurance.</p>
-                                    </li>
-                                    <li>
-                                        <p class="card-text">Macbook is provided.</p>
-                                    </li> 
-                                    <li>
-                                        <p class="card-text">14 days annual leaves, working Monday - Friday.</p>
-                                    </li> 
-                                    <li>
-                                        <p class="card-text">Free drive with Grab (budget follow your level)</p>
-                                    </li> 
+                                        <% temp = Infor.Benefits.bonus.split('*') %>
+                                        <% temp.forEach(element => {%>
+                                        <%  element = element.trim()%>
+                                            <% if(element !== ''){%>
+                                            <li>
+                                                <p class="card-text"><%= element%> </p>
+                                            </li> 
+                                            <%}%>
+                                        <%});%>
                                     </ul>
-                                </li>
+                                    </li>   
+                                <%}%>
                             </ul>
                             </div>
                         </div>
+                        <%}%>
                     </div>
                 </div>
                 <div class="col-xl-4 col-right">
@@ -465,6 +475,12 @@
         max-width: 100%;
         height: 33%;
     }
+}
+p{
+    font-size: 1.1em;
+    font-weight: 350;
+    line-height: 1.7em;
+    color: black;
 }
 .b1{
     width: 20px;
