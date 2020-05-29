@@ -3,11 +3,13 @@ var router = express.Router();
 var client = require('../elasticsearch/connection.js');
 var url = require('url');
 const Companies_fmd = require('../models_function/Companies_fmd');
+const models_elas = require('../models_function/model_elas')
+const date = require('../models_function/xuly')
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 var admin = require('firebase-admin');
 const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
-router.get('/',function(req,res){
+router.get('/',async function(req,res){
   var namejob = req.query.job;
   var city = req.query.city;
   var output ;
@@ -15,121 +17,41 @@ router.get('/',function(req,res){
   let perPage = 6;
   let start = (page-1)*perPage;
   let end = page * perPage;
-  var results;
+  var data, numlist, results, where;
+  var date_format = [];
   if(city === "all"){
-    client.search({
-    index: 'job',
-    type: '_doc',
-    body:{
-      query:{
-        simple_query_string:{
-          query: namejob,
-          fields:["namejob","skills"]
-        }
-      }
-    }
-  },function(err,response,status){
-      if(err){
-        console.log("search err  1 "+ err)
-      }
-      else{
-        const numlist =response.hits.total.value;
-        results = response.hits.hits;
-        res.render('./xuly/search', {
-        searchjob: results 
-        ,num: numlist 
-        ,name: namejob,
-         where: '',
-      });
-      };
-    }); 
+    data = await models_elas.SearchAll(namejob);
+    numlist =data.total.value;
+    results = data.hits;
+    results.forEach(element => {
+      date_format.push(date.Date(element.created)) 
+      })
   }else if (city === "Orthers"){
-    client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        "query": {
-          "bool" : {
-            "must" : {
-               "multi_match" : {
-                        "query":    namejob, 
-                        "fields": [ "namejob", "skills" ] 
-                      }
-            },
-             "must_not" : [{
-                  "match" : {  "address" : "Ho Chi Minh" }
-              },
-              {
-                  "match" : {  "address" : "Ha Noi" }
-              },{
-                  "match" : {  "address" : "Can Tho" }
-              }
-              ]
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          console.log("search error: 2 "+error)
-        }
-        else {
-          const numlist =response.hits.total.value;
-          results = response.hits.hits;
-          res.render('./xuly/search', {
-            searchjob: results ,
-            num: numlist ,
-            name: namejob,
-            where: '',
-          });
-        }
-    });
+    data = await models_elas.SearchOrthers(namejob);
+    numlist =data.total.value;
+    results = data.hits;
+    results.forEach(element => {
+      date_format.push(date.Date(element.created)) 
+    })
   }else{
-    client.search({  
-      index: 'job',
-      type: '_doc',
-      body: {
-        query: {
-          bool: {
-            must: [{
-              bool: {
-                must: [{
-                    match: {
-                      address : city
-                    }
-                }]
-              }
-            },{
-              bool: {
-                should: [{
-                    match: {
-                      skills: namejob
-                  }
-                }, {
-                  match: {
-                    namejob: namejob
-                  }
-                }]
-              }
-            }]
-          }
-        }
-      }
-    },function (error, response,status) {
-        if (error){
-          console.log("search error: "+error)
-        }
-        else {
-        const results = response.hits.hits;
-        const numlist =response.hits.total.value;
-        res.render('./xuly/search', {
-          searchjob: results ,
-          num: numlist ,
-          name: namejob,
-          where: 'tại '+city,
-        });
-        }
-    });
+    data = await models_elas.Search(namejob,city);
+    numlist =data.total.value;
+    results = data.hits;
+    where = 'tại '+city
+    results.forEach(element => {
+      date_format.push(date.Date(element.created)) 
+    })
   }
+  res.render('./xuly/search', {
+    dsjob: results.slice(start,end),
+    num: numlist,
+    name: namejob,
+    pages: Math.ceil(numlist / perPage),
+    current: page,
+    where: where,
+    date:date_format,
+    authentication:req.session.usid,
+  });
 })
 router.get('/company',function(req,res){
   var namecompany = req.query.name;
@@ -268,4 +190,32 @@ router.post('/send_mail',urlencodedParser,function(req,res){
   console.log(path)
   res.redirect('/admin/home')
 })
+function test() {
+  client.search({
+    index: 'jobs',
+    type: '_doc',
+    body:{
+      query:{
+        simple_query_string:{
+          query: namejob,
+          fields:["title","skills"]
+        }
+      }
+    }
+  },function(err,response,status){
+      if(err){
+        console.log("search err  1 "+ err)
+      }
+      else{
+        const numlist =response.hits.total.value;
+        results = response.hits.hits;
+        res.render('./xuly/search', {
+        searchjob: results 
+        ,num: numlist 
+        ,name: namejob,
+         where: '',
+      });
+      };
+    }); 
+}
 module.exports = router;

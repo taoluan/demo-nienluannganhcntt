@@ -33,7 +33,7 @@
               <button class="dropdown-item" type="button"><a href="/profile"><i class="fas fa-user-edit"></i> Tài khoản</a></button>
               <button class="dropdown-item" type="button"><a href="/follow"><i class="fas fa-paper-plane"></i> Theo dõi</a></button>
               <button class="dropdown-item" type="button"><a href="/ungtuyen"><i class="fas fa-address-card"></i> Đã ứng tuyển</a></button>
-              <button class="dropdown-item" type="button"><a href="/logout/user"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></button>
+              <button class="dropdown-item" type="button"><a id='logout' href="/logout/user"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></button>
             </div>
       </div>
   </div>
@@ -82,8 +82,8 @@
         $('input[name="planets"]').amsifySuggestags({
             tagLimit: 4,
         });
-
-        
+        Urlnew = $('#logout').attr("href")+$(location).attr('pathname')
+        $('#logout').attr("href",Urlnew)
     });
         
     </script>

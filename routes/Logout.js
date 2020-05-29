@@ -1,9 +1,10 @@
 var express =  require('express');
 var router = express.Router();
-router.get('/user',function(req,res){
+router.get('/user/:id',function(req,res){
+    url=req.params.id;
     delete req.session.usid;
     delete req.session.usname ;
-    res.redirect('/')
+    res.redirect('/'+url)
 })
 router.get('/admin',function(req,res){
     delete req.session.adid;

@@ -15,7 +15,7 @@ var fs = require('fs');
 const Companies_fmd = require('../models_function/Companies_fmd');
 var form = new formidable.IncomingForm();
 form.uploadDir = "public/image/company/";
-router.get('/registration',function(req,res){
+router.get('/registration',(req,res)=>{
     if(req.session.adid && req.session.adname){
         res.redirect('/admin/home')
     }else{
@@ -23,7 +23,7 @@ router.get('/registration',function(req,res){
     }
    
 })
-router.post('/signup',function(req,res){
+router.post('/signup',(req,res)=>{
     form.parse(req, function (err, fields, file) {
         if(err) throw err;
         let cpnname = fields.namecpn;
@@ -89,7 +89,7 @@ router.post('/signup',function(req,res){
     })
     return res.redirect('/admin/registration');
 })
-router.post('/signin',urlencodedParser,function(req,res){
+router.post('/signin',urlencodedParser,(req,res)=>{
     let email = req.body.emailad;
     let pws = req.body.passwdad;
     mongoose.connect(url,async function(err){
@@ -101,7 +101,7 @@ router.post('/signin',urlencodedParser,function(req,res){
         }else res.redirect('/admin/registration')
     })
 })
-router.get('/home',checklogin,async function(req,res){
+router.get('/home',checklogin,async(req,res)=>{
     let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
     let count_job = await Companies_fmd.countJob_companies(req.session.adid)
     let list_job = await Companies_fmd.loadJob_companies(req.session.adid)
@@ -112,7 +112,7 @@ router.get('/home',checklogin,async function(req,res){
         listjob: list_job
     }) 
 })
-router.get('/page-ad',async function(req,res){
+router.get('/page-ad',async (req,res)=>{
     if(req.session.adid && req.session.adname){
         let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
         let load_Infor = await Companies_fmd.loadInfor_companies(req.session.adid)
@@ -125,7 +125,7 @@ router.get('/page-ad',async function(req,res){
         }) 
      }else res.redirect('/admin/registration')
 })
-router.post('/edit',function(req,res){
+router.post('/edit',(req,res)=>{
     if(req.session.adid && req.session.adname){
         mongoose.connect(url,async function(err){
             const CompaniesFind =await Companies.findById(req.session.adid);
@@ -145,7 +145,7 @@ router.post('/edit',function(req,res){
         
      }else res.redirect('/admin/registration')
 })
-router.post('/introcpn',function(req,res){
+router.post('/introcpn',(req,res)=>{
     if(req.session.adid && req.session.adname){
     files = [],
     fields = [];
@@ -200,7 +200,7 @@ router.post('/introcpn',function(req,res){
     })
     }else res.redirect('/admin/registration')
 })
-router.post('/edit_profile',checklogin,function(req,res){
+router.post('/edit_profile',checklogin,(req,res)=>{
         form.parse(req,async function(error,fields,file){
             let companies_Edit = await {
              link : fields.link,
@@ -232,14 +232,14 @@ router.post('/edit_profile',checklogin,function(req,res){
             res.redirect('/admin/home#') 
         })
 })
-router.post('/post-job',checklogin,async function(req,res){
+router.post('/post-job',checklogin,async (req,res)=>{
     let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
     res.render('./admin/post-job',{
         logo : load_profile.image.logo,
         companies: load_profile.name,
     })
 })
-router.post('/edit_post_job',checklogin,async function(req,res){
+router.post('/edit_post_job',checklogin,async (req,res)=>{
     form.parse(req,async function(error,fields,file){
             title = fields.job_name;
             address = fields.job_address,
@@ -275,7 +275,7 @@ router.post('/edit_post_job',checklogin,async function(req,res){
         res.redirect('/admin/home') 
     })
 })
-router.post('/list-job',checklogin,async function(req,res){
+router.post('/list-job',checklogin,async (req,res)=>{
     let load_list_job = await Companies_fmd.loadJob_companies(req.session.adid);
     let count_job = await Companies_fmd.countJob_companies(req.session.adid);
     res.render('./admin/list-job',{
@@ -283,7 +283,7 @@ router.post('/list-job',checklogin,async function(req,res){
         count_job:count_job
     })
 })
-router.get('/update_status',checklogin,function(req,res){
+router.get('/update_status',checklogin,(req,res)=>{
     let id_job = req.query.id_job;
     let status = req.query.status;
     mongoose.connect(url,async function(err){
@@ -304,7 +304,7 @@ router.get('/update_status',checklogin,function(req,res){
         }   
     })
 })
-router.get('/viewjob/:id',checklogin,async function(req,res){
+router.get('/viewjob/:id',checklogin,async (req,res)=>{
     let id = req.params.id;
     let Company = await Companies.findById(req.session.adid);
     let CompaniesInforFind = await Infor_Companies.findOne({companies:req.session.adid});

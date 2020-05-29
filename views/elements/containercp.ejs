@@ -112,7 +112,7 @@
                         <div class="col-12">
                             <% Job.forEach(rs => {%>
                                 <div class="row d-flex justify-content-center">
-                                    <div class="card mb-3 hv" style="max-width: 720px">
+                                    <div class="card mb-3 hv w-100 ml-0" style="max-width: 720px">
                                         <div class="row no-gutters">
                                             <div class="col-2" id="logo">   
                                                 <a href=""><img src="<%=profiles.image.logo%>" class="card-img" alt="..."></a>
@@ -126,7 +126,8 @@
                                                         <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
                                                         <%}%>
                                                     <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> <%=rs.address%></p>
-                                                    <div class="skills">
+                                                    <p style="font-size: 15px; color: gray;">" <%=rs.descript.substring(0, rs.descript.indexOf('*'))%>..."</p>
+                                                    <div class="skills ml-0">
                                                         <% rs.skills.forEach(element => { %>
                                                             <a href="#java"><%=element%></a>
                                                        <% }); %>
