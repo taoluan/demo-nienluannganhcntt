@@ -29,6 +29,16 @@ var CompanySchema = new Schema({
         type: String,
         default: 'inactive'
     },
+    point: {
+        point_start:{
+            type: Number,
+            default: 0
+        },
+        point_vote:{
+            type: Number,
+            default: 0
+        }
+    },
     follow:[
         {user:{
             type:mongoose.Schema.Types.ObjectId, 

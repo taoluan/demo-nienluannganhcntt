@@ -33,10 +33,28 @@
                         <input id='kq' type="text" style="display:none"/>
                     </div>
                     <div class="card-text text-center">
-                      <a href="#danhgia" class="btn btn-warning text-center danhgia">Đánh giá</a></div>
+                      <a href="#" class="btn btn-warning text-center rw">Đánh giá</a></div>
                 </div>	
             </div>
         </div>
+        <div class="modal fade" id="ReviewOK" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id='ReviewOK_html'>
+                  Thật sự rất cảm ơn bạn đã đóng góp ý kiến cho Công ty chúng tôi !
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id='close'>Xong</button>
+                </div>
+              </div>
+            </div>
+          </div>
       <%}else{%>
         <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3;margin-top: 10px;"> 
         <div class="col-12 card" style="border: none;">
@@ -44,7 +62,7 @@
                 <h5 class="card-title font">Đánh giá Toshiba Software Development</h5>
                 <p class="card-text">Hãy đánh giá một cách khách quan nhất !!!</p>
                 <div class="card-text text-center">
-                  <a href="#danhgia" class="btn btn-warning text-center danhgia" data-toggle="modal" data-target="#myModal">Đăng nhập để đánh giá</a></div>
+                  <a href="#danhgia" class="btn btn-warning text-center" data-toggle="modal" data-target="#myModal">Đăng nhập để đánh giá</a></div>
             </div>	
         </div>
         </div>
@@ -153,16 +171,36 @@
     if (val == 5)$('#result').text("Tuyệt vời") ;
     $('#result').css('color','black')
     })
-    $('.danhgia').click(function(){
-        let start = $("input[name='rating']:checked").val();
+    $('.rw').click(function(){
+        let star = $("input[name='rating']:checked").val();
         let vote = $('#kq').text();
-        let commet = $('#exampleFormControlTextarea3').val()
-        if($('#result').text() === '' || vote === '' || commet==='') {
+        let comment = $('#exampleFormControlTextarea3').val()
+        let url = $(location).attr('pathname').indexOf('&');
+        let urlnew = $(location).attr('pathname').substring(url+1,$(location).attr('pathname').length)
+        if($('#result').text() === '' || vote === '' || comment==='') {
         alert('Vui lòng điền đầy đủ thông tin đánh giá')
         }else{
-        alert('ok')
+            $.ajax({
+                method:'get',
+                url:'/user/danhgia',
+                data:{
+                    us_star:star,
+                    us_vote:vote,
+                    us_comment:comment,
+                    id_cpn:urlnew
+                }
+            })
+            .done((data)=>{
+                if(data){
+                    $('#ReviewOK').modal('show',)
+                }else{
+                    $("#ReviewOK_html").html('Hệ thông đang bị lỗi vui lòng quay lại sau')
+                    $('#ReviewOK').modal('show')
+                }
+            })
         }
     })
+    $('#close').click(()=>{location.reload();})
 </script>
 <style>
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);

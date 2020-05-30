@@ -3,7 +3,8 @@ const url = 'mongodb://localhost/Nienluannganh';
 const Companies = require('../models/Companies');
 const Infor_Companies = require('../models/Infor_Companies')
 const Job = require('../models/Job')
-module.exports.editprofile_companies = function(data,id){
+const Us_Review = require('../models/Review')
+module.exports.editprofile_companies = (data,id)=>{
         mongoose.connect(url,async function(err){
             if (err) throw err;
             if(data.uplogo){
@@ -29,7 +30,7 @@ module.exports.editprofile_companies = function(data,id){
            
         })
 }
-module.exports.loadprofile_companies = function(id){
+module.exports.loadprofile_companies = (id)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -38,7 +39,7 @@ module.exports.loadprofile_companies = function(id){
         })
     })
 }
-module.exports.loadInfor_companies = function(id){
+module.exports.loadInfor_companies = (id)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -47,7 +48,7 @@ module.exports.loadInfor_companies = function(id){
         })
     })
 }
-module.exports.loadJob_companies = function(id){
+module.exports.loadJob_companies = (id)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
@@ -57,7 +58,7 @@ module.exports.loadJob_companies = function(id){
         })
     })
 }
-module.exports.countJob_companies = function(id){
+module.exports.countJob_companies = (id)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -66,7 +67,7 @@ module.exports.countJob_companies = function(id){
         })
     })
 }
-module.exports.countCandidate_companies = function(id){
+module.exports.countCandidate_companies = (id)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -75,7 +76,7 @@ module.exports.countCandidate_companies = function(id){
         })
     })
 }
-module.exports.viewJob_companies = function(id){
+module.exports.viewJob_companies = (id)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -84,7 +85,7 @@ module.exports.viewJob_companies = function(id){
         })
     })
 }
-module.exports.UpdateJob_agree = function(id_job,id_user){
+module.exports.UpdateJob_agree = (id_job,id_user)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -93,7 +94,7 @@ module.exports.UpdateJob_agree = function(id_job,id_user){
         })
     })
 }
-module.exports.UpdateJob_notagree = function(id_job,id_user){
+module.exports.UpdateJob_notagree = (id_job,id_user)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,function(err){
             if(err) throw reject(err);
@@ -102,7 +103,7 @@ module.exports.UpdateJob_notagree = function(id_job,id_user){
         })
     })
 }
-module.exports.loadJob_index = function(){
+module.exports.loadJob_index = ()=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
@@ -112,7 +113,7 @@ module.exports.loadJob_index = function(){
         })
     })
 }
-module.exports.countJob_inSkills = function(skill){
+module.exports.countJob_inSkills = (skill)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
@@ -126,7 +127,7 @@ module.exports.countJob_inSkills = function(skill){
         })
     })
 }
-module.exports.random_companies = function(){
+module.exports.random_companies = ()=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
@@ -139,7 +140,7 @@ module.exports.random_companies = function(){
         })
     })
 }
-module.exports.random_companies_job = function(id_1,id_2){
+module.exports.random_companies_job = (id_1,id_2)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
@@ -150,7 +151,7 @@ module.exports.random_companies_job = function(id_1,id_2){
         })
     })
 }
-module.exports.loadjob_not1vl = function(id_1,id_not){
+module.exports.loadjob_not1vl = (id_1,id_not)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
@@ -163,6 +164,34 @@ module.exports.loadjob_not1vl = function(id_1,id_not){
             });
             result.splice(temp,1)
             resolve(result)
+        })
+    })
+}
+module.exports.usereview_companies = (cmt,star,vote,id_us,id_cpn)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let created_review = new Us_Review({
+                _id: new mongoose.Types.ObjectId(),
+                comment:cmt,
+                companies:id_cpn,
+                User:id_us,
+                numofStart:star,
+                vote:vote,
+            })
+            created_review.save(async (err)=>{
+                if(err) throw reject(err);
+                let count_review = await Us_Review.countDocuments({companies:id_cpn});
+                let count_voteNo = await Us_Review.countDocuments({companies:id_cpn,vote:0});
+                let count_voteYes = await Us_Review.countDocuments({companies:id_cpn,vote:1});
+                let getPoint_cpn = await  Companies.findById(id_cpn).select('point');
+                let setPoint_start = (getPoint_cpn.point.point_start*(count_review-1) + created_review.numofStart)/count_review;
+                setPoint_start = Math.round(setPoint_start * 10)/10
+                let setPoint_vote =  Math.round((count_voteYes/count_review)*100)
+                let updatePoint_cpn = await Companies.findByIdAndUpdate(id_cpn,{$set:{'point.point_start': setPoint_start,'point.point_vote':setPoint_vote}})
+                resolve(updatePoint_cpn)
+            })
+           
         })
     })
 }

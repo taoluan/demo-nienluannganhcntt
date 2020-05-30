@@ -7,6 +7,7 @@ const url = 'mongodb://localhost/Nienluannganh';
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const addUser = require('../models/User')
 const user_controler = require('../controllers/userctl')
+const models_fmd = require('../models_function/Companies_fmd')
 router.post('/signup',urlencodedParser,function(req,res){
   try {
   mongoose.connect(url,async function(err){
@@ -42,4 +43,14 @@ router.post('/signin',urlencodedParser,user_controler.checklogin_user)
     //  res.redirect('/')
   //}
 router.post('/editprofile',urlencodedParser,user_controler.editprofile_user)
+router.get('/danhgia',async (req,res)=>{
+  if(req.session.usid && req.session.usname){
+   let star = req.query.us_star
+   let comment = req.query.us_comment
+   let vote = req.query.us_vote
+   let id_cpn = req.query.id_cpn
+   let review = await models_fmd.usereview_companies(comment,star,vote,req.session.usid,id_cpn)
+   res.send(review)
+  }
+})
 module.exports = router;

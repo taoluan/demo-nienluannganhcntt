@@ -3,7 +3,7 @@ var  Schema = mongoose.Schema;
 
 var ReviewSchema = new Schema ({
     _id: mongoose.Schema.Types.ObjectId,
-    content: String,
+    comment: String,
     companies: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'companies'
@@ -12,11 +12,11 @@ var ReviewSchema = new Schema ({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'user'
      },
-    numofStart: String,
-    vote : String,
+    numofStart: Number,
+    vote : Number,
     created: { 
         type: Date,
         default: Date.now
     }
 })
-module.exports = mongoose.model('Job',ReviewSchema)
+module.exports = mongoose.model('Review',ReviewSchema)
