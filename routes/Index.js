@@ -159,17 +159,29 @@ router.get('/vieclamit/:name&:id',async (req,res)=>{
 router.get('/companies/:val1&:val2',async (req,res)=>{
   const name_company =req.params.val1;
   const id_company =req.params.val2;
+  let check_follow ;
+  let date_review = []
   let companies = await models_function.loadprofile_companies(id_company)
   let Infor_cpn = await models_function.loadInfor_companies(id_company)
   let job_cpn = await models_function.loadJob_companies(id_company)
-    res.render('companies',{
+  let load_review = await models_function.loadReview_companies(id_company)
+  load_review.forEach(element => {
+    date_review.push(date.Date(element.created)) 
+  })
+  if(req.session.usid){
+    check_follow = await models_function.checlfollow_companies(id_company,req.session.usid)
+  }
+  res.render('companies',{
     title: name_company,
     authentication:req.session.usid,
     nameuser : req.session.usname,
     profiles:companies,
     Infor:Infor_cpn,
-    Job:job_cpn
-    }) 
+    Job:job_cpn,
+    check:check_follow,
+    review_load:load_review,
+    date_rv:date_review
+  }) 
 })
 router.get('/companies',(req,res)=>{
   if(req.session.usid && req.session.usname){

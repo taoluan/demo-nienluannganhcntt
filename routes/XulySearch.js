@@ -6,6 +6,7 @@ const Companies_fmd = require('../models_function/Companies_fmd');
 const models_elas = require('../models_function/model_elas')
 const date = require('../models_function/xuly')
 const bodyParser = require('body-parser');
+const check_Us = require('../models_function/xuly')
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 var admin = require('firebase-admin');
 const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
@@ -139,7 +140,6 @@ router.get('/update_job',async (req,res)=>{
   let id_job = req.query.id_job;
   let id_user = req.query.id_user;
   let update =await Companies_fmd.UpdateJob_agree(id_job,id_user)
-  console.log(update)
   res.send(update)
 })
 router.get('/update_huy_job',async (req,res)=>{
@@ -190,6 +190,18 @@ router.post('/send_mail',urlencodedParser,function(req,res){
   console.log(path)
   res.redirect('/admin/home')
 })
+router.get('/follow',check_Login_Us,async (req,res,next)=>{
+   let id_cpn = req.query.id_cpn;
+   let id_us = req.session.usid;
+   let follow = await Companies_fmd.userfollow_companies(id_cpn,id_us)
+   res.send(follow)
+  })
+router.get('/unfollow',check_Login_Us,async (req,res,next)=>{
+  let id_cpn = req.query.id_cpn;
+  let id_us = req.session.usid;
+  let unfollow = await Companies_fmd.userUnfollow_companies(id_cpn,id_us)
+  res.send(unfollow)
+  })
 function test() {
   client.search({
     index: 'jobs',
@@ -217,5 +229,11 @@ function test() {
       });
       };
     }); 
+}
+function check_Login_Us(req,res,next){
+  if(req.session.usid && req.session.usname){
+     return next()
+  }
+  res.redirect('/admin/registration')
 }
 module.exports = router;

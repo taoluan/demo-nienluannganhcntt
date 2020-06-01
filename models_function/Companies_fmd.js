@@ -195,3 +195,40 @@ module.exports.usereview_companies = (cmt,star,vote,id_us,id_cpn)=>{
         })
     })
 }
+module.exports.loadReview_companies = (id_cpn)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result =await Us_Review.find({companies:id_cpn}).sort('created : -1').populate('User').limit(10)
+            console.log(result)
+            resolve(result)
+        })
+    })
+}
+module.exports.userfollow_companies = (id_cpn,id_us)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result = await Companies.findOneAndUpdate({_id:id_cpn},{$push:{follow:{_id:id_us}}})
+            resolve(result)
+        })
+    })
+}
+module.exports.checlfollow_companies = (id_cpn,id_us)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result = Companies.findOne({_id:id_cpn,'follow._id':id_us})
+            resolve(result)
+        })
+    })
+}
+module.exports.userUnfollow_companies = (id_cpn,id_us)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result = await Companies.findOneAndUpdate({_id:id_cpn},{$pull:{follow:{_id:id_us}}})
+            resolve(result)
+        })
+    })
+}
