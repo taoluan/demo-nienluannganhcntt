@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const check_Us = require('../models_function/xuly')
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 var admin = require('firebase-admin');
+var formidable = require('formidable');
+var fs = require('fs');
 const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
 router.get('/',async function(req,res){
   var namejob = req.query.job;
@@ -202,6 +204,28 @@ router.get('/unfollow',check_Login_Us,async (req,res,next)=>{
   let unfollow = await Companies_fmd.userUnfollow_companies(id_cpn,id_us)
   res.send(unfollow)
   })
+router.post('/ungtuyen',check_Login_Us,async (req,res)=>{
+  let form = new formidable.IncomingForm();
+  form.uploadDir="public/image/cv/"
+  var ungtuyen;
+  form.parse(req,async function (err, fields, file) {
+    if(err) throw err;
+    let upcv = file.upcv.name
+    let name = fields.name
+    let id_job = fields.id_job
+    let id_us = req.session.usid
+    if(upcv){
+      var newpath = form.uploadDir+upcv; 
+      var path = file.upcv.path;
+      await Companies_fmd.UpdateCV_User(id_us,form.uploadDir+upcv)
+      fs.rename(path, newpath, function (err) {
+      });
+    }
+    ungtuyen = await Companies_fmd.ungTuyen_job(id_us,id_job)
+    res.send(ungtuyen)
+  })
+  //let check_cv = await Companies_fmd.checkUser_cv(id_us,id_job) 
+})
 function test() {
   client.search({
     index: 'jobs',
@@ -234,6 +258,6 @@ function check_Login_Us(req,res,next){
   if(req.session.usid && req.session.usname){
      return next()
   }
-  res.redirect('/admin/registration')
+  res.redirect('/')
 }
 module.exports = router;

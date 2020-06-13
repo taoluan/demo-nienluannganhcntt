@@ -4,6 +4,7 @@ const Companies = require('../models/Companies');
 const Infor_Companies = require('../models/Infor_Companies')
 const Job = require('../models/Job')
 const Us_Review = require('../models/Review')
+const User_Profile =  require('../models/User')
 module.exports.editprofile_companies = (data,id)=>{
         mongoose.connect(url,async function(err){
             if (err) throw err;
@@ -100,6 +101,15 @@ module.exports.UpdateJob_notagree = (id_job,id_user)=>{
             if(err) throw reject(err);
             let update = Job.updateOne({'_id':id_job,'join.id_user':id_user},{$set:{'join.$.status':'Không được duyệt'}})
             resolve(update)
+        })
+    })
+}
+module.exports.UpdateCV_User = (id_us,cv)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,function(err){
+            if(err) throw reject(err);
+            let update_cv = User_Profile.findByIdAndUpdate({_id:id_us},{$set: {upCV:cv}},{new: true})
+            resolve(update_cv)
         })
     })
 }
@@ -200,7 +210,6 @@ module.exports.loadReview_companies = (id_cpn)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
             let result =await Us_Review.find({companies:id_cpn}).sort('created : -1').populate('User').limit(10)
-            console.log(result)
             resolve(result)
         })
     })
@@ -228,6 +237,24 @@ module.exports.userUnfollow_companies = (id_cpn,id_us)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
             let result = await Companies.findOneAndUpdate({_id:id_cpn},{$pull:{follow:{_id:id_us}}})
+            resolve(result)
+        })
+    })
+}
+module.exports.ungTuyen_job = (id,id_job)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err)
+            let Join =  await Job.findByIdAndUpdate(id_job,{$push:{join:{id_user:id}}})
+            resolve(Join)
+        })
+    })
+}
+module.exports.check_join = (id_us,id_job)=>{
+    return new Promise((resolve,reject)=>{
+        mongoose.connect(url,async function(err){
+            if(err) throw reject(err);
+            let result = await Job.findOne({_id:id_job,'join.id_user':id_us}).select('join')
             resolve(result)
         })
     })

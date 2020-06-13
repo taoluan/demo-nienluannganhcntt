@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/',require('./routes/Index'));
 app.use('/user',require('./routes/User'));
 app.use('/admin',require('./routes/Admin'));
-app.use('/XulySearch',require('./routes/XulySearch'));
+app.use('/Xuly',require('./routes/Xuly'));
 //app.use('/login',require('./routes/Login'));
 app.use('/logout',require('./routes/Logout'));
 app.use('/check',require('./routes/Check'));

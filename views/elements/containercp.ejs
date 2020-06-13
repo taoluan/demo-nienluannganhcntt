@@ -4,8 +4,8 @@
         <img src="<%= profiles.image.background%>" class="img-fluid" alt="Responsive image">
         <%}%>
     </div>
-    <div class="row">
-        <div class="card w-100 " style="border:none">
+    <div class="row" >
+        <div class="card w-100 " style="border:none" id="prof">
             <div class="row no-gutters">
                 <div class="col-lg-3 col-sm-4 col-4">   
                     <a href=""><img src="<%= profiles.image.logo%>" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
@@ -28,16 +28,16 @@
                         <% if(authentication){%>
                             <%if(check){%>
                                 <button  id='follow_check' type="button" value="<%=profiles._id%>" style="width: 150px;" class="bt1 btn btn-md btn-block btn-danger" >
-                                    <a  href ='#' id='dangtheogioi'>Đang theo dõi</a>
+                                    <a  href ='#prof' id='dangtheogioi'>Đang theo dõi</a>
                                 </button>
                             <%}else{%>
                             <button id='follow'  type="button" value="<%=profiles._id%>" style="width: 150px" class="bt1 btn btn-md btn-block btn-danger" >
-                                <a  href  ='#'>Theo dõi</a>
+                                <a  href  ='#prof'>Theo dõi</a>
                             </button>
                             <%}%>
                         <%}else{%>
                             <button type="button" style="width: 150px" class="bt1 btn btn-md btn-block btn-danger" data-toggle="tooltip" title="Đăng nhập để theo dõi">
-                                <a data-toggle="modal" data-target="#myModal">Theo dõi</a>
+                                <a href ='#prof' data-toggle="modal" data-target="#myModal">Theo dõi</a>
                             </button>
                         <%}%>
                     <button type="button" style="width: 150px;" class="bt1 btn btn-secondary btn-md btn-block review"><a  href="#danhgia">Viết đánh giá</a></button>
@@ -381,7 +381,7 @@ p{
             let id_cpn = $('#follow').attr('value')
             $.ajax({
                 method:'get',
-                url:'/XulySearch/follow',
+                url:'/Xuly/follow',
                 data:{id_cpn:id_cpn}
             })
             .done((data)=>{
@@ -403,7 +403,7 @@ p{
             let id_cpn = $('#follow_check').attr('value')
             $.ajax({
                 method:'get',
-                url:'/XulySearch/unfollow',
+                url:'/Xuly/unfollow',
                 data:{id_cpn:id_cpn}
             })
             .done((data)=>{

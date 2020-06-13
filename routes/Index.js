@@ -8,6 +8,7 @@ const date = require('../models_function/xuly')
 const models_elas = require('../models_function/model_elas')
 const Infor_Companies = require('../models/Infor_Companies');
 const Date = require('../models_function/xuly')
+const User = require('../models_function/loadprofile');
 router.get('/', async (req,res)=>{
   let list_job = await models_function.loadJob_index();
   let countjob_skill = await models_function.countJob_inSkills(['Java','PHP','Python','JavaScript','C','Ruby']);
@@ -141,19 +142,29 @@ router.get('/vieclamit/:name&:id',async (req,res)=>{
   let InforCompanies = await models_function.loadInfor_companies(job.companies._id);
   let date_format = Date.Date(job.created);
   let Job_not = await models_function.loadjob_not1vl(job.companies._id,id_job)
+  let count_job = await models_function.countJob_companies(job.companies._id)
+  let profile_user = '';
+  let check_join = '';
+  if(req.session.usid){
+     profile_user = await User.profile(req.session.usid);
+     check_join = await models_function.check_join(req.session.usid,id_job)
+    }
   let date_jobother = []
   Job_not.forEach(element => {
     date_jobother.push(date.Date(element.created)) 
   })
     res.render('job',{
+    us_pro:profile_user,
     title: name_job,
     nameuser:req.session.usname,
     authentication:req.session.usid,
     Job:job,
+    CountJob:count_job,
     Cpn_infor:InforCompanies,
     date:date_format,
     Job_other:Job_not,
-    date_other:date_jobother
+    date_other:date_jobother,
+    checkJoin:check_join
    })
 })
 router.get('/companies/:val1&:val2',async (req,res)=>{
@@ -170,6 +181,7 @@ router.get('/companies/:val1&:val2',async (req,res)=>{
   })
   if(req.session.usid){
     check_follow = await models_function.checlfollow_companies(id_company,req.session.usid)
+    console.log(check_follow)
   }
   res.render('companies',{
     title: name_company,

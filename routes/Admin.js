@@ -14,6 +14,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 const Companies_fmd = require('../models_function/Companies_fmd');
 var form = new formidable.IncomingForm();
+
 form.uploadDir = "public/image/company/";
 router.get('/registration',(req,res)=>{
     if(req.session.adid && req.session.adname){
@@ -117,11 +118,18 @@ router.get('/page-ad',async (req,res)=>{
         let load_profile = await Companies_fmd.loadprofile_companies(req.session.adid)
         let load_Infor = await Companies_fmd.loadInfor_companies(req.session.adid)
         let job_cpn = await Companies_fmd.loadJob_companies(req.session.adid)
+        let load_review = await Companies_fmd.loadReview_companies(req.session.adid)
+        let date_review = []
+        load_review.forEach(element => {
+            date_review.push(Date.Date(element.created)) 
+          })
         res.render('./admin/page', {
             title: load_profile.name + ' | Nhà tuyển dụng  ',
             profiles: load_profile,
             Infor: load_Infor,
-            Job:job_cpn
+            Job:job_cpn,
+            review_load:load_review,
+            date_rv:date_review
         }) 
      }else res.redirect('/admin/registration')
 })

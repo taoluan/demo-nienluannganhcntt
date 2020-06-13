@@ -58,7 +58,7 @@
                             </tr>
                         </table>
                     <center>
-                        <a href="#other_job" class="card-link" >3 Job <i class="fas fa-search-plus"></i></a>
+                        <a href="#other_job" class="card-link" ><%=CountJob%> Công việc <i class="fas fa-search-plus"></i></a>
                         <a href="/companies/<%=Job.companies.name%>&<%=Job.companies._id%>" class="card-link" style="margin-top:15px" >Thông tin <i class="fas fa-arrow-right"></i></a>
                     </center>
                     </div>
@@ -75,17 +75,94 @@
                             <%})%>
                           </div>
                           <div class="intro-job">
-                            <p style="margin-bottom: 2px;">
-                                <% if(authentication){%>
-                                    <span class="text-success"><i class="fas fa-dollar-sign"></i> <%=Job.salary.money%><%=Job.salary.unit%></span>
+                                <p style="margin-bottom: 2px;">
+                                    <% if(authentication){%>
+                                        <span class="text-success"><i class="fas fa-dollar-sign"></i> <%=Job.salary.money%><%=Job.salary.unit%></span>
+                                    <%}else{%>
+                                    <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a>
+                                    <%}%>
+                                </p>
+                                <p style="margin-bottom: 2px"><i class="fas fa-map-marker-alt"></i> <%=Job.address%></p>
+                                <p style="margin-bottom: 10px; color: #58595b"><i class="far fa-calendar-alt"></i>  <%=date%></p>
+                            </div>
+                            <% if(authentication){%>
+                                <% if(checkJoin){%>
+                                    <a href="/ungtuyen" class="btn btn-success btn-lg btn-block w-85">Bạn đã ứng tuyển hồ sơ của bạn đang <%=checkJoin.join[0].status%>...</a>
                                 <%}else{%>
-                                  <i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a>
+                                <button href="#" class="btn btn-primary btn-lg btn-block w-85"  id="ungtuyen">Ứng Tuyển</button>
+                                <div class="modal fade" id="NopCV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Bạn Muốn ứng tuyển <%=Job.title%> Tại <%=Job.companies.name%></h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <form id="f_ungtuyen">
+                                                <div class="container">
+                                                    <div class="form-group row ">
+                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Họ Tên</label>
+                                                        <div class="col-10">
+                                                        <input type="text" class="form-control w-75" name="name" id="inputEmail3" value="<%= us_pro.fullname %>" placeholder="Email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <% if(!us_pro.upCV){ %>
+                                                        <label for="cv" class="col-2 col-form-label">Gữi CV</label>
+                                                        <div class="col-10 d-flex justify-content-start" id="cv">
+                                                            <input id="upcv" class="float-right" type="file" name="upcv" data-field-type="bootstrap-file-filed"
+                                                            data-label="Upload CV"
+                                                            data-btn-class="btn-success"
+                                                            accept=".doc, .docx, .pdf"
+                                                            value="<%=us_pro.upCV%>"
+                                                            multiple required>
+                                                        </div>
+                                                        <% }else { %>
+                                                        <label for="cv" class="col-2 col-form-label">Gữi CV</label>
+                                                        <div class="col-10 d-flex justify-content-start" id="cv">
+                                                            <input id="upcv" class="float-right" type="file" name="upcv" data-field-type="bootstrap-file-filed"
+                                                            data-label="Thay đổi CV"
+                                                            data-btn-class="btn-success"
+                                                            accept=".doc, .docx, .pdf"
+                                                            value="<%=us_pro.upCV%>"
+                                                            multiple >
+                                                            <p id='check_an' class="text-success ml-2 mt-1"><i class="fas fa-check"></i> <%=us_pro.upCV%></p>
+                                                        </div>
+                                                        <%}%>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                          <button type="button" id="btn_ungtuyen" class="btn btn-primary" >Ứng Tuyển</button>
+                                        </div>
+                                    </form>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="NopCVOK" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title text-center" id="exampleModalLabel">Chúc Mừng Bạn đã ứng tuyển thành công !</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <p>Vui lòng đợi phản hồi từ nhà tuyển dụng và kiểm tra <i class="far fa-envelope"></i> thường xuyên</p> 
+                                        </div>
+                                        <div class="modal-footer">
+                                          <a  href="/ungtuyen" class="btn btn-success" data-dismiss="modal">Thoát</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
                                 <%}%>
-                            </p>
-                            <p style="margin-bottom: 2px"><i class="fas fa-map-marker-alt"></i> <%=Job.address%></p>
-                            <p style="margin-bottom: 10px; color: #58595b"><i class="far fa-calendar-alt"></i>  <%=date%></p>
-                        </div>
-                          <a href="#" class="btn btn-primary btn-lg btn-block w-85" data-toggle="modal" data-target="#myModal" id="ungtuyen">Ứng Tuyển</a>
+                            <%}else{%>
+                            <a href="#" class="btn btn-primary btn-lg btn-block w-85" data-toggle="modal" data-target="#myModal" id="ungtuyen">Ứng Tuyển</a>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -222,3 +299,10 @@
         </div>
     </div>
 <%}%>
+<style>
+.fileList .text-success{
+    margin-top: 10px;
+    position: absolute;
+    margin-left: 5px;
+}
+</style>

@@ -262,14 +262,14 @@
                                                     <div class="row p-2 no-gutters rounded">
                                                         <div class="col-6 rounded">
                                                             <div class="card card-block text-info rounded-0 border-left-0 border-right-0 border-top-0 border-bottom-0">
-                                                                <h3>10</h3>
+                                                                <h3><%=Job.length%></h3>
                                                                 <span class="small text-uppercase">Job</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6 rounded">
                                                             <div class="card card-block text-info rounded-0 border-right-0 border-top-0 border-bottom-0">
-                                                                <h3><i class="far fa-thumbs-up"></i> 3000</h3>
-                                                                <span class="small text-uppercase"> Follow</span>
+                                                                <h3><%=profiles.follow.length%></h3>
+                                                                <span class="small text-uppercase"><i class="far fa-thumbs-up"></i> Follow</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -286,203 +286,151 @@
                                                     <hr>
                                                 </div>
                                             </div>
+                                            <%if(review_load.length !== 0){%>
+                                                <% review_load.forEach((rs,idx) =>{%>
                                                 <div class="col-12" style="margin-bottom:5px">
-                                                    <div class="card flex-row flex-wrap w-90">
+                                                    <div class="card flex-row flex-wrap w-100">
                                                         <div class="img-square-wrapper" >
-                                                            <img class="set" src="../public/image/logo-grab.jpg" height="50" width="50" alt="">
+                                                            <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
                                                         </div>
-                                                        <div class="col-xl-10 col-sm-10 col-10 card-block px-2" >
+                                                        <div class="col-10 card-block px-2" >
                                                             <div class='row' style="margin-top: 5px;">
-                                                                <p class="col-6 title text-info" style="margin-bottom: 0px;">@TaoLuan</p>
-                                                                <small class="col-6 text-muted float-right" style="margin-top: 5px;"> 2020/04/25 12:30 </small>
+                                                                <p class="col-12 title " style="margin-bottom: 0px;font-size: 16px;"><span class='text-info'>@<%=rs.User.fullname%></span>
+                                                                <small class="float-right text-secondary"> <%=date_rv[idx]%> </small>
+                                                                </p>
                                                             </div>
                                                             <div class="row">
-                                                                <p class="col-12 card-text text-secondary">"from transportation to payments and financial services across a 
-                                                                region of more than 620 million people. "</p>
+                                                                <p class="col-12 card-text text-secondary">"<%=rs.comment%>"</p>
                                                             </div>
                                                             <div class="row text-center rank float-left">
                                                                 <div class="col-12 rating float-left">
                                                                     <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
+                                                                    <% let num = 5 - rs.numofStart%>
+                                                                    <% for(let i = 0 ; i < rs.numofStart ; i++){%>
                                                                     <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
                                                                         <span class="fas fa-star text-white" aria-hidden="true"></span>
                                                                     </button>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                                                    </button>
+                                                                    <%}%>
+                                                                    <% for(let i = 0 ; i < num ; i++){%>
+                                                                        <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
+                                                                            <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
+                                                                        </button>
+                                                                        <%}%>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         
                                                     </div>
                                                 </div>
-                                                <div class="col-12" style="margin-bottom:5px">
-                                                    <div class="card flex-row flex-wrap w-90">
-                                                        <div class="img-square-wrapper" >
-                                                            <img class="set" src="../public/image/logo-grab.jpg" height="50" width="50" alt="">
-                                                        </div>
-                                                        <div class="col-xl-10 col-sm-10 col-10 card-block px-2" >
-                                                            <div class='row' style="margin-top: 5px;">
-                                                                <p class="col-6 title text-info" style="margin-bottom: 0px;">@TaoLuan</p>
-                                                                <small class="col-6 text-muted float-right" style="margin-top: 5px;"> 2020/04/25 12:30 </small>
-                                                            </div>
-                                                            <div class="row">
-                                                                <p class="col-12 card-text text-secondary">"from transportation to payments and financial services across a 
-                                                                region of more than 620 million people. "</p>
-                                                            </div>
-                                                            <div class="row text-center rank float-left">
-                                                                <div class="col-12 rating float-left">
-                                                                    <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
+                                                <%})}else{%>
+                                                    <div class="col-12" style="margin-bottom:5px">
+                                                        <p class="text-center text-secondary">Chưa có đánh giá</p>
                                                     </div>
-                                                </div>
-                                                <div class="col-12" style="margin-bottom:5px">
-                                                    <div class="card flex-row flex-wrap w-90">
-                                                        <div class="img-square-wrapper" >
-                                                            <img class="set" src="../public/image/logo-grab.jpg" height="50" width="50" alt="">
-                                                        </div>
-                                                        <div class="col-xl-10 col-sm-10 col-10 card-block px-2" >
-                                                            <div class='row' style="margin-top: 5px;">
-                                                                <p class="col-6 title text-info" style="margin-bottom: 0px;">@TaoLuan</p>
-                                                                <small class="col-6 text-muted float-right" style="margin-top: 5px;"> 2020/04/25 12:30 </small>
-                                                            </div>
-                                                            <div class="row">
-                                                                <p class="col-12 card-text text-secondary">"from transportation to payments and financial services across a 
-                                                                region of more than 620 million people. "</p>
-                                                            </div>
-                                                            <div class="row text-center rank float-left">
-                                                                <div class="col-12 rating float-left">
-                                                                    <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-12" style="margin-bottom:5px">
-                                                    <div class="card flex-row flex-wrap w-90">
-                                                        <div class="img-square-wrapper" >
-                                                            <img class="set" src="../public/image/logo-grab.jpg" height="50" width="50" alt="">
-                                                        </div>
-                                                        <div class="col-xl-10 col-sm-10 col-10 card-block px-2" >
-                                                            <div class='row' style="margin-top: 5px;">
-                                                                <p class="col-6 title text-info" style="margin-bottom: 0px;">@TaoLuan</p>
-                                                                <small class="col-6 text-muted float-right" style="margin-top: 5px;"> 2020/04/25 12:30 </small>
-                                                            </div>
-                                                            <div class="row">
-                                                                <p class="col-12 card-text text-secondary">"from transportation to payments and financial services across a 
-                                                                region of more than 620 million people. "</p>
-                                                            </div>
-                                                            <div class="row text-center rank float-left">
-                                                                <div class="col-12 rating float-left">
-                                                                    <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-12" style="margin-bottom:5px">
-                                                    <div class="card flex-row flex-wrap w-90">
-                                                        <div class="img-square-wrapper" >
-                                                            <img class="set" src="../public/image/logo-grab.jpg" height="50" width="50" alt="">
-                                                        </div>
-                                                        <div class="col-xl-10 col-sm-10 col-10 card-block px-2" >
-                                                            <div class='row' style="margin-top: 5px;">
-                                                                <p class="col-6 title text-info" style="margin-bottom: 0px;">@TaoLuan</p>
-                                                                <small class="col-6 text-muted float-right" style="margin-top: 5px;"> 2020/04/25 12:30 </small>
-                                                            </div>
-                                                            <div class="row">
-                                                                <p class="col-12 card-text text-secondary">"from transportation to payments and financial services across a 
-                                                                region of more than 620 million people. "</p>
-                                                            </div>
-                                                            <div class="row text-center rank float-left">
-                                                                <div class="col-12 rating float-left">
-                                                                    <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
+                                                   
+                                                <%}%>
                                                 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div id="danhgia" class="container tab-pane fade">
-                                <%- include('../elements/danhgia'); -%>
+                                <div class='row'>
+                                    <div class="col-xl-8 col-md-12 col-sm-12 col-left" style="margin-right: 15px">
+                                      <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3">
+                                        <%- include('../elements/ratings'); -%>
+                                      </div>
+                                      <div class="row" style="background-color:#fff ;margin-top: 10px;border: 1px solid #e3e3e3;"> 
+                                        <div class="col-12 card w-100" style="border: none;">
+                                            <div class="card-body">
+                                            <h5 class="font card-title"><%= profiles.name%> Tuyển dụng</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <% Job.forEach(rs => {%>
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="card mb-3 hv w-100 ml-0" style="max-width: 720px; ">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-2" id="logo">   
+                                                            <a href=""><img src="<%=profiles.image.logo%>" class="card-img" alt="..."></a>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div class="card-body">
+                                                                <a class="card-title" href="/vieclamit/<%=rs.title%>&<%=rs._id%>" style="font-size: 22px;font-weight: 450;"><%=rs.title%> (<%=rs.skills%>)</a>
+                                                                <% if(authentication){%>
+                                                                    <p class='text-success' style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i> <%=rs.salary.money%> <%=rs.salary.unit%></p>
+                                                                <%}else{%>
+                                                                    <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
+                                                                    <%}%>
+                                                                <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> <%=rs.address%></p>
+                                                                <p style="font-size: 15px; color: gray;">" <%=rs.descript.substring(0, rs.descript.indexOf('*'))%>..."</p>
+                                                                <div class="skills ml-0">
+                                                                    <% rs.skills.forEach(element => { %>
+                                                                        <a href="#java"><%=element%></a>
+                                                                    <% }); %>
+                                                                </div>
+                                                                <p style="margin-bottom: 5px"><small class="text-muted "> 2020/04/25 12:30 </small>
+                                                            </p></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%})%>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xl-4 col-right">
+                                      <div class="row " style="background-color: #fff;;">
+                                        <div class="card w-100" style="border: none;">
+                                            <div class="card-body" style="padding-bottom: 5px;">
+                                                <h3 class="conten card-title text-center">Tất cả các đánh giá</h3>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <%if(review_load.length !== 0){%>
+                                            <% review_load.forEach((rs,idx) =>{%>
+                                            <div class="col-12" style="margin-bottom:5px">
+                                                <div class="card flex-row flex-wrap w-100">
+                                                    <div class="img-square-wrapper" >
+                                                        <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                                    </div>
+                                                    <div class="col-10 card-block px-2" >
+                                                        <div class='row' style="margin-top: 5px;">
+                                                            <p class="col-12 title " style="margin-bottom: 0px;font-size: 16px;"><span class='text-info'>@<%=rs.User.fullname%></span>
+                                                            <small class="float-right text-secondary"> <%=date_rv[idx]%> </small>
+                                                            </p>
+                                                        </div>
+                                                        <div class="row">
+                                                            <p class="col-12 card-text text-secondary">"<%=rs.comment%>"</p>
+                                                        </div>
+                                                        <div class="row text-center rank float-left">
+                                                            <div class="col-12 rating float-left">
+                                                                <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
+                                                                <% let num = 5 - rs.numofStart%>
+                                                                <% for(let i = 0 ; i < rs.numofStart ; i++){%>
+                                                                <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
+                                                                    <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                                                </button>
+                                                                <%}%>
+                                                                <% for(let i = 0 ; i < num ; i++){%>
+                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
+                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
+                                                                    </button>
+                                                                    <%}%>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <%})}else{%>
+                                                <div class="col-12" style="margin-bottom:5px">
+                                                    <p class="text-center text-secondary">Chưa có đánh giá</p>
+                                                </div>
+                                               
+                                            <%}%>  
+                                      </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

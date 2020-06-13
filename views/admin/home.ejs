@@ -204,7 +204,7 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                              <form action="/XulySearch/send_mail" method="post">
+                                              <form action="/Xuly/send_mail" method="post">
                                                 <div class="form-group">
                                                   <label for="recipient-name" class="col-form-label">Gữi đến:</label>
                                                   <input type="text" class="form-control" name="to" id="guiden">
@@ -272,7 +272,7 @@
         $(document).ready(function () {
             $.ajax({
                 method:'get',
-                url:'/XulySearch/loadChart_job',
+                url:'/Xuly/loadChart_job',
             }).done((data)=>{
                 var ctx = document.getElementById('applyjob').getContext('2d');
                 var myChart = new Chart(ctx, {
@@ -371,7 +371,7 @@
                 let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
                 let name = id.substring(id.indexOf('$')+1,id.length);
                 $.ajax({
-                    url: '/XulySearch/update_job',
+                    url: '/Xuly/update_job',
                     method: 'get',
                     data:{
                         id_job : str_id,
@@ -396,7 +396,7 @@
                 let str_id = id.substring(0,id.indexOf('*'));
                 let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
                 $.ajax({
-                    url: '/XulySearch/update_huy_job',
+                    url: '/Xuly/update_huy_job',
                     method: 'get',
                     data:{
                         id_job : str_id,

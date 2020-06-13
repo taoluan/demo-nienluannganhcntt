@@ -156,7 +156,7 @@
                 $(_self.selectors.sTagsInput).focus();
                 $.ajax({
                   type: 'GET',
-                  url: '/XulySearch/loaddata',
+                  url: '/Xuly/loaddata',
                   success: function(data){
                   if(data == ""){
                   }else {
@@ -403,7 +403,7 @@
               var data = $(".amsify-select-tag").text();
                 $.ajax({
                   type: 'GET',
-                  url: '/XulySearch',
+                  url: '/Xuly',
                   data: {
                     job:data ,
                     city:city

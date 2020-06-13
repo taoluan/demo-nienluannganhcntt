@@ -49,5 +49,5 @@ exports.editprofile_user =  function(req,res){
         }
     })
     });
-    return res.redirect('back');
+    return res.redirect('/profile');
 }
