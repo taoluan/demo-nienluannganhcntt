@@ -5,7 +5,7 @@ var InforSchema = new Schema({
     intro: String,
     companies: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'companies'
+        ref: 'Companies'
      },
     os:{
         skills: [String],

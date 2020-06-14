@@ -4,7 +4,8 @@ const Companies = require('../models/Companies');
 const Infor_Companies = require('../models/Infor_Companies')
 const Job = require('../models/Job')
 const Us_Review = require('../models/Review')
-const User_Profile =  require('../models/User')
+const User_Profile =  require('../models/User');
+const { countDocuments } = require('../models/Companies');
 module.exports.editprofile_companies = (data,id)=>{
         mongoose.connect(url,async function(err){
             if (err) throw err;
@@ -256,6 +257,57 @@ module.exports.check_join = (id_us,id_job)=>{
             if(err) throw reject(err);
             let result = await Job.findOne({_id:id_job,'join.id_user':id_us}).select('join')
             resolve(result)
+        })
+    })
+}
+module.exports.topCompany = (lmt)=>{
+    return new Promise ((resolve,reject)=>{
+        mongoose.connect(url,async (err)=>{
+            if(err) throw reject(err);
+            let result =await Companies.find().sort({'point.point_start':-1}).limit(lmt)
+            resolve(result)
+        })
+    })
+}
+module.exports.topCompany_Infor = (lmt)=>{
+    return new Promise ((resolve,reject)=>{
+        mongoose.connect(url,async (err)=>{
+            if(err) throw reject(err);
+            let result =await Infor_Companies.find().populate('companies').sort({'point.point_start':-1}).limit(lmt)
+            resolve(result)
+        })
+    })
+}
+module.exports.listCompanies = ()=>{
+    return new Promise ((resolve,reject)=>{
+        mongoose.connect(url,async (err)=>{
+            if(err) throw reject(err);
+            let result = await Companies.find()
+            var obj = [];
+            for(let i = 0 ; i < result.length ; i++){
+                 obj.push(await Job.countDocuments({companies:result[i]._id}))
+            }
+            let rs = {results:result,count_num:obj}
+            resolve(rs)
+        })
+    })
+}
+module.exports.selectCompanies_city = (city)=>{
+    return new Promise ((res,rej)=>{
+        mongoose.connect(url,async(err)=>{
+            if(err) throw rej(err);
+            let result;
+            if(city ==="all"){
+                result = await Companies.find()
+            }else{
+                result = await Companies.find({'Address.city':city})
+            }
+            var obj = [];
+            for(let i = 0 ; i < result.length ; i++){
+                 obj.push(await Job.countDocuments({companies:result[i]._id}))
+            }
+            let rs = {results:result,count_num:obj}
+            res(rs)
         })
     })
 }

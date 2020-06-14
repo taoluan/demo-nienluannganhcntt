@@ -12,8 +12,12 @@
 <body>
     <div class="container-md">
         <div class="row">
-            <%- include('elements/headerjob'); -%>
-            <%- include('elements/formlogin'); -%>
+          <% if(authentication){%>
+            <%- include('user/header_2'); -%>
+        <%}else{%>
+            <%- include('elements/headerjob');-%>
+            <%- include('elements/formlogin');-%>
+        <%}%>
         </div>
         <div class="row" style="margin-top: 55px;background-color: whitesmoke">
             <div class="col-12">
@@ -25,108 +29,42 @@
               </div>
               <div class="container" style="background:white;border: 1px solid #e3e3e3;">
                 <div class="row">
-                  <div class="col-12">
-                    <div class="card flex-row flex-wrap w-90">
-                      <div class="img-square-wrapper">
-                        <img src="../public/image/logo-grab.jpg" height="200" width="200" alt="">
+                  <%topcpn.map((val,idx)=>{%>
+                    <div class="col-12">
+                      <div class="card flex-row flex-wrap w-90">
+                        <div class="img-square-wrapper">
+                          <img src="<%=val.companies.image.logo%>" height="200" width="200" alt="">
+                        </div>
+                          <div class="col-xl-6 col-sm-7 col-6 card-block px-2" >
+                              <h4 class="card-title" style="margin-top: 10px;"><a href="/companies/<%=val.companies.name%>&<%=val.companies._id%>">#<%=idx + 1%> <%=val.companies.name%></a></h4>
+                              <p class="card-text text-secondary font-italic">" <%=val.intro.substring(0,250)%>..."</p>
+                          </div>
+                          <div class="col-xl-3 text-center rank mt-3">
+                                  <%if(Number.isInteger(val.companies.point.point_start)){%>
+                                    <h1 class="rating-num text-dark"><%=val.companies.point.point_start%>.0</h1>
+                                  <%}else{%>
+                                    <h1 class="rating-num text-dark"><%=val.companies.point.point_start%></h1>
+                                    <%}%>
+                                  <div class="rating">
+                                    <%for(let k = 0 ; k < Math.floor(val.companies.point.point_start) ;k++){%>
+                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                      </button>
+                                      <%}%>
+                                      <%for(let j = 0 ; j < Math.ceil(5-val.companies.point.point_start);j++){%>
+                                        <button type="button" class="btn btn-default btn-grey btn-sm bg-secondary" aria-label="Left Align">
+                                          <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                        </button>
+                                        <%}%>
+                                 </div>
+                                 <div class="rating mt-3">
+                                  <h3 class="rating text-primary mb-1 mt-1"><%=val.companies.point.point_vote%> %</h3>
+                                  <h6 class="rating small">Lượt bình chọn nên làm việc tại đây</h6>
+                                </div>
+                          </div>
                       </div>
-                        <div class="col-xl-6 col-sm-7 col-6 card-block px-2" >
-                            <h4 class="card-title" style="margin-top: 10px;"><a href="/companies/Grab (Vietnam) Ltd.">#1 Grab (Vietnam) Ltd.</a></h4>
-                            <p class="card-text text-secondary">" Grab is more than just the leading ride-hailing and mobile payments platform in Southeast Asia. 
-                                We use data and technology to improve everything from transportation to payments and financial services across a 
-                                region of more than 620 million people. "</p>
-                        </div>
-                        <div class="col-xl-3 text-center rank">
-                                <h1 class="rating-num text-dark">
-                                    4.0</h1>
-                                <div class="rating">
-                                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-default btn-grey btn-sm bg-secondary" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                            </div>
-                        </div>
                     </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="card flex-row flex-wrap w-90">
-                      <div class="img-square-wrapper">
-                        <img src="../public/image/logo-grab.jpg" height="200" width="200" alt="">
-                    </div>
-                        <div class="col-xl-6 col-6 card-block px-2" >
-                            <h4 class="card-title" style="margin-top: 10px;">#2 Grab (Vietnam) Ltd.</h4>
-                            <p class="card-text text-secondary">" Grab is more than just the leading ride-hailing and mobile payments platform in Southeast Asia. 
-                                We use data and technology to improve everything from transportation to payments and financial services across a 
-                                region of more than 620 million people. "</p>
-                        </div>
-                        <div class="col-xl-3 text-center rank">
-                                <h1 class="rating-num text-dark">
-                                    4.0</h1>
-                                <div class="rating">
-                                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-default btn-grey btn-sm bg-secondary" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="card flex-row flex-wrap w-90">
-                      <div class="img-square-wrapper">
-                        <img src="../public/image/logo-grab.jpg" height="200" width="200" alt="">
-                    </div>
-                        <div class="col-xl-6 col-6 card-block px-2" >
-                            <h4 class="card-title" style="margin-top: 10px;">#1 Grab (Vietnam) Ltd.</h4>
-                            <p class="card-text text-secondary">" Grab is more than just the leading ride-hailing and mobile payments platform in Southeast Asia. 
-                                We use data and technology to improve everything from transportation to payments and financial services across a 
-                                region of more than 620 million people. "</p>
-                        </div>
-                        <div class="col-xl-3 text-center rank">
-                                <h1 class="rating-num text-dark">
-                                    4.0</h1>
-                                <div class="rating">
-                                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                                      <button type="button" class="btn btn-default btn-grey btn-sm bg-secondary" aria-label="Left Align">
-                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                      </button>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
+                  <%})%>
                 </div>
               </div>
             </div>

@@ -1,51 +1,81 @@
 <div class="container" style="margin-top: 10px;background:white;box-shadow: 0 4px 8px 0 rgba(26, 25, 25, 0.2);">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-    </ol>
     <div class="carousel-inner">
       <div class="carousel-item active" >
           <div class="card" style="text-align:center; border: none;" >
-            <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);height: 250px">
-                <a href="/companies/axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 220px;"></a>
+            <div class="avatar" style="background-image:  url(<%=topcpn[0].image.background%>);height: 250px">
+                <a href="/companies/<%=topcpn[0].name%>&<%=topcpn[0]._id%>"><img alt="" src="<%=topcpn[0].image.logo%>" height="60px" width="60px" style=" margin-top: 220px;"></a>
             </div>
             <div class="info" style="margin-top: 25px;">
                 <div class="title">
-                    <h5>AXON</h5>
+                    <h5><%=topcpn[0].name%></h5>
                 </div> 
-                <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
+                <div class="desc mb-2 font-italic"><%=topcpn[0].title%></div>
             </div>
-            <div class="rating" style="border-top:1px solid whitesmoke ">
-                <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
-                <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
-                <i class="far fa-star text-warning"></i>
-                <h6 class="rating">
-                    4.0</h6>
-            </div>
+            <div class="row">
+              <div class="col-6 border-right">
+                <div class="rating text-center" style="border-top:1px solid whitesmoke ">
+                <%for(let k = 0 ; k < Math.floor(topcpn[0].point.point_start) ;k++){%>
+                <i class="fas fa-star text-warning"></i>
+                <%}%>
+                <%for(let j = 0 ; j < Math.ceil(5-topcpn[0].point.point_start);j++){%>
+                  <i class="far fa-star text-warning"></i>
+                  <%}%>
+                  <%if(Number.isInteger(topcpn[0].point.point_start)){%>
+                    <h6 class="rating"><%=topcpn[0].point.point_start%>.0</h6>
+                  <%}else{%>
+                    <h6 class="rating "><%=topcpn[0].point.point_start%></h6>
+                    <%}%>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="rating text-center" style="border-top:1px solid whitesmoke ">
+                  <h6 class="rating text-primary mb-1 mt-1"><%=topcpn[0].point.point_vote%> %</h6>
+                  <h6 class="rating small">Lượt bình chọn nên làm việc tại đây</h6>
+                </div>
+              </div>
+          </div>
           </div> 
       </div>
-      <div class="carousel-item">
-        <div class="card" style="text-align:center;border: none;">
-          <div class="avatar" style="background-image: url(../public/image/grap-bg.png);height: 250px;">
-              <a href="/companies/axon"><img alt="" src="../public/image/logo-axon.png" height="60px" width="60px" style=" margin-top: 220px;"></a>
+      <% for(let i = 1 ; i < topcpn.length ; i++){%>
+          <div class="carousel-item " >
+            <div class="card" style="text-align:center; border: none;" >
+              <div class="avatar" style="background-image: url(<%=topcpn[i].image.background%>);height: 250px">
+                  <a href="/companies/<%=topcpn[i].name%>&<%=topcpn[i]._id%>"><img alt="" src="<%=topcpn[i].image.logo%>" height="60px" width="60px" style=" margin-top: 220px;"></a>
+              </div>
+              <div class="info" style="margin-top: 25px;">
+                  <div class="title">
+                      <h5><%=topcpn[i].name%></h5>
+                  </div> 
+                  <div class="desc mb-2 font-italic"><%=topcpn[i].title%></div>
+              </div>
+              <div class="row">
+                  <div class="col-6 border-right">
+                    <div class="rating text-center" style="border-top:1px solid whitesmoke ">
+                    <%for(let k = 0 ; k < Math.floor(topcpn[i].point.point_start) ;k++){%>
+                    <i class="fas fa-star text-warning"></i>
+                    <%}%>
+                    <%for(let j = 0 ; j < Math.ceil(5-topcpn[i].point.point_start);j++){%>
+                      <i class="far fa-star text-warning"></i>
+                      <%}%>
+                      <%if(Number.isInteger(topcpn[i].point.point_start)){%>
+                        <h6 class="rating"><%=topcpn[i].point.point_start%>.0</h6>
+                      <%}else{%>
+                        <h6 class="rating "><%=topcpn[i].point.point_start%></h6>
+                        <%}%>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                  <div class="rating text-center" style="border-top:1px solid whitesmoke ">
+                  <h6 class="rating text-primary mb-1 mt-1"><%=topcpn[i].point.point_vote%> %</h6>
+                  <h6 class="rating small">Lượt bình chọn nên làm việc</h6>
+                  </div>
+                  </div>
+              </div>
+              
+            </div>
           </div>
-          <div class="info" style="margin-top: 25px;">
-              <div class="title">
-                  <h5>AXON</h5>
-              </div> 
-              <div class="desc">At Deliveree, we disrupt the logistics industry with technologies.</div>
-          </div>
-          <div class="rating" style="border-top:1px solid whitesmoke ">
-              <i class="fas fa-star text-warning"></i> <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i> </span><i class="fas fa-star text-warning"></i>
-              <i class="far fa-star text-warning"></i>
-              <h6 class="rating">
-                  4.0</h6>
-          </div>
-        </div> 
-      </div>
+        <%}%>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>

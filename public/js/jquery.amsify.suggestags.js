@@ -403,7 +403,7 @@
               var data = $(".amsify-select-tag").text();
                 $.ajax({
                   type: 'GET',
-                  url: '/Xuly',
+                  url: '/Xuly/Search',
                   data: {
                     job:data ,
                     city:city
@@ -411,7 +411,7 @@
                   
                   success: function(data){
                     if(data == ""){
-
+                      
                     }else {
                       $('#search-list').html(data);
                     }

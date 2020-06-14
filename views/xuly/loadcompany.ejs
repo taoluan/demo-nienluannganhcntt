@@ -1,5 +1,5 @@
 <ul id="myUL">
     <% kq.forEach(function(result){ %>
-    <li><a href="/vieclamit/<%= result._source.name %>&<%= result._id %>"><%= result._source.name %></a></li>
+    <li><a href="/companies/<%= result._source.name%>&<%= result._id%>"><%= result._source.name %></a></li>
     <% }) %>
 </ul>

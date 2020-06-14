@@ -13,25 +13,19 @@ router.get('/', async (req,res)=>{
   let list_job = await models_function.loadJob_index();
   let countjob_skill = await models_function.countJob_inSkills(['Java','PHP','Python','JavaScript','C','Ruby']);
   let date_format = []
+  let topcompany = await models_function.topCompany(5);
   list_job.forEach(element => {
     date_format.push(date.Date(element.created)) 
   })
-  if(req.session.usid && req.session.usname){
     res.render('index',{ 
       title: 'Chào mừng đến với VietJob',  
       nameuser : req.session.usname,
       job_list: list_job,
       date_format:date_format,
       skills:countjob_skill,
-      authentication:req.session.usid
+      authentication:req.session.usid,
+      topcpn: topcompany
     }) 
-  }else res.render('index', { 
-        title: 'VietJob' , 
-        job_list: list_job,
-        date_format:date_format,
-        skills:countjob_skill,
-        authentication:req.session.usid
-      });
 })
 router.get('/vieclamit',async (req,res)=>{
     try{
@@ -195,30 +189,34 @@ router.get('/companies/:val1&:val2',async (req,res)=>{
     date_rv:date_review
   }) 
 })
-router.get('/companies',(req,res)=>{
-  if(req.session.usid && req.session.usname){
-    res.render('./user/us_allcompanies',{
-      title: "Tất cả công ty",
-      nameuser : req.session.usname
-      })
-  }else{
+router.get('/companies',async (req,res)=>{
+    let page = parseInt(req.query.page) || 1;
+    let perPage = 9;
+    let start = (page-1)*perPage;
+    let end = page * perPage;
+    let data = await models_function.listCompanies();
+    let dscompanies = data.results
+    let count = data.count_num
+    let numlist = dscompanies.length
+   // console.log(typeof dscompanies)
      res.render('allcompanies',{
-    title: "Tất cả công ty"
+      title: "Tất cả công ty",
+      dsjob: dscompanies.slice(start,end),
+      nameuser : req.session.usname,
+      authentication:req.session.usid,
+      pages: Math.ceil(numlist / perPage),
+      current: page,
+      counts : count
     })
-  }
- 
 })
-router.get('/top-companies/',(req,res)=>{
-  if(req.session.usid && req.session.usname){
-    res.render('./user/us_topcompanies',{
-      title: "Những công ty hàng đầu",
-      nameuser : req.session.usname
-    })
-  }else{
+router.get('/top-companies/',async(req,res)=>{
+  let topcompany = await models_function.topCompany_Infor(20);
     res.render('topcompanies',{
-      title: "Những công ty hàng đầu"
+      title: "Những công ty hàng đầu",
+      nameuser : req.session.usname,
+      authentication:req.session.usid,
+      topcpn: topcompany
     })
-  }
 })
 router.get('/vieclam-theo-kynang',(req,res)=>{
   if(req.session.usid && req.session.usname){

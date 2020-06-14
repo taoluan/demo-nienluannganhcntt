@@ -155,7 +155,7 @@
                 $(_self.selectors.sTagsInput).focus();
                 $.ajax({
                   type: 'GET',
-                  url: '/XulySearch/loadcompany',
+                  url: '/Xuly/loadcompany',
                   success: function(data){
                   if(data == ""){
                   }else {

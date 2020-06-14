@@ -13,8 +13,12 @@
     </head>
 <body>
     <div class="container-md">
-        <%- include('elements/headerjob'); -%>
-        <%- include('elements/formlogin'); -%>
+        <% if(authentication){%>
+            <%- include('user/header_2'); -%>
+        <%}else{%>
+            <%- include('elements/headerjob'); -%>
+            <%- include('elements/formlogin'); -%>
+        <%}%>
         <div class="container-fiud " style="background-color: whitesmoke">
             <div class="row to">
                 <%- include('elements/allcompanies'); -%>

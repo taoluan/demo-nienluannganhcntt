@@ -1,0 +1,86 @@
+<div class="row" id="showjob">
+    <%if(data.length !== 0){%>
+       <%if(name === "all"){%>
+        <span id="jobs">Có tất cả <span id="num"><%=data.length %></span> Công ty </span>
+        <%}else{%> 
+        <span id="jobs">Có <span id="num"><%=data.length %></span> Công ty tại <%=name  %></span>
+        <%}%>
+    <%}else{%>
+        <span id="jobs">Chưa có công ty tại <%=name  %></span>
+    <%}%>
+    <hr>
+</div>
+<hr>
+<div class="row">
+    <div class="col-lg-12 " >
+        <div class="row">
+            <%if(data.length !== 0){%>
+                <% data.map((val,idx)=>{%>
+                    <div class="col-lg-4 col-6" style="text-align: center;margin-bottom: 30px;">
+                        <div class="card" style="text-align:center">
+                            <div class="avatar" style="background-image: url(<%=val.image.background%>);height: 200px;">
+                                <a href="/companies/<%=val.name%>&<%=val._id%>"><img alt="" src="<%=val.image.logo%>" height="60px" width="60px" style=" margin-top: 160px;"></a>
+                            </div>
+                            <div class="info" style="margin-top: 25px;">
+                                <div class="title">
+                                    <h5><%=val.name%></h5>
+                                </div> 
+                                <div class="desc font-italic"><%=val.title.substring(0,60)%>...</div>
+                            </div>
+                            <div class="title">
+                                <div class="desc float-left" style="margin-left: 5px;"><%=val.Address.city%></div>
+                                                <div class="desc float-right" style="margin-right: 5px;">Có <%=counts[idx]%> công việc</div>
+                            </div>
+                            <div class=" row">
+                                <div class="col-6 border-right mb-0 ">
+                                    <div class="rating pt-2" style="border-top:1px solid whitesmoke ">
+                                        <%for(let k = 0 ; k < Math.floor(val.point.point_start) ;k++){%>
+                                            <i class="fas fa-star text-warning"></i>
+                                        <%}%>
+                                        <%for(let j = 0 ; j < Math.ceil(5-val.point.point_start);j++){%>
+                                            <i class="far fa-star text-warning"></i>
+                                        <%}%>
+                                        <%if(Number.isInteger(val.point.point_start)){%>
+                                            <h6 class="rating"><%=val.point.point_start%>.0</h6>
+                                        <%}else{%>
+                                            <h6 class="rating "><%=val.point.point_start%></h6>
+                                            <%}%>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="rating text-center" style="border-top:1px solid whitesmoke ">
+                                    <h6 class="rating text-primary mb-1 mt-1"><%=val.point.point_vote%> %</h6>
+                                    <h6 class="rating small">Lượt bình chọn nên làm việc tại đây</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                <%})%>
+            <%}else{%>
+                <div class="col-lg-12" style="margin-bottom: 30px;">
+                 <p class="font-italic text-center">Chưa có dữ liệu</p>
+                </div>
+                <%}%>
+        </div>
+    </div>
+</div>
+<script>
+$('.sel select').change(function(){
+    var company = $(this).val();
+      $.ajax({
+          type: 'GET',
+          url: '/XulySearch/company',
+          data: {
+            name: company ,
+          },
+          success: function(data){
+            if(data == ""){
+
+            }else {
+              $('#search-list').html(data);
+            }
+          }
+    
+    })
+})</script>

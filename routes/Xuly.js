@@ -12,7 +12,7 @@ var admin = require('firebase-admin');
 var formidable = require('formidable');
 var fs = require('fs');
 const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
-router.get('/',async function(req,res){
+router.get('/Search',async function(req,res){
   var namejob = req.query.job;
   var city = req.query.city;
   var output ;
@@ -22,13 +22,22 @@ router.get('/',async function(req,res){
   let end = page * perPage;
   var data, numlist, results, where;
   var date_format = [];
-  if(city === "all"){
+  if(!namejob){
+    data = await models_elas.loadjob();
+    console.log(data)
+    numlist =data.total.value;
+    results = data.hits;
+    results.forEach(element => {
+      date_format.push(date.Date(element.created)) 
+    })
+  }else{
+     if(city === "all"){
     data = await models_elas.SearchAll(namejob);
     numlist =data.total.value;
     results = data.hits;
     results.forEach(element => {
       date_format.push(date.Date(element.created)) 
-      })
+    })
   }else if (city === "Orthers"){
     data = await models_elas.SearchOrthers(namejob);
     numlist =data.total.value;
@@ -37,13 +46,14 @@ router.get('/',async function(req,res){
       date_format.push(date.Date(element.created)) 
     })
   }else{
-    data = await models_elas.Search(namejob,city);
+      
     numlist =data.total.value;
     results = data.hits;
     where = 'tại '+city
     results.forEach(element => {
       date_format.push(date.Date(element.created)) 
     })
+  }
   }
   res.render('./xuly/search', {
     dsjob: results.slice(start,end),
@@ -56,33 +66,18 @@ router.get('/',async function(req,res){
     authentication:req.session.usid,
   });
 })
-router.get('/company',function(req,res){
-  var namecompany = req.query.name;
-  client.search({
-    index: 'company',
-    type: '_doc',
-    body:{
-      query:{
-        multi_match:{
-          query : namecompany,
-          fields: ["name"]
-        }
-      }
-    }
-  },function(err,response,status){
-      if(err){
-        console.log("search err  1 "+ err)
-      }
-      else{
-        const numlist =response.hits.total.value;
-        results = response.hits.hits;
-        res.render('./xuly/searchcompany', {
-        data: results 
-        ,num: numlist 
-        ,name: namecompany,
-      });
-      };
-    }); 
+router.get('/company',async function(req,res){
+  let cityname = req.query.name;
+  let data = await Companies_fmd.selectCompanies_city(cityname)
+  let results = data.results
+  let count = data.count_num
+  let numlist = results.length
+  res.render('./xuly/selectcity', {
+    data: results ,
+    num: numlist ,
+    name:cityname,
+    counts:count
+  });
 })
 router.get('/loaddata',function(req,res){
   client.search({  
@@ -120,7 +115,7 @@ router.get('/loaddata',function(req,res){
 })
 router.get('/loadcompany',function(req,res){
   client.search({  
-    index: 'company',
+    index: 'companies',
     type: '_doc',
     body: {
       query: {
