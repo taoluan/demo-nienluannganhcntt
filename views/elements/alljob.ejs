@@ -132,7 +132,7 @@
                 <% rd_cpn.forEach((rs,idx)=>{%>
                     <div class="col-lg-12" style="text-align: center;margin-bottom: 30px;">
                         <div class="card hovercard" style="text-align:center">
-                            <div class="avatar" style="background-image: url(../public/image/bg-axon.jfif);">
+                            <div class="avatar" style="background-image: url(<%=rs.image.background%>);">
                                 <a href="/companies/<%=rs.name%>&<%=rs._id%>"><img alt="" src="<%=rs.image.logo%>" height="60px" width="60px" style=" margin-top: 80px;"></a>
                             </div>
                             <div class="info" style="margin-top: 25px;">

@@ -25,13 +25,17 @@ var JobSchema = new Schema ({
     },
     join:[
         { 
-        id_user: {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'user'
+            id_user: {
+                type: mongoose.Schema.Types.ObjectId, 
+                ref: 'user'
             },
-        status:{
-            type : String,
-            default: 'Đợi duyệt'
+            status:{
+                type : String,
+                default: 'Đợi duyệt'
+            },
+            created:{ 
+                type: Date,
+                default: Date.now
             }
         }
     ],

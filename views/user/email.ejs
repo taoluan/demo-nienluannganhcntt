@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+        <link rel="stylesheet" type="text/css" href="../public/css/formlogin.css">
+        <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../public/css/agency.min.css" rel="stylesheet">
+        <link href="../public/css/amsify.suggestags.css" rel="stylesheet">
+        <link href="../public/css/formsearch.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-md">
+        <div class="row">
+            <%- include('header_2') -%>
+        </div>
+        <div class="row" >
+            <div class="container" style=" margin-top: 80px;margin-bottom: 5px;">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-7 col-12 bg-white mb-3"  style="border: 1px solid #e3e3e3;">
+                        <div class="col-xl-12">
+                            <h3 class="font text-title">Thông báo</h3> 
+                            <div class="row " style="margin-top:10px">
+                                <div class="alert alert-dark w-100" role="alert">
+                                    <h4 class="alert-heading">Gữi từ: FPT SoftWare</h4>
+                                    <p class="font-weight-bold">Nội dung:</p>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-10">
+                        <div class="col-xl-12 bg-white" style="border: 1px solid #e3e3e3;">
+                            <h4 class="font text-title">Các công việc mới dành cho bạn</h4>
+                            <div class="row">
+                                <% list_cpns.forEach((ds,index)=>{ %>
+                                    <div class="col-12">
+                                        <div class="card mb-3" style="max-width: 730px">
+                                            <div class="row no-gutters">
+                                                <div class="col-2" id="logo">   
+                                                    <a href="/companies/<%= ds.companies.name %>&<%= ds.companies._id%>"><img src="<%= ds.companies.image.logo%>" class="card-img" alt="..."></a>
+                                                </div>
+                                            <div class="col-8">
+                                                <div class="card-body pt-2 pb-0">
+                                                    <a class="text-decoration-none " href="/vieclamit/<%= ds.title %>&<%= ds._id %>" style="font-size: 22px;font-weight: 450;"><h5 class="card-title"><%= ds.title %></h5></a>
+                                                    <p class="card-text mt-0 mb-0 pt-0 pb-0" ><i class="fas fa-dollar-sign text-success"></i> <span class="text-success"> <%= ds.salary.money %> <%= ds.salary.unit %></span></p>
+                                                    <p class="card-text mt-0 mb-0 pt-0 pb-0 text-wrap" ><i class="fas fa-map-marked-alt"></i><span> <%= ds.address %> </span></p>
+                                                    <div class="skill mt-1">
+                                                        <%ds.skills.forEach(skill => {%>
+                                                        <a href="#<%=skill%>" ><%=skill%></a>
+                                                        <% })%>
+                                                    </div>
+                                                <p class="card-text mt-0 mb-0"><small class="text-muted "><%= date[index] %></small> </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-1" ><span class="badge badge-warning" style="color:white;">Hot Job</span>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                        </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../public/js/jquery.min.js"></script>
+<script src="../public/js/bootstrap.bundle.min.js"></script>
+<script src="../public/js/agency.min.js"></script>
+<script src="../public/js/forms.js"></script>
+<script type="text/javascript" src="../public/js/jquery.amsify.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<style>
+    body{
+        background-color: whitesmoke;
+    }
+    .font{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 60px;
+    border-bottom: 1px solid #e3e3e3;
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+    .c2{
+        margin-bottom: 10px;
+        margin-left: 50px;
+        border: none;
+    }
+    .c1{
+        margin-bottom: 10px;
+        border: none;
+    }
+    .c1:hover{
+        border: 3px solid #a7a2a2;
+    }
+    .content .n1{
+        line-height: 35px;
+        font-weight: 400;
+        font-family: nunito,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji;
+    }
+    .c2{
+        background: -webkit-linear-gradient(right, #706bb3, #0eb7e6);
+    }
+    .c2:hover{
+        border: 1px solid #a7a2a2;
+    }
+    .c3{
+        line-height: 20px;
+    }
+    .card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+    .card{
+        margin-bottom: 10px;
+    }
+    .card a{
+        color: black;
+    }
+    .card:hover {
+    box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
+    }
+    .card:hover .card-title{
+    color: rgb(241, 41, 41);
+  }
+  .skill {
+        list-style-type: none;
+        height: 25px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+    .skill a {
+        font-weight: 50;
+        font-family: "Roboto Condensed", sans-serif;
+        border: 1px solid gray;
+        line-height: 1.5;
+        border-radius: 4px;
+        margin-right: 5px;
+        display: inline-block;
+        margin-left: 0px;
+        text-align: -webkit-match-parent;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: black;
+        font-size: 16px;
+        text-decoration: none;
+    }
+</style>
+</html>

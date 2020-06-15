@@ -5,7 +5,7 @@ const Infor_Companies = require('../models/Infor_Companies')
 const Job = require('../models/Job')
 const Us_Review = require('../models/Review')
 const User_Profile =  require('../models/User');
-const { countDocuments } = require('../models/Companies');
+const { countDocuments, model } = require('../models/Companies');
 module.exports.editprofile_companies = (data,id)=>{
         mongoose.connect(url,async function(err){
             if (err) throw err;
@@ -114,11 +114,11 @@ module.exports.UpdateCV_User = (id_us,cv)=>{
         })
     })
 }
-module.exports.loadJob_index = ()=>{
+module.exports.listNew_Job = (lmt)=>{
     return new Promise((resolve,reject)=>{
         mongoose.connect(url,async function(err){
             if(err) throw reject(err);
-            list_job_desc = await Job.find({status:'Đang tuyển'}).sort({'created': -1}).populate('companies').limit(20)
+            list_job_desc = await Job.find({status:'Đang tuyển'}).sort({'created': -1}).populate('companies').limit(lmt)
             resolve(list_job_desc)
             //list_job[0].join[0].id_user.fullname
         })
@@ -308,6 +308,24 @@ module.exports.selectCompanies_city = (city)=>{
             }
             let rs = {results:result,count_num:obj}
             res(rs)
+        })
+    })
+}
+module.exports.listUngTuyen_User = (id_us)=>{
+    return new Promise((res,rej)=>{
+        mongoose.connect(url,async(err)=>{
+            if(err) throw rej(err)
+            let result = await Job.find({'join.id_user':id_us}).populate('companies')
+            res(result)
+        })
+    })
+}
+module.exports.random_companies_limit=()=>{
+    return new Promise ((res,rej)=>{
+        mongoose.connect(url,async(err)=>{
+            if(err) throw rej(err)
+            let result = await Companies.find().limit(5)
+            res(result)
         })
     })
 }

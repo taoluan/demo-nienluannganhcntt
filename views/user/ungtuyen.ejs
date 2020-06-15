@@ -19,91 +19,58 @@
         <div class="row" >
             <div class="container " style=" margin-top: 80px;margin-bottom: 5px;">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-lg-7 col-8 bg-white"  style="border: 1px solid #e3e3e3;">
+                    <div class="col-lg-7 col-12 bg-white mb-3"  style="border: 1px solid #e3e3e3;">
                         <div class="col-xl-12">
                             <h3 class="font text-title">Các công việc ứng tuyển</h3> 
-                            <div class="row justify-content-center">
-                                    <div class="c2 card w-30">
-                                    <div class="card-body text-center row">
-                                        <p class="card-text text-white float-left col-lg-3"><i class="fas fa-briefcase fa-4x"></i></p>
-                                        <div class="content col-lg-9 text-center">
-                                            <p class="n1 card-text text-white mx-auto ">Đã ứng tuyển</p>
-                                            <p class="n2 card-text text-white mx-auto"> 3 công việc</p>
-                                        </div>
-                                    </div>
-                                    </div>
+                            <div class="row">
+                                <div class="ml-3 alert alert-warning alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    Số công việc đã ứng tuyển<strong> <%=data.length%></strong> 
+                                  </div>
                             </div>
                             <div class="row " style="margin-top:10px">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="card w-100" >
-                                        <div class="card-horizontal">
-                                            <div class="img-square-wrapper">
-                                                <img class="" src="../../public/image/logo-axon.png" height="170px" alt="Card image cap">
+                                <% data.map((ds,index)=>{%>
+                                <div class="col-12">
+                                    <div class="card mb-3" style="max-width: 730px">
+                                        <div class="row no-gutters">
+                                            <div class="col-2" id="logo">   
+                                                <a href="/companies/<%= ds.companies.name %>&<%= ds.companies._id %>"><img src="<%=ds.companies.image.logo%>" class="card-img" alt="..."></a>
                                             </div>
+                                        <div class="col-10">
                                             <div class="card-body">
-                                            <h4 class="card-title">JavaScript Developer</h4>
-                                            <p class="c3 card-text">Địa chỉ: <span class="text-primary">Thành phố hồ chí minh</span></p>
-                                            <p class="c3 card-text">Công ty: <span class="text-primary">FPT Solfware</span></p>
-                                            <p class="c3 card-text">Trạng thái: <span class="text-primary">Đang chờ duyệt</span></p>
+                                            <a class="text-decoration-none mb-0 "  href="/vieclamit/<%= ds.title %>&<%= ds._id %>" style="font-size: 22px;font-weight: 450;"><h5 class="card-title"><%= ds.title %> ( <%= ds.skills %>)</h5></a>
+                                            <p class="card-text mt-0 mb-0">Vị trí ứng tuyển: <span class="font-weight-bold text-primary"><%= ds.title %></span> </p>
+                                            <p class="card-text mt-0 mb-0">Tại công ty: <span class="font-weight-bold"><%= ds.companies.name %></span> </p>
+                                            <p class="card-text mt-0 mb-0">Mức lương: <%= ds.salary.money %> <%= ds.salary.unit %> </p>
+                                            <p class="card-text mt-0 mb-0">Địa chỉ: <%= ds.address %> </p>
+                                            <%if(ds.join[0].status === "Đã được duyệt"){%>
+                                                <p class="card-text mt-0 mb-0">Trạng thái: <span class="badge badge-pill badge-success"><%=ds.join[0].status%></span> <a href="/email" class="badge badge-pill badge-warning text-white">Kiểm tra mail <i class="far fa-envelope"></i></a> </p>
+                                            <%}else{%>
+                                            <p class="card-text mt-0 mb-0">Trạng thái: <span class="badge badge-pill badge-primary"><%=ds.join[0].status%></span></p>
+                                            <%}%>
+                                            <small class="text-muted ">Thời gian ứng tuyển: <%= date[0] %></small>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="card w-100" >
-                                        <div class="card-horizontal">
-                                            <div class="img-square-wrapper">
-                                                <img class="" src="../../public/image/logo-axon.png" height="170px" alt="Card image cap">
-                                            </div>
-                                            <div class="card-body">
-                                            <h4 class="card-title">JavaScript Developer</h4>
-                                            <p class="c3 card-text">Địa chỉ: <span class="text-primary">Thành phố hồ chí minh</span></p>
-                                            <p class="c3 card-text">Công ty: <span class="text-primary">FPT Solfware</span></p>
-                                            <p class="c3 card-text">Trạng thái: <span class="text-primary">Đang chờ duyệt</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="card w-100" >
-                                        <div class="card-horizontal">
-                                            <div class="img-square-wrapper">
-                                                <img class="" src="../../public/image/logo-axon.png" height="170px" alt="Card image cap">
-                                            </div>
-                                            <div class="card-body">
-                                            <h4 class="card-title">JavaScript Developer</h4>
-                                            <p class="c3 card-text">Địa chỉ: <span class="text-primary">Thành phố hồ chí minh</span></p>
-                                            <p class="c3 card-text">Công ty: <span class="text-primary">FPT Solfware</span></p>
-                                            <p class="c3 card-text">Trạng thái: <span class="text-primary">Đang chờ duyệt</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <%})%>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-3">
+                    <div class="col-xl-3 col-8">
                         <div class="col-xl-12 bg-white" style="border: 1px solid #e3e3e3;">
                             <h4 class="font text-title">Các nhà tuyển dụng</h4>
                             <div class="row">
-                                <div class="col-12">
+                                <% for(let i = 0; i < list_cpns.length;i++){%>
+                                    <div class="col-12">
                                         <div class="c1 card w-100"  style="width: 12rem;">
-                                            <img class="card-img-top" src="../../public/image/logo-grab.jpg" alt="Card image cap">
+                                            <img class="card-img-top" src="<%=list_cpns[i].image.logo%>" height=150px alt="Card image cap">
                                         </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="c1 card w-100"  style="width: 12rem;">
-                                        <img class="card-img-top" src="../../public/image/logo-grab.jpg" alt="Card image cap">
                                     </div>
-                            </div>
-                                <div class="col-12">
-                                    <div class="c1 card w-100"  style="width: 12rem;">
-                                        <img class="card-img-top" src="../../public/image/logo-grab.jpg" alt="Card image cap">
-                                    </div>
-                            </div>  <div class="col-12">
-                                <div class="c1 card w-100"  style="width: 12rem;">
-                                    <img class="card-img-top" src="../../public/image/logo-grab.jpg" alt="Card image cap">
-                                </div>
+                                <%}%>
                         </div>
                             </div>
                         </div>
@@ -165,6 +132,14 @@
     .card{
         margin-bottom: 10px;
     }
-
+    .card a{
+        color: black;
+    }
+    .card:hover {
+    box-shadow: 8px 8px 12px 4px rgba(26, 25, 25, 0.2);
+}
+.card:hover .card-title{
+    color: rgb(241, 41, 41);
+  }
 </style>
 </html>

@@ -170,7 +170,6 @@ router.post('/send_mail',urlencodedParser,function(req,res){
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://nienluannganh-3c1c3.firebaseio.com'
   });
-  // Get a reference to the database service
   let str = req.body.to;
   let message = req.body.massage;
   let job_id = req.body.id_job;
@@ -183,8 +182,8 @@ router.post('/send_mail',urlencodedParser,function(req,res){
     to: user_id,
     message: message
   });
-  var path = newMessageRef.toString();
-  console.log(path)
+  //var path = newMessageRef.toString();
+  //console.log(path)
   res.redirect('/admin/home')
 })
 router.get('/follow',check_Login_Us,async (req,res,next)=>{

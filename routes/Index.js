@@ -9,8 +9,10 @@ const models_elas = require('../models_function/model_elas')
 const Infor_Companies = require('../models/Infor_Companies');
 const Date = require('../models_function/xuly')
 const User = require('../models_function/loadprofile');
+const { model } = require('../models/Infor_Companies');
+var firebase = require('firebase');
 router.get('/', async (req,res)=>{
-  let list_job = await models_function.loadJob_index();
+  let list_job = await models_function.listNew_Job(20);
   let countjob_skill = await models_function.countJob_inSkills(['Java','PHP','Python','JavaScript','C','Ruby']);
   let date_format = []
   let topcompany = await models_function.topCompany(5);
@@ -276,14 +278,61 @@ router.get('/profile',async (req,res)=>{
     res.redirect('/')
   }
 })
-router.get('/ungtuyen',(req,res)=>{
-  if(req.session.usid && req.session.usname){
-    res.render('./user/ungtuyen',{
+router.get('/ungtuyen',check_Login_Us,async(req,res)=>{
+  let list_job = await models_function.listUngTuyen_User(req.session.usid)
+  let list_cpn = await models_function.random_companies_limit()
+  let date_format = []
+  list_job.forEach((element,idx) => {
+      date_format.push(date.Date(element.created)) 
+  })
+  res.render('./user/ungtuyen',{
       title : 'Ứng tuyển công việc | '+req.session.usname,
-      nameuser : req.session.usname
+      nameuser : req.session.usname,
+      data: list_job,
+      date:date_format,
+      list_cpns:list_cpn
     })
-  }else{
-    res.redirect('/')
-  }
+
 })
+router.get('/email',check_Login_Us,async(req,res)=>{
+  let list_job = await models_function.listUngTuyen_User(req.session.usid)
+  let listNew_Job = await models_function.listNew_Job(5);
+  let date_format = []
+  listNew_Job.forEach(element => {
+      date_format.push(date.Date(element.created)) 
+  })
+  var config = {
+    apiKey: "AIzaSyDUL1FX3aHjQdymwsrQLgT-UH5HzVJqKHI",
+    authDomain: "nienluannganh-3c1c3.firebaseapp.com",
+    databaseURL: "https://nienluannganh-3c1c3.firebaseio.com",
+    storageBucket: "bucket.appspot.com"
+  };
+  firebase.initializeApp(config);
+  var db = firebase.database();
+  let rf = db.ref('Send_Email');
+  rf.orderByChild("to").equalTo(req.session.usid).once("value", function(snapshot) {
+    var list_mail = [];
+    snapshot.forEach(function (childSnapshot) {    
+      list_mail.push(childSnapshot.val())
+    });
+    console.log(list_mail)
+    res.render('./user/email',{
+      title : 'Thông báo ',
+      nameuser : req.session.usname,
+      data: list_job,
+      date:date_format,
+      list_cpns:listNew_Job,
+      listEmail:list_mail
+    }) 
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+  
+})
+function check_Login_Us(req,res,next){
+  if(req.session.usid && req.session.usname){
+     return next()
+  }
+  res.redirect('/')
+}
 module.exports = router;

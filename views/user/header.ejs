@@ -70,7 +70,7 @@
               
               </div>
               <li class="footer bg-dark text-center">
-                <a href="" class="text-light">Xem tất cả</a>
+                <a href="/email" class="text-light">Xem tất cả</a>
               </li>
             </ul>
         </li>
@@ -80,7 +80,7 @@
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <button class="dropdown-item" type="button"><a href="/profile"><i class="fas fa-user-edit"></i> Tài khoản</a></button>
-                <button class="dropdown-item" type="button"><a href="/follow"><i class="fas fa-paper-plane"></i> Theo dõi</a></button>
+                <button class="dropdown-item" type="button"><a href="/email"><i class="fas fa-envelope"></i> Thông báo</a></button>
                 <button class="dropdown-item" type="button"><a href="/ungtuyen"><i class="fas fa-address-card"></i> Đã ứng tuyển</a></button>
                 <button class="dropdown-item" type="button"><a id='logout' href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></button>
               </div>
@@ -125,6 +125,7 @@
       </div>
     </div>
   </header>
+  <link rel="stylesheet" type="text/css" href="../../public/css/header.css">
   <script src="../public/js/jquery.min.js"></script>
   <script>
     $("document").ready(function(){
@@ -144,124 +145,4 @@
       })
     });
         
-    </script>
-  <style>
-    .logo img{
-      height: 30px;
-      border-radius:50px;
-      width: 30px;
-    }
-    .dropdown button{
-      border-radius: 15px;
-    }
-    .mb-3{
-    margin-bottom: 0.5rem!important;
-}
-#myInput:focus {outline: 3px solid #ddd;}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display:none;
-  position: absolute;
-  background-color: #e9ecef;
-  min-width: 230px;
-  overflow: auto;
-  border: 1px solid #ddd;
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-#myUL {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-#myUL li a {
-  border: 1px solid #ddd;
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  color: black;
-  display: block
-}
-
-#myUL li a:hover:not(.header) {
-  background-color: #eee;
-}
-#myDropdown a:hover {background-color: #ddd;}
-.dropdown-menu button:hover a{
-  text-decoration: none;
-}
-.dropdown-menu a{
-  color: black;
-}
-.show {display: block;}
-#email .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
-  background-color: #17A2B8;
-}
-#email .dropdown-menu{
-  top: 60px;
-  right: 0px;
-  left: unset;
-  width: 460px;
-  padding-bottom: 0px;
-  padding: 0px;
-}
-#email .dropdown-menu:before{
-  content: "";
-  position: absolute;
-  top: -20px;
-  right: 12px;
-  border:10px solid #343A40;
-  border-color: transparent transparent #343A40 transparent;
-}
-#email .head{
-  padding:5px 15px;
-  border-radius: 3px 3px 0px 0px;
-}
-#email .footer{
-  padding:5px 15px;
-  border-radius: 0px 0px 3px 3px; 
-}
-#email .notification-box{
-  padding: 10px 0px; 
-}
-.footer:hover a{
-  text-decoration: none;
-}
-.head:hover a{
-  text-decoration: none;
-}
-.scrollable-menu {
-    height: auto;
-    max-height: 400px;
-    overflow-x: hidden;
-}
-@media (max-width: 640px) {
-    .dropdown-menu{
-      top: 50px;
-      left: -16px;  
-      width: 290px;
-    } 
-    .nav{
-      display: block;
-    }
-    .nav .nav-item,.nav .nav-item a{
-      padding-left: 0px;
-    }
-    .message{
-      font-size: 13px;
-    }
-}
-  </style>
+  </script>
