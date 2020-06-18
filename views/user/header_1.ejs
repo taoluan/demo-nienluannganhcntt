@@ -28,7 +28,7 @@
       <ul class="nav nav-pills mr-auto justify-content-end">
         <li class="nav-item dropdown" id='email'>
           <button type="button" class="btn border-0  mr-2 mt-1"id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-bell text-white"></i> <span class="badge badge-danger">9</span>
+            <i class="fa fa-bell text-white"></i> <span class="badge badge-danger" id="email_num"></span>
             <span class="sr-only">unread messages</span>
           </button>
             <ul class="dropdown-menu" style="width:300px;" data-spy="scroll">
@@ -77,6 +77,7 @@
         <li class="nav-item dropdown">
               <button class="logo btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="../../public/image/logo-grab.jpg" > <%= nameuser %>
+                <p id="id_user" style="display: none;"><%=authentication%></p>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <button class="dropdown-item" type="button"><a href="/profile"><i class="fas fa-user-edit"></i> Tài khoản</a></button>
@@ -97,7 +98,9 @@
     </div>
   </header>
 <link rel="stylesheet" type="text/css" href="../../public/css/header.css">
+<script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
 <script src="../public/js/jquery.min.js"></script>
+<script src="../../public/js/notification_mail.js"></script>
 <script>
     $("document").ready(function(){
       $('#logout').click(()=>{

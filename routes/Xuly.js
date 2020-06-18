@@ -158,7 +158,7 @@ router.get('/loadChart_job',async function(req,res){
   });
   res.send(data)
 })
-router.post('/send_mail',urlencodedParser,function(req,res){
+router.post('/send_mail',urlencodedParser,async function(req,res){
  /* var config = {
     apiKey: "AIzaSyDUL1FX3aHjQdymwsrQLgT-UH5HzVJqKHI",
     authDomain: "nienluannganh-3c1c3.firebaseapp.com",
@@ -173,14 +173,22 @@ router.post('/send_mail',urlencodedParser,function(req,res){
   let str = req.body.to;
   let message = req.body.massage;
   let job_id = req.body.id_job;
+  let info_Job =await Companies_fmd.viewJob_companies(job_id)
   let user_name = str.substring(0,str.indexOf('@'));
   let user_id = str.substring(str.indexOf('@')+1,str.length);
-  var Ref = admin.database().ref('Send_Email');
-  var newMessageRef = Ref.push();
+  /*let Ref = admin.database().ref('Send_Email/${user_id}');
+  let newMessageRef = Ref.push(); auto id*/
+  let Ref = admin.database().ref('Send_Email/'+user_id)
+  let newMessageRef = Ref.push();
+  let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+  let companiess_send = info_Job.companies.name
   newMessageRef.set({
-    send: job_id,
+    from: info_Job.companies.name,
     to: user_id,
-    message: message
+    job: info_Job.title,
+    message: message,
+    created: utc,
+    id_job: job_id
   });
   //var path = newMessageRef.toString();
   //console.log(path)

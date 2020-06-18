@@ -188,7 +188,7 @@ router.get('/companies/:val1&:val2',async (req,res)=>{
     Job:job_cpn,
     check:check_follow,
     review_load:load_review,
-    date_rv:date_review
+    date_rv:date_review,
   }) 
 })
 router.get('/companies',async (req,res)=>{
@@ -268,7 +268,8 @@ router.get('/profile',async (req,res)=>{
         fullname : getpro.fullname,
         address: getpro.address,
         upcv: getpro.upCV,
-        upavt: getpro.upAvt
+        upavt: getpro.upAvt,
+        authentication:req.session.usid,
       })
     } catch (error) {
       console.log(error)
@@ -290,7 +291,8 @@ router.get('/ungtuyen',check_Login_Us,async(req,res)=>{
       nameuser : req.session.usname,
       data: list_job,
       date:date_format,
-      list_cpns:list_cpn
+      list_cpns:list_cpn,
+      authentication:req.session.usid,
     })
 
 })
@@ -307,9 +309,20 @@ router.get('/email',check_Login_Us,async(req,res)=>{
     databaseURL: "https://nienluannganh-3c1c3.firebaseio.com",
     storageBucket: "bucket.appspot.com"
   };
-  firebase.initializeApp(config);
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(config);
+  }
   var db = firebase.database();
-  let rf = db.ref('Send_Email');
+  let rf = db.ref('Send_Email/'+req.session.usid);
+  let count = 0
+  await rf.once('value',(snap)=>{
+    snap.forEach(element => {
+      rf.child(element.key).update({
+        "status": "Đã xem"
+      })
+    });
+  })
+  /*
   rf.orderByChild("to").equalTo(req.session.usid).once("value", function(snapshot) {
     var list_mail = [];
     snapshot.forEach(function (childSnapshot) {    
@@ -322,12 +335,18 @@ router.get('/email',check_Login_Us,async(req,res)=>{
       data: list_job,
       date:date_format,
       list_cpns:listNew_Job,
-      listEmail:list_mail
     }) 
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
-  });
-  
+  });?*/
+  res.render('./user/email',{
+    title : 'Thông báo ',
+    nameuser : req.session.usname,
+    data: list_job,
+    date:date_format,
+    list_cpns:listNew_Job,
+    authentication:req.session.usid,
+  }) 
 })
 function check_Login_Us(req,res,next){
   if(req.session.usid && req.session.usname){

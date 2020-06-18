@@ -21,16 +21,13 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-7 col-12 bg-white mb-3"  style="border: 1px solid #e3e3e3;">
                         <div class="col-xl-12">
-                            <h3 class="font text-title">Thông báo</h3> 
-                            <div class="row " style="margin-top:10px">
-                                <div class="alert alert-dark w-100" role="alert">
-                                    <h4 class="alert-heading">Gữi từ: FPT SoftWare</h4>
-                                    <p class="font-weight-bold">Nội dung:</p>
-                                  </div>
+                            <h3 class="font text-title">Thông báo</h3>
+                            <p id="id_usr" style="display: none;"><%=authentication%></p>
+                            <div class="row " style="margin-top:10px" id="list_mail">
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-10">
+                    <div class="col-xl-5 col-12">
                         <div class="col-xl-12 bg-white" style="border: 1px solid #e3e3e3;">
                             <h4 class="font text-title">Các công việc mới dành cho bạn</h4>
                             <div class="row">
@@ -69,7 +66,9 @@
             </div>
         </div>
     </div>
+<script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
 </body>
+<script src="../../public/js/receive_mail.js"></script>
 <script src="../public/js/jquery.min.js"></script>
 <script src="../public/js/bootstrap.bundle.min.js"></script>
 <script src="../public/js/agency.min.js"></script>
@@ -153,5 +152,6 @@
         font-size: 16px;
         text-decoration: none;
     }
+
 </style>
 </html>
