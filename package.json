@@ -24,7 +24,8 @@
     "moment-timezone": "^0.5.28",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.9",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "websocket": "^1.0.31"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
