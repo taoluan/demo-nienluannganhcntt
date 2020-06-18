@@ -188,7 +188,8 @@ router.post('/send_mail',urlencodedParser,async function(req,res){
     job: info_Job.title,
     message: message,
     created: utc,
-    id_job: job_id
+    id_job: job_id,
+    status:'Chưa xem'
   });
   //var path = newMessageRef.toString();
   //console.log(path)

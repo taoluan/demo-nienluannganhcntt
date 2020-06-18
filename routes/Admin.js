@@ -14,7 +14,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 const Companies_fmd = require('../models_function/Companies_fmd');
 var form = new formidable.IncomingForm();
-
+const crypto = require('crypto');
 form.uploadDir = "public/image/company/";
 router.get('/registration',(req,res)=>{
     if(req.session.adid && req.session.adname){
@@ -35,7 +35,7 @@ router.post('/signup',(req,res)=>{
         let city = fields.city;
         let work = fields.work;
         let email = fields.email;
-        let password = fields.password;
+        let password = crypto.createHash('sha256').update(fields.password).digest('base64');
         let uplogo = file.uplogo.name;
         let newpath = form.uploadDir + uplogo; 
         let oldpath  = file.uplogo.path;
@@ -92,7 +92,7 @@ router.post('/signup',(req,res)=>{
 })
 router.post('/signin',urlencodedParser,(req,res)=>{
     let email = req.body.emailad;
-    let pws = req.body.passwdad;
+    let pws = crypto.createHash('sha256').update(req.body.passwdad).digest('base64');
     mongoose.connect(url,async function(err){
         const companiesFind =await Companies.findOne({email:email,pws:pws})
         if(email && pws){

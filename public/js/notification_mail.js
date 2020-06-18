@@ -28,8 +28,6 @@
     let rf = db.ref('Send_Email/'+id_us);
     rf.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
         var count =  0;
-        console.log(1)
-        console.log(snap.val())
         snap.forEach(element => {
           count++
         });
@@ -56,9 +54,9 @@
         }*/
         list_mail.forEach(data => {
             if(data.status === "Đã xem"){
-               // $('#list_mail').append('<div class="alert alert-secondary w-100" id="'+snapshot.key+'" role="alert"><h6 class="alert-heading" >Gữi từ: <span class="text-primary mb-0 mt-0">'+data.from+'</span> <span class="badge badge-light float-right mb-0 mt-0">'+data.status+'</span></h6><p class="font-weight-bold mb-0 mt-0">Công việc đã ứng tuyển: <a href="/vieclamit/'+data.job+'&'+data.id_job+'"><span class="text-primary">'+data.job+'</span></a></p><p class="font-weight-bold mb-0 mt-0" style="font-size:14px">Nội dung: <span style="font-size:16px" class="font-weight-normal font-italic ">'+data.message+'</span></p><p class="small font-weight-bold mb-0 mt-0">Ngày gữi:  <span class="font-weight-normal">'+data.created+'</span> </p></div>')
+                $('#list_email').append('<li id="'+snapshot.key+'" class="notification-box border mt-2 mb-3" style="border-radius: 50px;"><div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="fab fa-facebook-messenger fa-3x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+' <span class="badge badge-primary float-right"><a href="/email"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">'+data.message+'</p> </div><small class="text-secondary small mt-0 mb-0">Ngày gữi: '+data.created+'<span class="badge badge-pill badge-primary float-right">Đã xem</span></small></div></div></li>')
             }else{
-              //  $('#list_mail').append('<div class="alert alert-secondary w-100" id="'+snapshot.key+'" role="alert"><h6 class="alert-heading" >Gữi từ: <span class="text-primary mb-0 mt-0">'+data.from+'</span></h6><p class="font-weight-bold mb-0 mt-0">Công việc đã ứng tuyển: <a href="/vieclamit/'+data.job+'&'+data.id_job+'"><span class="text-primary">'+data.job+'</span></a></p><p class="font-weight-bold mb-0 mt-0" style="font-size:14px">Nội dung: <span style="font-size:16px" class="font-weight-normal font-italic ">'+data.message+'</span></p><p class="small font-weight-bold mb-0 mt-0">Ngày gữi:  <span class="font-weight-normal">'+data.created+'</span></p><span class="badge badge-danger">'+data.status+'</span></div>')
+              $('#list_email').append('<li id="'+snapshot.key+'" class="notification-box border mt-2 mb-3" style="border-radius: 50px;"><div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="fab fa-facebook-messenger fa-3x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+' <span class="badge badge-primary float-right"><a href="/email"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">'+data.message+'</p> </div><small class="text-secondary small mt-0 mb-0">Ngày gữi: '+data.created+'<span class="badge badge-pill badge-danger float-right">Đã xem</span></small></div></div></li>')
  
             }
         });
@@ -67,5 +65,14 @@
         let remove_div = $("#"+snapshot.key)
         remove_div.remove();
     });
+    $('#navbarDropdown').click(()=>{
+      rf.once('value',(snap)=>{
+        snap.forEach(element => {
+          rf.child(element.key).update({
+            "status": "Đã xem"
+          })
+        });
+      })
+    })
     //rf.on('value',snap=>{console.log(snap.val())});
 }());

@@ -7,6 +7,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 const User = require('../models/User');
 const Companies = require('../models/Companies');
 const Infor_Companies = require('../models/Infor_Companies');
+const crypto = require('crypto');
 router.post('/signup',urlencodedParser,function(req,res){
     let checkusn = req.body.name;
     mongoose.connect(url,async function(err){
@@ -41,7 +42,7 @@ router.post('/signupadmin',urlencodedParser,function(req,res){
 })
 router.post('/signinadmin',urlencodedParser,function(req,res){
     let checkemail = req.body.email;
-    let checkpws = req.body.pass;
+    let checkpws =crypto.createHash('sha256').update(req.body.pass).digest('base64');
     mongoose.connect(url,async function(err){
         try {
             if (err) throw err;

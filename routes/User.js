@@ -8,12 +8,13 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const addUser = require('../models/User')
 const user_controler = require('../controllers/userctl')
 const models_fmd = require('../models_function/Companies_fmd')
+const crypto = require('crypto');
 router.post('/signup',urlencodedParser,function(req,res){
   try {
   mongoose.connect(url,async function(err){
     if (err) throw err;
     let user = req.body.username;
-    let pws  = req.body.password;
+    let pws = crypto.createHash('sha256').update(req.body.password).digest('base64');
     let email = req.body.email;
     let name = req.body.name;
     let newUser = await new addUser({

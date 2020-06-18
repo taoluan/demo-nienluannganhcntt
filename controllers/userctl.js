@@ -3,13 +3,14 @@ const mongoose = require('mongoose');
 const url = 'mongodb://localhost/Nienluannganh';
 var formidable = require('formidable');
 var fs = require('fs');
+const crypto = require('crypto');
 
 exports.checklogin_user = function (req,res){
     if(req.body.username && req.body.password){
       mongoose.connect(url,async function(err){
             if(err) throw err;
             let url = req.body.url
-            const userFind =await User.findOne({username:req.body.username,password:req.body.password})
+            const userFind =await User.findOne({username:req.body.username,password:crypto.createHash('sha256').update(req.body.password).digest('base64')})
             if (userFind === undefined || userFind === null) {
                 res.redirect(url)
             }else {
