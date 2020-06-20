@@ -55,7 +55,7 @@ router.post('/signup',(req,res)=>{
                 title:title,
                 work:work,
                 image:{
-                    logo:newpath
+                    logo:"/"+newpath
                 }
             });
             newCompany.save(async function(err){
@@ -120,6 +120,7 @@ router.get('/page-ad',async (req,res)=>{
         let job_cpn = await Companies_fmd.loadJob_companies(req.session.adid)
         let load_review = await Companies_fmd.loadReview_companies(req.session.adid)
         let date_review = []
+        let getstar = await Companies_fmd.getstar_review(req.session.adid)
         load_review.forEach(element => {
             date_review.push(Date.Date(element.created)) 
           })
@@ -129,7 +130,9 @@ router.get('/page-ad',async (req,res)=>{
             Infor: load_Infor,
             Job:job_cpn,
             review_load:load_review,
-            date_rv:date_review
+            date_rv:date_review,
+            authentication:req.session.adid,
+            list_star:getstar
         }) 
      }else res.redirect('/admin/registration')
 })

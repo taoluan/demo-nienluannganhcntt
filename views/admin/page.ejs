@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="../../public/css/companies.css">
+    <link rel="stylesheet" type="text/css" href="../../public/css/circle.css">
     <link rel="stylesheet" type="text/css" href="../../public/css/page-admin.css">
     <link href="../../public/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/home_ad.css">
@@ -13,20 +14,20 @@
 </head>
 <body>
     <div class="container-md" style="background-color:#e9e9e9">
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: #212529;color: gray;">
-                <div class="container">
-                  <a class="navbar-brand js-scroll-trigger" href="/">VIEC JOB <span style="color: #f44336;font-size: 18px;">|Admin</span></a>
-                  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                  </button>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
-                    <a href="/admin/home"><button type="button" class="btn btn-labeled btn-success">
-                       <i class="fas fa-home"></i> Home Admin
-                    </button></a>
-              </div>
-                </div>
-            </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: #212529;color: gray;">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="/">VIEC JOB <span style="color: #f44336;font-size: 18px;">|Admin</span></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+                </button>
+            <div class="collapse navbar-collapse flex-grow-0" id="navbarResponsive">
+                <a href="/admin/home"><button type="button" class="btn btn-labeled btn-success">
+                    <i class="fas fa-home"></i> Home Admin
+                </button></a>
+            </div>
+            </div>
+        </nav>
         <div class="row">
              <div class="container-fluid">
                 <div class="row" style="margin-top: 55px;margin-bottom: 10px;">
@@ -42,7 +43,7 @@
                                     <div class="col-lg-3 col-sm-4 col-4">   
                                         <a href=""><img src="<%= profiles.image.logo%>" height="200" class="card-img" alt="..." style="margin-top:10px;margin-bottom:10px;"></a>
                                     </div>
-                                    <div class="col-lg-7 col-sm-7 col-7">
+                                    <div class="col-lg-6 col-sm-7 col-7">
                                         <div class="card-body" style="padding-top: 5px;">
                                             <h1 class="card-title font" ><%= profiles.name%></h1>
                                                 <div class="company-info">
@@ -60,9 +61,33 @@
                                                 </div>
                                          </div> 
                                     </div>
-                                    <div class="col-lg-2 none text-center" >
-                                       
-                                    </div>
+                                    <% if(list_star[7].point_vote){%>
+                                        <div class="col-lg-1 none text-center d-flex align-items-center bg-light justify-content-center" >
+                                           <p class="text-center small">Nên làm việc tại đây !</p>
+                                        </div>
+                                        <div class="col-lg-2 none text-center d-flex align-items-center bg-light justify-content-center" >
+                                            <div class="c100 p<%=list_star[7].point_vote%>">
+                                                <span><%=list_star[7].point_vote%>%</span>
+                                                <div class="slice">
+                                                    <div class="bar"></div>
+                                                    <div class="fill"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%}else{%>
+                                        <div class="col-lg-1 none text-center d-flex align-items-center bg-light justify-content-center" >
+                                            <p class="text-center small">Chưa có đánh giá nào !!!</p>
+                                        </div>
+                                        <div class="col-lg-2 none text-center d-flex align-items-center bg-light justify-content-center" >
+                                            <div class="c100 p<%=list_star[7].point_vote%>">
+                                                <span><%=list_star[7].point_vote%>%</span>
+                                                <div class="slice">
+                                                    <div class="bar"></div>
+                                                    <div class="fill"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%}%>
                                 </div>
                             </div>
                         </div>
@@ -263,13 +288,13 @@
                                                         <div class="col-6 rounded">
                                                             <div class="card card-block text-info rounded-0 border-left-0 border-right-0 border-top-0 border-bottom-0">
                                                                 <h3><%=Job.length%></h3>
-                                                                <span class="small text-uppercase">Job</span>
+                                                                <span class="small text-uppercase">Công việc</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6 rounded">
                                                             <div class="card card-block text-info rounded-0 border-right-0 border-top-0 border-bottom-0">
                                                                 <h3><%=profiles.follow.length%></h3>
-                                                                <span class="small text-uppercase"><i class="far fa-thumbs-up"></i> Follow</span>
+                                                                <span class="small text-uppercase"><i class="far fa-thumbs-up"></i> Lượt theo dõi</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -291,7 +316,11 @@
                                                 <div class="col-12" style="margin-bottom:5px">
                                                     <div class="card flex-row flex-wrap w-100">
                                                         <div class="img-square-wrapper" >
-                                                            <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                                            <%if(rs.User.upAvt){%>
+                                                                <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                                                <%}else{%>
+                                                                    <img class="set" src="../../public/image/unnamed.png" height="50" width="50" alt="">
+                                                                <%}%>
                                                         </div>
                                                         <div class="col-10 card-block px-2" >
                                                             <div class='row' style="margin-top: 5px;">
@@ -339,10 +368,63 @@
                                       <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3">
                                         <%- include('../elements/ratings'); -%>
                                       </div>
-                                      <div class="row" style="background-color:#fff ;margin-top: 10px;border: 1px solid #e3e3e3;"> 
+                                      <div class="row " style="background-color: #fff;margin-top: 10px;border: 1px solid #e3e3e3;">
+                                        <div class="card w-100" style="border: none;">
+                                            <div class="card-body" style="padding-bottom: 5px;">
+                                                <h3 class="conten card-title text-center">Tất cả các đánh giá</h3>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="margin-bottom:5px">
+                                            <%if(review_load.length !== 0){%>
+                                                <% review_load.forEach((rs,idx) =>{%>
+                                                    <div class="card flex-row flex-wrap w-100 mb-3">
+                                                        <div class="img-square-wrapper" >
+                                                            <%if(rs.User.upAvt){%>
+                                                                <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                                                <%}else{%>
+                                                                    <img class="set" src="../../public/image/unnamed.png" height="50" width="50" alt="">
+                                                                <%}%>
+                                                        </div>
+                                                        <div class="col-10 card-block px-2" >
+                                                            <div class='row' style="margin-top: 5px;">
+                                                                <p class="col-12 title " style="margin-bottom: 0px;font-size: 16px;"><span class='text-info'>@<%=rs.User.fullname%></span>
+                                                                <small class="float-right text-secondary"> <%=date_rv[idx]%> </small>
+                                                                </p>
+                                                            </div>
+                                                            <div class="row">
+                                                                <p class="col-12 card-text text-secondary ml-2">"<%=rs.comment%>"</p>
+                                                            </div>
+                                                            <div class="row text-center rank float-left">
+                                                                <div class="col-12 rating float-left">
+                                                                    <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
+                                                                    <% let num = 5 - rs.numofStart%>
+                                                                    <% for(let i = 0 ; i < rs.numofStart ; i++){%>
+                                                                    <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
+                                                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                                                    </button>
+                                                                    <%}%>
+                                                                    <% for(let i = 0 ; i < num ; i++){%>
+                                                                        <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
+                                                                            <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
+                                                                        </button>
+                                                                        <%}%>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                <%})}else{%>
+                                                    <p class="text-center text-secondary">Chưa có đánh giá</p>
+                                            <%}%> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-xl-4 col-right">
+                                      <div class="row " style="background-color: #fff;;">
                                         <div class="col-12 card w-100" style="border: none;">
                                             <div class="card-body">
-                                            <h5 class="font card-title"><%= profiles.name%> Tuyển dụng</h5>
+                                            <h6 class="font card-title text-center"><%= profiles.name%> <br> Tuyển dụng</h6>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -376,58 +458,6 @@
                                             </div>
                                             <%})%>
                                         </div>
-                                    </div>
-                                    </div>
-                                    <div class="col-xl-4 col-right">
-                                      <div class="row " style="background-color: #fff;;">
-                                        <div class="card w-100" style="border: none;">
-                                            <div class="card-body" style="padding-bottom: 5px;">
-                                                <h3 class="conten card-title text-center">Tất cả các đánh giá</h3>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <%if(review_load.length !== 0){%>
-                                            <% review_load.forEach((rs,idx) =>{%>
-                                            <div class="col-12" style="margin-bottom:5px">
-                                                <div class="card flex-row flex-wrap w-100">
-                                                    <div class="img-square-wrapper" >
-                                                        <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
-                                                    </div>
-                                                    <div class="col-10 card-block px-2" >
-                                                        <div class='row' style="margin-top: 5px;">
-                                                            <p class="col-12 title " style="margin-bottom: 0px;font-size: 16px;"><span class='text-info'>@<%=rs.User.fullname%></span>
-                                                            <small class="float-right text-secondary"> <%=date_rv[idx]%> </small>
-                                                            </p>
-                                                        </div>
-                                                        <div class="row">
-                                                            <p class="col-12 card-text text-secondary">"<%=rs.comment%>"</p>
-                                                        </div>
-                                                        <div class="row text-center rank float-left">
-                                                            <div class="col-12 rating float-left">
-                                                                <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
-                                                                <% let num = 5 - rs.numofStart%>
-                                                                <% for(let i = 0 ; i < rs.numofStart ; i++){%>
-                                                                <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                                                    <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                                                </button>
-                                                                <%}%>
-                                                                <% for(let i = 0 ; i < num ; i++){%>
-                                                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                                                    </button>
-                                                                    <%}%>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <%})}else{%>
-                                                <div class="col-12" style="margin-bottom:5px">
-                                                    <p class="text-center text-secondary">Chưa có đánh giá</p>
-                                                </div>
-                                               
-                                            <%}%>  
                                       </div>
                                     </div>
                                 </div>

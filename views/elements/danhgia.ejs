@@ -1,7 +1,81 @@
 <div class='row'>
     <div class="col-xl-8 col-md-12 col-sm-12 col-left" style="margin-right: 15px">
       <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3">
-        <%- include('../elements/ratings'); -%>
+        <% if(list_star[5].total_vote !==0){%>
+        <div class="col-xl-6 col-md-6 d-flex align-items-center  justify-content-center">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-xl-12 col-md-4 col-12 text-center">
+                        <h1 class="rating-num text-dark">
+                            <% if(Number.isInteger(list_star[6].point_start)){%>
+                                <%=list_star[6].point_start%>.0
+                            <%}else{%>
+                                <%=list_star[6].point_start%>
+                            <%}%>
+                        </h1>
+                        <div class="rating">
+                            <%for(let k = 0 ; k < Math.floor(list_star[6].point_start) ;k++){%>
+                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                    <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                </button>
+                                <%}%>
+                                <%for(let j = 0 ; j < Math.ceil(5-list_star[6].point_start);j++){%>
+                                    <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                        <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                        </button>
+                                  <%}%>
+                               
+                        </div>
+                        <div>
+                            <i class="fas fa-user text-dark"></i> <a class="text-dark"><%=list_star[5].total_vote%> Lượt đánh giá</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-8 col-12 cl">
+                        <div class="row rating-desc">
+                            <% for(let i = 4; i >= 0 ; i--){%>
+                                <div class="col-xl-3 col-md-3 text-right">
+                                    <i class="fas fa-star text-warning"></i> <%=list_star[i].star%>
+                                </div>
+                                <div class="col-xl-8 col-md-9">
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar text-center progress-bar-striped" style="width:<%=list_star[i].avg_star%>%" role="progressbar" aria-valuenow="20"
+                                            aria-valuemin="0" aria-valuemax="100"> 
+                                            <% if(list_star[i].avg_star===0){%>
+        
+                                            <%}else{%>
+                                            <%=list_star[i].avg_star%>%
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6 d-flex align-items-center  justify-content-center border-left">
+            <div class="row" >
+                <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 5px;">
+                    <div class="c100 p<%=list_star[7].point_vote%> mt-3">
+                        <span><%=list_star[7].point_vote%>%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 ">
+                    <p class="font-italic text-primary text-center" style="position: relative;">Lời khuyên nên làm việc tại đây !!</p>
+                </div>
+            </div>
+        </div>
+        <%}else{%>
+            <div class="col-xl-12 col-md-12 d-flex align-items-center  justify-content-center">
+                <p class="mt-3"> Chưa có dữ liệu để đánh giá</p>
+            </div>
+            <%}%>
       </div>
       <% if(authentication){%>
         <div class="row" style="background-color:#fff ;border: 1px solid #e3e3e3;margin-top: 10px;"> 
@@ -67,96 +141,96 @@
         </div>
         </div>
         <%}%>
-      <div class="row" style="background-color:#fff ;margin-top: 10px;border: 1px solid #e3e3e3;"> 
-        <div class="col-12 card w-100" style="border: none;">
-            <div class="card-body">
-            <h5 class="font card-title"><%= profiles.name%> Tuyển dụng</h5>
-            </div>
-        </div>
-        <div class="col-12">
-            <% Job.forEach(rs => {%>
-            <div class="row d-flex justify-content-center">
-                <div class="card mb-3 hv w-100 ml-0" style="max-width: 720px; ">
-                    <div class="row no-gutters">
-                        <div class="col-2" id="logo">   
-                            <a href=""><img src="<%=profiles.image.logo%>" class="card-img" alt="..."></a>
-                        </div>
-                        <div class="col-10">
-                            <div class="card-body">
-                                <a class="card-title" href="/vieclamit/<%=rs.title%>&<%=rs._id%>" style="font-size: 22px;font-weight: 450;"><%=rs.title%> (<%=rs.skills%>)</a>
-                                <% if(authentication){%>
-                                    <p class='text-success' style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i> <%=rs.salary.money%> <%=rs.salary.unit%></p>
-                                <%}else{%>
-                                    <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
-                                    <%}%>
-                                <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> <%=rs.address%></p>
-                                <p style="font-size: 15px; color: gray;">" <%=rs.descript.substring(0, rs.descript.indexOf('*'))%>..."</p>
-                                <div class="skills ml-0">
-                                    <% rs.skills.forEach(element => { %>
-                                        <a href="#java"><%=element%></a>
-                                    <% }); %>
-                                </div>
-                                <p style="margin-bottom: 5px"><small class="text-muted "> 2020/04/25 12:30 </small>
-                            </p></div>
-                        </div>
-                    </div>
+        <div class="row mt-3" style="background-color: #fff;">
+            <div class="card w-100" style="border: none;">
+                <div class="card-body" style="padding-bottom: 5px;">
+                    <h3 class="conten card-title text-center">Tất cả các đánh giá</h3>
+                    <hr>
                 </div>
-            </div>
-            <%})%>
+            </div><div class="col-12" style="margin-bottom:5px">
+                <%if(review_load.length !== 0){%>
+                    <% review_load.forEach((rs,idx) =>{%>
+                        <div class="card flex-row flex-wrap w-100 mb-3">
+                            <div class="img-square-wrapper" >
+                                <%if(rs.User.upAvt){%>
+                                <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                <%}else{%>
+                                    <img class="set" src="../../public/image/unnamed.png" height="50" width="50" alt="">
+                                <%}%>
+                            </div>
+                            <div class="col-10 card-block px-2" >
+                                <div class='row' style="margin-top: 5px;">
+                                    <p class="col-12 title " style="margin-bottom: 0px;font-size: 16px;"><span class='text-info'>@<%=rs.User.fullname%></span>
+                                    <small class="float-right text-secondary"> <%=date_rv[idx]%> </small>
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <p class="col-12 card-text text-secondary">"<%=rs.comment%>"</p>
+                                </div>
+                                <div class="row text-center rank float-left">
+                                    <div class="col-12 rating float-left">
+                                        <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
+                                        <% let num = 5 - rs.numofStart%>
+                                        <% for(let i = 0 ; i < rs.numofStart ; i++){%>
+                                        <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
+                                            <span class="fas fa-star text-white" aria-hidden="true"></span>
+                                        </button>
+                                        <%}%>
+                                        <% for(let i = 0 ; i < num ; i++){%>
+                                            <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
+                                                <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
+                                            </button>
+                                            <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    <%})}else{%>
+                        <p class="text-center text-secondary">Chưa có đánh giá</p>
+                    <%}%> 
+            </div> 
         </div>
-    </div>
     </div>
     <div class="col-xl-4 col-right">
-      <div class="row " style="background-color: #fff;;">
-        <div class="card w-100" style="border: none;">
-            <div class="card-body" style="padding-bottom: 5px;">
-                <h3 class="conten card-title text-center">Tất cả các đánh giá</h3>
-                <hr>
+        <div class="row" style="background-color:#fff;border: 1px solid #e3e3e3;"> 
+            <div class="col-12 card w-100" style="border: none;">
+                <div class="card-body pt-1 pb-1">
+                    <h6 class="font card-title text-center"><%= profiles.name%> <br> Tuyển dụng</h6>
+                </div>
             </div>
-        </div>
-        <%if(review_load.length !== 0){%>
-            <% review_load.forEach((rs,idx) =>{%>
-            <div class="col-12" style="margin-bottom:5px">
-                <div class="card flex-row flex-wrap w-100">
-                    <div class="img-square-wrapper" >
-                        <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
-                    </div>
-                    <div class="col-10 card-block px-2" >
-                        <div class='row' style="margin-top: 5px;">
-                            <p class="col-12 title " style="margin-bottom: 0px;font-size: 16px;"><span class='text-info'>@<%=rs.User.fullname%></span>
-                            <small class="float-right text-secondary"> <%=date_rv[idx]%> </small>
-                            </p>
-                        </div>
-                        <div class="row">
-                            <p class="col-12 card-text text-secondary">"<%=rs.comment%>"</p>
-                        </div>
-                        <div class="row text-center rank float-left">
-                            <div class="col-12 rating float-left">
-                                <small class="text-muted" style="margin-top: 5px;font-size: 14px;"> Đánh giá:  </small>
-                                <% let num = 5 - rs.numofStart%>
-                                <% for(let i = 0 ; i < rs.numofStart ; i++){%>
-                                <button type="button" class="btn btn-warning b1 " aria-label="Left Align">
-                                    <span class="fas fa-star text-white" aria-hidden="true"></span>
-                                </button>
-                                <%}%>
-                                <% for(let i = 0 ; i < num ; i++){%>
-                                    <button type="button" class="btn btn-default btn-grey  bg-secondary b1" aria-label="Left Align">
-                                        <span class="fas fa-star fa-1x text-white" aria-hidden="true" style="margin:0px;padding: 0px;"></span>
-                                    </button>
-                                    <%}%>
+            <div class="col-12">
+                <% Job.forEach(rs => {%>
+                <div class="row d-flex justify-content-center">
+                    <div class="card mb-3 hv w-100 ml-0" style="max-width: 720px; ">
+                        <div class="row no-gutters">
+                            <div class="col-2" id="logo">   
+                                <a href=""><img src="<%=profiles.image.logo%>" class="card-img" alt="..."></a>
+                            </div>
+                            <div class="col-10">
+                                <div class="card-body">
+                                    <a class="card-title" href="/vieclamit/<%=rs.title%>&<%=rs._id%>" style="font-size: 22px;font-weight: 450;"><%=rs.title%> (<%=rs.skills%>)</a>
+                                    <% if(authentication){%>
+                                        <p class='text-success' style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i> <%=rs.salary.money%> <%=rs.salary.unit%></p>
+                                    <%}else{%>
+                                        <p style="margin-bottom: 5px"><i class="fas fa-dollar-sign"></i><a data-toggle="modal" data-target="#myModal" href="#" style="color: gray;"> Đăng nhập để xem</a></p>
+                                        <%}%>
+                                    <p style="margin-bottom: 5px"><i class="fas fa-map-marked-alt"></i> <%=rs.address%></p>
+                                    <p style="font-size: 15px; color: gray;">" <%=rs.descript.substring(0, rs.descript.indexOf('*'))%>..."</p>
+                                    <div class="skills ml-0">
+                                        <% rs.skills.forEach(element => { %>
+                                            <a href="#java"><%=element%></a>
+                                        <% }); %>
+                                    </div>
+                                    <p style="margin-bottom: 5px"><small class="text-muted "> 2020/04/25 12:30 </small>
+                                </p></div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
+                <%})%>
             </div>
-            <%})}else{%>
-                <div class="col-12" style="margin-bottom:5px">
-                    <p class="text-center text-secondary">Chưa có đánh giá</p>
-                </div>
-               
-            <%}%>  
-      </div>
+        </div>
     </div>
 </div>
 <script src="../../public/js/forms.js"></script>

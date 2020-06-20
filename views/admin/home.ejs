@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><%= profiles.name %></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="../../public/css/home_ad.css">
@@ -12,7 +11,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap_file_field.css">
 </head>
-
 <body>
     <div class="wrapper">
         <nav id="sidebar">
@@ -78,7 +76,7 @@
             </nav>
             <div class="container" id='ctn'>
                 <div class="row" >
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card text-white bg-gradient-info mb-3 " style="max-width: 20rem">
                             <div class="card-body text-center">
                                 <div>
@@ -88,7 +86,7 @@
                             </div>
                           </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card text-white bg-gradient-danger mb-3 " style="max-width: 20rem">
                             <div class="card-body text-center">
                                 <div>
@@ -103,12 +101,22 @@
                             
                           </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card text-white bg-gradient-primary mb-3 " style="max-width: 20rem">
                             <div class="card-body text-center">
                                 <div>
-                                    <div class="text-value-lg">4 / 5.0</div>
+                                    <div class="text-value-lg" id="point_star"></div>
                                     <div>Điểm đánh giá</div>
+                                    </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-white bg-gradient-primary mb-3 " style="max-width: 20rem">
+                            <div class="card-body text-center">
+                                <div>
+                                    <div class="text-value-lg" id="point_vote"></div>
+                                    <div>Khuyến khích làm việc</div>
                                     </div>
                             </div>
                           </div>
@@ -233,6 +241,7 @@
             </div>
         </div>
     </div>
+    
 </body>
 <script type="text/javascript" src="../../public/js/jquery.min.js"></script>
 <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
@@ -251,9 +260,18 @@
         };
         firebase.initializeApp(config);
 </script>
-<script type="text/javascript">
-      //  var ctx1 = document.getElementById('applyjob').getContext('2d');
-        var rs = []
+<script>
+    $(document).ready(function () {
+    $.ajax({
+        method:'get',
+        url:'/Xuly/loadList_star',
+    }).done((data)=>{
+        let rs = []
+        for(let i = 0 ; i <5 ; i++){
+            rs.push(data[i].avg_star)
+        }
+        $('#point_star').text(data[6].point_start+" / 5")
+        $('#point_vote').text(data[7].point_vote+" %")
         var ctxP = document.getElementById('danhgia').getContext('2d');
         var myPieChart = new Chart(ctxP, {
         type: 'pie',
@@ -269,13 +287,13 @@
         responsive: true
         }
         });
-        $(document).ready(function () {
-            $.ajax({
-                method:'get',
-                url:'/Xuly/loadChart_job',
-            }).done((data)=>{
-                var ctx = document.getElementById('applyjob').getContext('2d');
-                var myChart = new Chart(ctx, {
+    })
+    $.ajax({
+        method:'get',
+        url:'/Xuly/loadChart_job',
+    }).done((data)=>{
+        var ctx = document.getElementById('applyjob').getContext('2d');
+        var myChart = new Chart(ctx, {
             type: 'bar',
             title:{
             fontSize: 10,
@@ -314,103 +332,104 @@
                     }]
                 }
             }
-        });
-                console.log(typeof data)
-            })
-            const database_realtime = firebase.database();
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-            $('#example1').DataTable();
-            $('#mytable').DataTable();
-            $('.edit').click(function(){
-                $.ajax({
-                    url: '/admin/edit',
-                    method:'post',
-                    success: function (data){
-                        $('#ctn').html(data)
-                    } 
-                })
-            });
-            $('.check_true').click(function(e){
-                e.preventDefault();
-                $.ajax({
-                    url: '/check/Default_profile',
-                    method: 'post',
-                    success:function(data){
-                        if(data === 'true'){
-                            location.href='/admin/page-ad'
-                        }else{
-                            alert('Vui lòng thêm thông tin của công ty');
-                            $('.edit').click();
-                        }
-                    }
-                })
-            })  
-            $('.post-job').click(function(){
-                $.ajax({
-                    url: '/admin/post-job',
-                    method:'post',
-                    success: function (data){
-                        $('#ctn').html(data)
-                    } 
-                })
-            });
-            $('.list-job').click(function(){
-                $.ajax({
-                    url: '/admin/list-job',
-                    method:'post',
-                    success: function (data){
-                        $('#ctn').html(data)
-                    } 
-                })
-            });
-            $('.bt_duyet').click(function(){
-                let id = $(this).val();
-                let str_id = id.substring(0,id.indexOf('*'));
-                let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
-                let name = id.substring(id.indexOf('$')+1,id.length);
-                $.ajax({
-                    url: '/Xuly/update_job',
-                    method: 'get',
-                    data:{
-                        id_job : str_id,
-                        id_user : str_user
-                    }
-                }).done((data)=>{
-                    if(data){
-                        $('#guiden').val(name+'@'+str_user);
-                        $('#id_job').val(str_id);
-                        $('#send_email').modal('show');
-                        /*$('#email').click(function(e){
-                            let mess = $('#message').val()
-                            database_realtime.ref('SendEmail/').set({send:str_id,to:str_user,message:mess})
-                            window.location.reload();
-                        })*/
-                    }
-                
-                })
-            })
-            $('.bt_huy').click(function(){
-                let id = $(this).val();
-                let str_id = id.substring(0,id.indexOf('*'));
-                let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
-                $.ajax({
-                    url: '/Xuly/update_huy_job',
-                    method: 'get',
-                    data:{
-                        id_job : str_id,
-                        id_user : str_user
-                    }
-                }).done((data)=>{
-                    if(data){
-                        $('#guiden').val(name+'@'+str_user);
-                        $('#id_job').val(str_id);
-                        $('#send_email').modal('show');
-                    }
-                
-                })
-            })
-        });
-    </script>
+});
+        })
+    const database_realtime = firebase.database();
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+    $('#example1').DataTable();
+    $('#mytable').DataTable();
+    $('.edit').click(function(){
+        $.ajax({
+            url: '/admin/edit',
+            method:'post',
+            success: function (data){
+                $('#ctn').html(data)
+            } 
+        })
+    });
+    $('.check_true').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/check/Default_profile',
+            method: 'post',
+            success:function(data){
+                if(data === 'true'){
+                    location.href='/admin/page-ad'
+                }else{
+                    alert('Vui lòng thêm thông tin của công ty');
+                    $('.edit').click();
+                }
+            }
+        })
+    })  
+    $('.post-job').click(function(){
+        $.ajax({
+            url: '/admin/post-job',
+            method:'post',
+            success: function (data){
+                $('#ctn').html(data)
+            } 
+        })
+    });
+    $('.list-job').click(function(){
+        $.ajax({
+            url: '/admin/list-job',
+            method:'post',
+            success: function (data){
+                $('#ctn').html(data)
+            } 
+        })
+    });
+    $('.bt_duyet').click(function(){
+        let id = $(this).val();
+        let str_id = id.substring(0,id.indexOf('*'));
+        let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
+        let name = id.substring(id.indexOf('$')+1,id.length);
+        $.ajax({
+            url: '/Xuly/update_job',
+            method: 'get',
+            data:{
+                id_job : str_id,
+                id_user : str_user
+            }
+        }).done((data)=>{
+            if(data){
+                $('#guiden').val(name+'@'+str_user);
+                $('#id_job').val(str_id);
+                $('#send_email').modal('show');
+                /*$('#email').click(function(e){
+                    let mess = $('#message').val()
+                    database_realtime.ref('SendEmail/').set({send:str_id,to:str_user,message:mess})
+                    window.location.reload();
+                })*/
+            }
+        
+        })
+    })
+    $('.bt_huy').click(function(){
+        let id = $(this).val();
+        let str_id = id.substring(0,id.indexOf('*'));
+        let str_user = id.substring(id.indexOf('*')+1,id.indexOf('$'));
+        $.ajax({
+            url: '/Xuly/update_huy_job',
+            method: 'get',
+            data:{
+                id_job : str_id,
+                id_user : str_user
+            }
+        }).done((data)=>{
+            if(data){
+                $('#guiden').val(name+'@'+str_user);
+                $('#id_job').val(str_id);
+                $('#send_email').modal('show');
+            }
+        
+        })
+    })
+});
+
+
+</script>
 </html>

@@ -67,7 +67,9 @@
                                 <% for(let i = 0; i < list_cpns.length;i++){%>
                                     <div class="col-12">
                                         <div class="c1 card w-100"  style="width: 12rem;">
-                                            <img class="card-img-top" src="<%=list_cpns[i].image.logo%>" height=150px alt="Card image cap">
+                                            <a href="/companies/<%=list_cpns[i].name%>&<%=list_cpns[i]._id%>">
+                                                <img class="card-img-top" src="<%=list_cpns[i].image.logo%>" height=150px alt="Card image cap">
+                                            </a>
                                         </div>
                                     </div>
                                 <%}%>

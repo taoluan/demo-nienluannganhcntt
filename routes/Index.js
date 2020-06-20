@@ -172,12 +172,12 @@ router.get('/companies/:val1&:val2',async (req,res)=>{
   let Infor_cpn = await models_function.loadInfor_companies(id_company)
   let job_cpn = await models_function.loadJob_companies(id_company)
   let load_review = await models_function.loadReview_companies(id_company)
+  let getstar = await models_function.getstar_review(id_company)
   load_review.forEach(element => {
     date_review.push(date.Date(element.created)) 
   })
   if(req.session.usid){
     check_follow = await models_function.checlfollow_companies(id_company,req.session.usid)
-    console.log(check_follow)
   }
   res.render('companies',{
     title: name_company,
@@ -189,6 +189,7 @@ router.get('/companies/:val1&:val2',async (req,res)=>{
     check:check_follow,
     review_load:load_review,
     date_rv:date_review,
+    list_star:getstar
   }) 
 })
 router.get('/companies',async (req,res)=>{
@@ -213,12 +214,13 @@ router.get('/companies',async (req,res)=>{
 })
 router.get('/top-companies/',async(req,res)=>{
   let topcompany = await models_function.topCompany_Infor(20);
-    res.render('topcompanies',{
+  res.render('topcompanies',{
       title: "Những công ty hàng đầu",
       nameuser : req.session.usname,
       authentication:req.session.usid,
       topcpn: topcompany
     })
+    
 })
 router.get('/vieclam-theo-kynang',(req,res)=>{
   if(req.session.usid && req.session.usname){

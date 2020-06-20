@@ -246,19 +246,39 @@
                             <div class="card text-center h-100" style="border:none">
                                 <div class="row p-2 no-gutters rounded">
                                     <div class="col-6 rounded">
-                                        <div class="card card-block text-info rounded-0 border-left-0 border-right-0 border-top-0 border-bottom-0">
+                                        <div class="card card-block text-primary rounded-0 border-left-0 border-right-0 border-top-0 border-bottom-0">
                                             <h3><%=Job.length%></h3>
-                                            <span class="small text-uppercase">Job</span>
+                                            <span class="small text-uppercase">Công Việc</span>
                                         </div>
                                     </div>
                                     <div class="col-6 rounded">
-                                        <div class="card card-block text-info rounded-0 border-right-0 border-top-0 border-bottom-0">
+                                        <div class="card card-block text-primary rounded-0 border-right-0 border-top-0 border-bottom-0">
                                             <h3><%=profiles.follow.length%></h3>
-                                            <span class="small text-uppercase"><i class="far fa-thumbs-up"></i> Follow</span>
+                                            <span class="small text-uppercase"><i class="far fa-thumbs-up"></i> Lượt theo dõi</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row " style="background-color:#fff;margin-bottom: 10px;border: 1px solid #e3e3e3; border-radius: 5px;" >
+                        <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 5px;">
+                            <div class="c100 p<%=list_star[7].point_vote%> mt-3">
+                                <span><%=list_star[7].point_vote%>%</span>
+                                <div class="slice">
+                                    <div class="bar"></div>
+                                    <div class="fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 ">
+                            <p class="font-italic text-primary text-center" style="position: relative;">
+                                <%if(list_star[7].point_vote!==0){%>
+                                <p class="font-italic text-primary text-center" style="position: relative;">Lời khuyên nên làm việc tại đây !!</p>
+                                <%}else{%>
+                                    <p class="font-italic text-secondary text-center" style="position: relative;">Chưa có dữ liệu để thống kê</p>
+                                <%}%>
+                            </p>
                         </div>
                     </div>
                     <div class="row dv1" style="background-color:#fff;margin-bottom: 10px;border: 1px solid #e3e3e3;" >
@@ -276,7 +296,11 @@
                             <div class="col-12" style="margin-bottom:5px">
                                 <div class="card flex-row flex-wrap w-100">
                                     <div class="img-square-wrapper" >
-                                        <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                        <%if(rs.User.upAvt){%>
+                                            <img class="set" src="/<%=rs.User.upAvt%>" height="50" width="50" alt="">
+                                            <%}else{%>
+                                                <img class="set" src="../../public/image/unnamed.png" height="50" width="50" alt="">
+                                            <%}%>
                                     </div>
                                     <div class="col-10 card-block px-2" >
                                         <div class='row' style="margin-top: 5px;">

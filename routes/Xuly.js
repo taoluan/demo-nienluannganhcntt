@@ -229,6 +229,10 @@ router.post('/ungtuyen',check_Login_Us,async (req,res)=>{
   })
   //let check_cv = await Companies_fmd.checkUser_cv(id_us,id_job) 
 })
+router.get('/loadList_star',async(req,res)=>{
+    let data =await Companies_fmd.getstar_review(req.session.adid)
+    res.send(data)
+} )
 function test() {
   client.search({
     index: 'jobs',

@@ -329,3 +329,25 @@ module.exports.random_companies_limit=()=>{
         })
     })
 }
+module.exports.getstar_review = (id_cpn)=>{
+    return new Promise ((res,rej)=>{
+        mongoose.connect(url,async(err)=>{
+            if(err) throw rej(err)
+            let count_sum_vote =  await Us_Review.countDocuments({companies:id_cpn})
+            let get_point_star = await Companies.findById(id_cpn).select('point')
+            let arr_star = []
+            for(i = 1 ; i <= 5 ; i++){
+                let getstar = await Us_Review.countDocuments({companies:id_cpn,numofStart:i})
+                let sum_start = Math.round((getstar/count_sum_vote)*100)
+                arr_star.push({
+                    star : i ,
+                    avg_star : sum_start
+                })
+            }
+            arr_star.push({total_vote: count_sum_vote})
+            arr_star.push({point_start: get_point_star.point.point_start})
+            arr_star.push({point_vote: get_point_star.point.point_vote})
+            res(arr_star)
+        })
+    })
+}
