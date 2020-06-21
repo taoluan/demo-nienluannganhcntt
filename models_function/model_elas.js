@@ -76,8 +76,10 @@ module.exports.SearchAll = function(planets){
         body: {
           query: {
             multi_match : {
-              query:    planets, 
-              fields: [ "title", "skills" ] 
+              query:planets, 
+              fields: [ "title", "skills^2" ],
+              type: "phrase",
+              slop: 3
             }
           }
         }
@@ -103,7 +105,9 @@ module.exports.SearchOrthers = function(planets){
               "must" : {
                  "multi_match" : {
                           "query":    planets, 
-                          "fields": [ "title", "skills" ] 
+                          "fields": [ "title", "skills" ] ,
+                          "type": "phrase",
+                          "slop": 3
                         }
               },
                "must_not" : [{

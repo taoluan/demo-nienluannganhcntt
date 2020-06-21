@@ -16,6 +16,12 @@ const Companies_fmd = require('../models_function/Companies_fmd');
 var form = new formidable.IncomingForm();
 const crypto = require('crypto');
 form.uploadDir = "public/image/company/";
+var admin = require('firebase-admin');
+const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://nienluannganh-3c1c3.firebaseio.com'
+  });
 router.get('/registration',(req,res)=>{
     if(req.session.adid && req.session.adname){
         res.redirect('/admin/home')
@@ -80,10 +86,10 @@ router.post('/signup',(req,res)=>{
                         }
                     }
                 },function(err,req,status){
-                    if(err) console.log(err);
+                    if(err) throw (err);
                 })
                 fs.rename(oldpath,newpath, function (err) {
-                    if (err) throw err;
+                   // if (err) throw err;
                 });
             })
         })
@@ -183,6 +189,7 @@ router.post('/introcpn',(req,res)=>{
         let benefits_environ = fields.environment;
         let benefits_bonus = fields.bonus;
         let idcpn = req.session.adid;
+        console.log(choose_us_reasons)
         mongoose.connect(url,async function(err){
             let Info_new = await new Infor_Companies({
                 _id: new mongoose.Types.ObjectId(),
@@ -193,7 +200,7 @@ router.post('/introcpn',(req,res)=>{
                     os_intro: os_intro
                 },
                 choose_us: {
-                    reason : choose_us_reasons,
+                    reasons : choose_us_reasons,
                     image: images,
                     others:choose_us_others
                 },
@@ -251,6 +258,8 @@ router.post('/post-job',checklogin,async (req,res)=>{
     })
 })
 router.post('/edit_post_job',checklogin,async (req,res)=>{
+    let list_follow = await Companies_fmd.getlist_follow_cpn(req.session.adid)
+    let Ref = admin.database()
     form.parse(req,async function(error,fields,file){
             title = fields.job_name;
             address = fields.job_address,
@@ -280,7 +289,17 @@ router.post('/edit_post_job',checklogin,async (req,res)=>{
             })
             Post_Job.save(async function(err){
                 if(err) throw err;
+                let idjob = Post_Job._id.toString()
                 await PostJob_Elas.postjob(Post_Job,logo)
+                list_follow.follow.forEach(val => {
+                    let Send_Notification = Ref.ref('Send_Notification/'+val._id)
+                    Send_Notification.push({
+                        from : list_follow.name,
+                        job : Post_Job.title,
+                        id_job : idjob,
+                        status: 'Chưa xem'
+                    })
+                });
             })
         })
         res.redirect('/admin/home') 

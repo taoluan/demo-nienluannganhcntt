@@ -264,7 +264,7 @@ module.exports.topCompany = (lmt)=>{
     return new Promise ((resolve,reject)=>{
         mongoose.connect(url,async (err)=>{
             if(err) throw reject(err);
-            let result =await Companies.find().sort({'point.point_start':-1}).limit(lmt)
+            let result =await Companies.find().sort({'point.point_start':-1,'point.point_vote':-1}).limit(lmt)
             resolve(result)
         })
     })
@@ -350,4 +350,13 @@ module.exports.getstar_review = (id_cpn)=>{
             res(arr_star)
         })
     })
+}
+module.exports.getlist_follow_cpn = (id_cpn)=>{
+    return new Promise ((res,rej)=>{
+        mongoose.connect(url,async(err)=>{
+            if(err) throw rej(err)
+            let list_follow = await Companies.findById(id_cpn).select('name follow._id')
+            res(list_follow)
+        })
+    }) 
 }

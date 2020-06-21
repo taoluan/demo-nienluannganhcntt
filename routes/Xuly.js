@@ -81,7 +81,7 @@ router.get('/company',async function(req,res){
 })
 router.get('/loaddata',function(req,res){
   client.search({  
-    index: 'job',
+    index: 'jobs',
     type: '_doc',
     body: {
       query: {
@@ -97,18 +97,27 @@ router.get('/loaddata',function(req,res){
       const results = response.hits.hits;
       const numlist =response.hits.total.value;
       var my_Arr;
-      const mang = [];
+      var mang = [];
       results.forEach(function(result){
-        my_Arr =((result._source.skills).split(",").concat(result._source.namejob)); 
+        result._source.skills.forEach(element => {
+          if(!mang.includes(element)){
+            mang.push(element)
+          }
+        });
+        if(mang.includes(result._source.title)){
+          mang.push(result._source.title)
+        }
+       /* my_Arr =((result._source.skills).split(",").concat(result._source.namejob)); 
           for(let i = 0; i < my_Arr.length; i++) {
             if(my_Arr[i] === ' ' || my_Arr[i] === 'English' || my_Arr[i] === ' English'){
               
             } else{
                 mang.push(my_Arr[i].trim())
             }
-          }
+          }*/
         });
        output = [...new Set(mang)];
+       console.log(mang)
         res.render('./xuly/loaddata', {kq: output});
       }
   });
@@ -159,13 +168,6 @@ router.get('/loadChart_job',async function(req,res){
   res.send(data)
 })
 router.post('/send_mail',urlencodedParser,async function(req,res){
- /* var config = {
-    apiKey: "AIzaSyDUL1FX3aHjQdymwsrQLgT-UH5HzVJqKHI",
-    authDomain: "nienluannganh-3c1c3.firebaseapp.com",
-    databaseURL: "https://nienluannganh-3c1c3.firebaseio.com",
-    projectId: "nienluannganh-3c1c3",
-  };*/
-  //firebase.initializeApp(config);
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://nienluannganh-3c1c3.firebaseio.com'
