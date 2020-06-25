@@ -360,3 +360,12 @@ module.exports.getlist_follow_cpn = (id_cpn)=>{
         })
     }) 
 }
+module.exports.getavt_user = (id_us)=>{
+    return new Promise ((res,rej)=>{
+        mongoose.connect(url,async(err)=>{
+            if(err) throw rej(err)
+            let get_avt = await User_Profile.findById(id_us).select('upAvt')
+            res(get_avt)
+        })
+    })
+}

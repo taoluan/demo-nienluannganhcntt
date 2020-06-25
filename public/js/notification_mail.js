@@ -27,32 +27,27 @@
     var db = firebase.database();
     let rf = db.ref('Send_Email/'+id_us);
     let rf_notification = db.ref('Send_Notification/'+id_us)
+    if(num_email == 0){
+      $("#email_num").text('')
+    }
+    var count_mail = 0;
+    var count_thongbao = 0 ;
     rf.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
-        var count =  0;
-        let count_def = Number($("#email_num").text())
-        snap.forEach(element => {
-          count++
-        });
-        if(count === 0){
-            $("#email_num").text('')
-        }else{
-            $("#email_num").text(countp)
-            $("#ring").removeClass('text-danger')
-        }
-        
+      count_mail = snap.numChildren()
+      if(count_mail != 0){
+        $("#email_num").text(count_mail+count_thongbao)
+        $("#ring").removeClass('text-danger')
+      }
     })
     rf_notification.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
-      var count =  0;
-      let count_def = Number($("#email_num").text())
-      snap.forEach(element => {
-        count++
-      });
-      if(count === 0){
-          $("#email_num").text('')
-      }else{
-          $("#email_num").text(count+count_def)
+       count_thongbao = snap.numChildren();
+       console.log(count_thongbao)
+       if(count_thongbao != 0){
+          $("#email_num").text(count_mail+count_thongbao)
           $("#ring").removeClass('text-danger')
-      }
+       }else {
+          $("#email_num").text('')
+       }
       
     })
     rf.on("child_added", function(snapshot) {
@@ -62,7 +57,7 @@
             if(data.status === "Đã xem"){
                 $('#list_email').append('<li id="'+snapshot.key+'" class="notification-box border mt-2 mb-3" style="border-radius: 50px;"><div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="fab fa-facebook-messenger fa-3x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+' <span class="badge badge-primary float-right"><a href="/email"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">'+data.message+'</p> </div><small class="text-secondary small mt-0 mb-0">Ngày gữi: '+data.created+'<span class="badge badge-pill badge-primary float-right">Đã xem</span></small></div></div></li>')
             }else{
-              $('#list_email').append('<li id="'+snapshot.key+'" class="notification-box border mt-2 mb-3" style="border-radius: 50px;"><div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="fab fa-facebook-messenger fa-3x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+' <span class="badge badge-primary float-right"><a href="/email"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">'+data.message+'</p> </div><small class="text-secondary small mt-0 mb-0">Ngày gữi: '+data.created+'<span class="badge badge-pill badge-danger float-right">Đã xem</span></small></div></div></li>')
+              $('#list_email').append('<li id="'+snapshot.key+'" class="notification-box border mt-2 mb-3" style="border-radius: 50px;"><div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="fab fa-facebook-messenger fa-3x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+' <span class="badge badge-primary float-right"><a href="/email"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">'+data.message+'</p> </div><small class="text-secondary small mt-0 mb-0">Ngày gữi: '+data.created+'<span class="badge badge-pill badge-danger float-right">Chưa xem</span></small></div></div></li>')
  
             }
         });
@@ -87,12 +82,13 @@
       remove_div.remove();
   });
     $('#navbarDropdown').click(()=>{
-      rf.once('value',(snap)=>{
+      rf.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
         snap.forEach(element => {
           rf.child(element.key).update({
             "status": "Đã xem"
+          }).then(()=>{
+            $("#email_num").text('')
           })
-          
         });
       })
     })

@@ -9,9 +9,9 @@ const bodyParser = require('body-parser');
 const check_Us = require('../models_function/xuly')
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 var admin = require('firebase-admin');
+const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
 var formidable = require('formidable');
 var fs = require('fs');
-const serviceAccount = require('../nienluannganh-3c1c3-firebase-adminsdk-a2akg-e942e3c0e4.json')
 router.get('/Search',async function(req,res){
   var namejob = req.query.job;
   var city = req.query.city;
@@ -104,7 +104,7 @@ router.get('/loaddata',function(req,res){
             mang.push(element)
           }
         });
-        if(mang.includes(result._source.title)){
+        if(!mang.includes(result._source.title)){
           mang.push(result._source.title)
         }
        /* my_Arr =((result._source.skills).split(",").concat(result._source.namejob)); 
@@ -117,7 +117,7 @@ router.get('/loaddata',function(req,res){
           }*/
         });
        output = [...new Set(mang)];
-       console.log(mang)
+       //console.log(mang)
         res.render('./xuly/loaddata', {kq: output});
       }
   });
@@ -168,10 +168,6 @@ router.get('/loadChart_job',async function(req,res){
   res.send(data)
 })
 router.post('/send_mail',urlencodedParser,async function(req,res){
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://nienluannganh-3c1c3.firebaseio.com'
-  });
   let str = req.body.to;
   let message = req.body.massage;
   let job_id = req.body.id_job;
@@ -193,8 +189,8 @@ router.post('/send_mail',urlencodedParser,async function(req,res){
     id_job: job_id,
     status:'Chưa xem'
   });
-  //var path = newMessageRef.toString();
-  //console.log(path)
+  var path = newMessageRef.toString();
+  console.log(path)
   res.redirect('/admin/home')
 })
 router.get('/follow',check_Login_Us,async (req,res,next)=>{
@@ -234,7 +230,12 @@ router.post('/ungtuyen',check_Login_Us,async (req,res)=>{
 router.get('/loadList_star',async(req,res)=>{
     let data =await Companies_fmd.getstar_review(req.session.adid)
     res.send(data)
-} )
+})
+router.get('/get_avt',async(req,res)=>{
+  let id = req.query.id;
+  let get_avt =await Companies_fmd.getavt_user(id)
+  res.send(get_avt.upAvt  )
+})
 function test() {
   client.search({
     index: 'jobs',
