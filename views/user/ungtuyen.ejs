@@ -31,7 +31,7 @@
                                   </div>
                             </div>
                             <div class="row " style="margin-top:10px">
-                                <% data.map((ds,index)=>{%>
+                                <% data.forEach((ds,index)=>{%>
                                 <div class="col-12">
                                     <div class="card mb-3" style="max-width: 730px">
                                         <div class="row no-gutters">
@@ -45,11 +45,15 @@
                                             <p class="card-text mt-0 mb-0">Tại công ty: <span class="font-weight-bold"><%= ds.companies.name %></span> </p>
                                             <p class="card-text mt-0 mb-0">Mức lương: <%= ds.salary.money %> <%= ds.salary.unit %> </p>
                                             <p class="card-text mt-0 mb-0">Địa chỉ: <%= ds.address %> </p>
-                                            <%if(ds.join[0].status === "Đã được duyệt"){%>
-                                                <p class="card-text mt-0 mb-0">Trạng thái: <span class="badge badge-pill badge-success"><%=ds.join[0].status%></span> <a href="/email" class="badge badge-pill badge-warning text-white">Kiểm tra mail <i class="far fa-envelope"></i></a> </p>
-                                            <%}else{%>
-                                            <p class="card-text mt-0 mb-0">Trạng thái: <span class="badge badge-pill badge-primary"><%=ds.join[0].status%></span></p>
-                                            <%}%>
+                                            <% ds.join.forEach((element,idx)=>{%>
+                                                <%if(element.id_user == authentication){%>
+                                                    <%if(element.status === "Đã được duyệt"){%>
+                                                        <p class="card-text mt-0 mb-0">Trạng thái: <span class="badge badge-pill badge-success"><%=element.status%></span> <a href="/email" class="badge badge-pill badge-warning text-white">Kiểm tra mail <i class="far fa-envelope"></i></a> </p>
+                                                    <%}else{%>
+                                                    <p class="card-text mt-0 mb-0">Trạng thái: <span class="badge badge-pill badge-primary"><%=element.status%></span></p>
+                                                    <%}%>
+                                                <%}%>
+                                            <%})%>
                                             <small class="text-muted ">Thời gian ứng tuyển: <%= date[0] %></small>
                                             </div>
                                         </div>

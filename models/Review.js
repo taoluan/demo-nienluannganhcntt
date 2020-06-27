@@ -8,7 +8,7 @@ var ReviewSchema = new Schema ({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'companies'
      },
-     User: {
+    User: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'user'
      },

@@ -78,8 +78,8 @@ module.exports.SearchAll = function(planets){
             multi_match : {
               query:planets, 
               fields: [ "title", "skills^2" ],
-              type: "phrase",
-              slop: 3
+               /* "type": "phrase",
+                          "slop": 3*/
             }
           }
         }
@@ -106,8 +106,8 @@ module.exports.SearchOrthers = function(planets){
                  "multi_match" : {
                           "query":    planets, 
                           "fields": [ "title", "skills" ] ,
-                          "type": "phrase",
-                          "slop": 3
+                         /* "type": "phrase",
+                          "slop": 3*/
                         }
               },
                "must_not" : [{

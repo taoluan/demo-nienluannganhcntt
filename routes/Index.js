@@ -286,8 +286,9 @@ router.get('/ungtuyen',check_Login_Us,async(req,res)=>{
   let list_cpn = await models_function.random_companies_limit()
   let date_format = []
   list_job.forEach((element,idx) => {
-      date_format.push(date.Date(element.created)) 
+      date_format.push(date.Date(element.created))
   })
+
   res.render('./user/ungtuyen',{
       title : 'Ứng tuyển công việc | '+req.session.usname,
       nameuser : req.session.usname,

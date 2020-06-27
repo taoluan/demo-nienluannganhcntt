@@ -6,6 +6,7 @@ const Job = require('../models/Job')
 const Us_Review = require('../models/Review')
 const User_Profile =  require('../models/User');
 const { countDocuments, model } = require('../models/Companies');
+const e = require('express');
 module.exports.editprofile_companies = (data,id)=>{
         mongoose.connect(url,async function(err){
             if (err) throw err;

@@ -46,7 +46,7 @@ router.get('/Search',async function(req,res){
       date_format.push(date.Date(element.created)) 
     })
   }else{
-      
+    data = await models_elas.Search(namejob,city);
     numlist =data.total.value;
     results = data.hits;
     where = 'tại '+city
@@ -105,7 +105,7 @@ router.get('/loaddata',function(req,res){
           }
         });
         if(!mang.includes(result._source.title)){
-          mang.push(result._source.title)
+        //  mang.push(result._source.title)
         }
        /* my_Arr =((result._source.skills).split(",").concat(result._source.namejob)); 
           for(let i = 0; i < my_Arr.length; i++) {

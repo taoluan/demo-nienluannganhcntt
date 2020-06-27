@@ -34,19 +34,20 @@
     var count_thongbao = 0 ;
     rf.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
       count_mail = snap.numChildren()
+      console.log(count_mail+count_thongbao)
       if(count_mail != 0){
+        console.log(123)
         $("#email_num").text(count_mail+count_thongbao)
         $("#ring").removeClass('text-danger')
       }
     })
     rf_notification.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
        count_thongbao = snap.numChildren();
-       console.log(count_thongbao)
        if(count_thongbao != 0){
           $("#email_num").text(count_mail+count_thongbao)
           $("#ring").removeClass('text-danger')
        }else {
-          $("#email_num").text('')
+         // $("#email_num").text('')
        }
       
     })
