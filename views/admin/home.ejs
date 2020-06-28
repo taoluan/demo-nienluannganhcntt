@@ -167,9 +167,9 @@
                                                             <td><%= listjob[i].skills%></td>
                                                             <td><%= listjob[i].salary.money%> <%= listjob[i].salary.unit%></td>
                                                             <td><%= listjob[i].address%></i</td>
-                                                            <td id="fullname"><%= listjob[i].join[j].id_user.fullname%></td>
+                                                            <td id="fullname"><%= listjob[i].join[j].id_user.fullname%> </td>
                                                             <td class="text-center"> <button type="button" class="btn btn-labeled btn-success name">
-                                                                <a href="<%= listjob[i].join[j].id_user.upCV%>" download>
+                                                                <a href="/<%= listjob[i].join[j].id_user.upCV%>" download>
                                                                     <i class="fas fa-download"></i></a>
                                                             </button></td>
                                                             <% if(listjob[i].join[j].status === 'Đợi duyệt'){%>
