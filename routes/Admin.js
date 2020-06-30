@@ -88,11 +88,11 @@ router.post('/signup',(req,res)=>{
                 },function(err,req,status){
                     if(err) throw (err);
                 })
-                fs.rename(oldpath,newpath, function (err) {
-                   // if (err) throw err;
-                });
             })
         })
+        fs.rename(oldpath,newpath, function (err) {
+            // if (err) throw err;
+         });
     })
     return res.redirect('/admin/registration');
 })

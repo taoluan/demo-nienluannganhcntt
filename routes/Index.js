@@ -214,7 +214,7 @@ router.get('/companies',async (req,res)=>{
     })
 })
 router.get('/top-companies/',async(req,res)=>{
-  let topcompany = await models_function.topCompany_Infor(20);
+  let topcompany = await models_function.topCompany_Infor(10);
   res.render('topcompanies',{
       title: "Những công ty hàng đầu",
       nameuser : req.session.usname,

@@ -52,6 +52,7 @@ module.exports.loadjob =  function(){
         index: 'jobs',
         type: '_doc',
         body: {
+          size : 1000,
           query: {
             match_all: {
             }
@@ -74,6 +75,7 @@ module.exports.SearchAll = function(planets){
         index: 'jobs',
         type: '_doc',
         body: {
+          size : 1000,
           query: {
             multi_match : {
               query:planets, 
@@ -100,6 +102,7 @@ module.exports.SearchOrthers = function(planets){
         index: 'jobs',
         type: '_doc',
         body: {
+          "size" : 1000,
           "query": {
             "bool" : {
               "must" : {

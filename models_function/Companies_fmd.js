@@ -284,7 +284,6 @@ module.exports.topCompany_Infor = (lmt)=>{
             });
             let kq = []
             arrtemp = arrtemp.sort(dynamicsort("point","desc"));
-            console.log(arrtemp)
             for(let i = 0 ; i <result.length ; i++){
                 kq.push(result[arrtemp[i].id])
             }

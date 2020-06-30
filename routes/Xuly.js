@@ -84,6 +84,7 @@ router.get('/loaddata',function(req,res){
     index: 'jobs',
     type: '_doc',
     body: {
+      size : 1000,
       query: {
         match_all: {
         }
@@ -127,6 +128,7 @@ router.get('/loadcompany',function(req,res){
     index: 'companies',
     type: '_doc',
     body: {
+      size : 1000,
       query: {
         match_all: {
         }
