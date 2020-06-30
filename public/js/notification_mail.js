@@ -34,7 +34,7 @@
     var count_thongbao = 0 ;
     rf.orderByChild("status").equalTo('Chưa xem').on('value',(snap)=>{
       count_mail = snap.numChildren()
-      console.log(count_mail+count_thongbao)
+     // console.log(count_mail+count_thongbao)
       if(count_mail != 0){
         console.log(123)
         $("#email_num").text(count_mail+count_thongbao)
@@ -93,21 +93,22 @@
         });
       })
     })
-    rf_notification.orderByChild("status").equalTo('Chưa xem').once('value',(snap)=>{
-      snap.forEach(element => {
-        $('#'+element.key).hover(()=>{
-          rf_notification.child(element.key).update({
+    rf_notification.on('child_added',function(snap){
+     // snap.forEach(element => {
+        $('#'+snap.key).hover(()=>{
+          rf_notification.child(snap.key).update({
               "status": "Đã xem"
           }).then(()=>{
-            rf_notification.child(element.key).on('value',snap=>{
-              let arr = [snap.val()]
+            $("#email_num").text('')
+            rf_notification.child(snap.key).on('value',snaps=>{
+              let arr = [snaps.val()]
               arr.forEach(data => {
-                $('#'+element.key).html('<div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="far fa-paper-plane fa-2x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+'<span class="badge badge-primary float-right"><a id="xem" href="/vieclamit/'+data.job+'&'+data.id_job+'"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">Vừa đăng một công việc mới có thể hợp với bạn <span class="font-weight-bold">'+data.job+'</span></p> </div><small class="text-secondary small mt-0 mb-0"><span class="badge badge-pill badge-primary float-right">'+data.status+'</span></small></div></div>')
+                $('#'+snap.key).html('<div class="row"><div class="col-lg-3 col-sm-3 col-3 d-flex justify-content-center" ><i class="far fa-paper-plane fa-2x text-primary ml-3 mt-3"></i></div>    <div class="col-lg-8 col-sm-8 col-8"><strong class="text-black">'+data.from+'<span class="badge badge-primary float-right"><a id="xem" href="/vieclamit/'+data.job+'&'+data.id_job+'"><i class="fas fa-eye text-white"></i></a></span></strong><div><p class="mt-0 mb-0 font-italic small" style="line-height: 1.5">Vừa đăng một công việc mới có thể hợp với bạn <span class="font-weight-bold">'+data.job+'</span></p> </div><small class="text-secondary small mt-0 mb-0"><span class="badge badge-pill badge-primary float-right">'+data.status+'</span></small></div></div>')
               });
              })
           })
         })
-      });
+    //  });
     })
     //rf.on('value',snap=>{console.log(snap.val())});
 }());

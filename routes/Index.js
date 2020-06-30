@@ -209,7 +209,8 @@ router.get('/companies',async (req,res)=>{
       authentication:req.session.usid,
       pages: Math.ceil(numlist / perPage),
       current: page,
-      counts : count
+      counts : count,
+      num:numlist
     })
 })
 router.get('/top-companies/',async(req,res)=>{

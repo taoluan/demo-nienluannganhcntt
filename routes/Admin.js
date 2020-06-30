@@ -173,7 +173,7 @@ router.post('/introcpn',(req,res)=>{
     })
     form.on('file', function(field, file) {
         fs.rename(file.path,form.uploadDir+file.name, function (err) {
-            if (err) throw err;
+            if (err) console.log(err) ;
         });
         files.push([field, file]);
         images.push("/public/image/company/"+file.name)

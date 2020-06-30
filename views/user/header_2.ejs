@@ -47,7 +47,7 @@
         </li>
         <li class="nav-item dropdown">
               <button class="logo btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../public/image/logo-grab.jpg" > <%= nameuser %>
+                <img id="avt" src="" > <%= nameuser %>
                 <p id="id_user" style="display: none;"><%=authentication%></p>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -68,6 +68,21 @@
 
 <script>
    $("document").ready(function(){
+    let id_us = $('#id_user').text()
+      if(id_us){
+        $.ajax({
+          method: 'get',
+          url: '/Xuly/get_avt',
+          data:{id:id_us}
+        }).done((data)=>{
+          if(data){
+            $("#avt").attr("src","/"+data);
+          }else{
+            $("#avt").attr("src",'/public/image/unnamed.png');
+          }
+          
+        })
+      }
       $('#logout').click(()=>{
           let url = $(location).attr('pathname');
           $.ajax({

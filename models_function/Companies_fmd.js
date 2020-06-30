@@ -275,9 +275,40 @@ module.exports.topCompany_Infor = (lmt)=>{
         mongoose.connect(url,async (err)=>{
             if(err) throw reject(err);
             let result =await Infor_Companies.find().populate('companies').sort({'point.point_start':-1}).limit(lmt)
-            resolve(result)
+            let arrtemp = []
+            result.forEach((element,idx) => {
+                arrtemp.push({
+                    id : idx,
+                    point: element.companies.point.point_start
+                })
+            });
+            let kq = []
+            arrtemp = arrtemp.sort(dynamicsort("point","desc"));
+            console.log(arrtemp)
+            for(let i = 0 ; i <result.length ; i++){
+                kq.push(result[arrtemp[i].id])
+            }
+            resolve(kq)
         })
     })
+}
+function dynamicsort(property,order) {
+    var sort_order = 1;
+    if(order === "desc"){
+        sort_order = -1;
+    }
+    return function (a, b){
+        // a should come before b in the sorted order
+        if(a[property] < b[property]){
+                return -1 * sort_order;
+        // a should come after b in the sorted order
+        }else if(a[property] > b[property]){
+                return 1 * sort_order;
+        // a and b are the same
+        }else{
+                return 0 * sort_order;
+        }
+    }
 }
 module.exports.listCompanies = ()=>{
     return new Promise ((resolve,reject)=>{
